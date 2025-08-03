@@ -2,63 +2,66 @@ name: Build GravitRDR
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   build:
-    runs-on: macos-13  # macos-13 to support x86_64 Rosetta
+    runs-on: macos-13  # macOS 13 to support x86_64 Rosetta
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node 14.x and npm 6 using nvm (Rosetta x86_64)
-      run: |
-        arch -x86_64 /bin/bash -c '
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-          export NVM_DIR="$HOME/.nvm"
-          source "$NVM_DIR/nvm.sh"
-          nvm install 14
-          nvm use 14
-          npm install -g npm@6
-          echo "node version: $(node -v)"
-          echo "npm version: $(npm -v)"
-        '
+      - name: Setup Node 14.x and npm 6 using nvm (Rosetta x86_64)
+        run: |
+          arch -x86_64 /bin/bash -c '
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+            export NVM_DIR="$HOME/.nvm"
+            source "$NVM_DIR/nvm.sh"
+            nvm install 14
+            nvm use 14
+            npm install -g npm@6
+            echo "node version: $(node -v)"
+            echo "npm version: $(npm -v)"
+          '
 
-    - name: Install npm dependencies (legacy peer deps)
-      run: |
-        arch -x86_64 /bin/bash -c '
-          export NVM_DIR="$HOME/.nvm"
-          source "$NVM_DIR/nvm.sh"
-          nvm use 14
-          npm install --legacy-peer-deps
-        '
+      - name: Install npm dependencies
+        run: |
+          arch -x86_64 /bin/bash -c '
+            export NVM_DIR="$HOME/.nvm"
+            source "$NVM_DIR/nvm.sh"
+            nvm use 14
+            npm install --legacy-peer-deps
+            npm ci || npm install --legacy-peer-deps
+          '
+        # Runs npm install --legacy-peer-deps to handle peer deps and update package-lock.json
+        # Then runs npm ci to ensure exact versions; falls back to npm install if npm ci fails
 
-    - name: Install Bower globally
-      run: |
-        arch -x86_64 /bin/bash -c '
-          export NVM_DIR="$HOME/.nvm"
-          source "$NVM_DIR/nvm.sh"
-          nvm use 14
-          npm install -g bower
-        '
+      - name: Install Bower globally
+        run: |
+          arch -x86_64 /bin/bash -c '
+            export NVM_DIR="$HOME/.nvm"
+            source "$NVM_DIR/nvm.sh"
+            nvm use 14
+            npm install -g bower
+          '
 
-    - name: Install Bower dependencies
-      run: |
-        arch -x86_64 /bin/bash -c '
-          export NVM_DIR="$HOME/.nvm"
-          source "$NVM_DIR/nvm.sh"
-          nvm use 14
-          bower install --allow-root
-        '
+      - name: Install Bower dependencies
+        run: |
+          arch -x86_64 /bin/bash -c '
+            export NVM_DIR="$HOME/.nvm"
+            source "$NVM_DIR/nvm.sh"
+            nvm use 14
+            bower install --allow-root
+          '
 
-    - name: Run Grunt
-      run: |
-        arch -x86_64 /bin/bash -c '
-          export NVM_DIR="$HOME/.nvm"
-          source "$NVM_DIR/nvm.sh"
-          nvm use 14
-          ./node_modules/.bin/grunt
-        '
+      - name: Run Grunt
+        run: |
+          arch -x86_64 /bin/bash -c '
+            export NVM_DIR="$HOME/.nvm"
+            source "$NVM_DIR/nvm.sh"
+            nvm use 14
+            ./node_modules/.bin/grunt
+          '
