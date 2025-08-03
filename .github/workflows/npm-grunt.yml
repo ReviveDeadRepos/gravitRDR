@@ -29,13 +29,13 @@ jobs:
           npm config get python
         '
 
-    - name: Install npm dependencies
+    - name: Install npm dependencies (legacy peer deps)
       run: |
         arch -x86_64 /bin/bash -c '
           export NVM_DIR="$HOME/.nvm"
           source "$NVM_DIR/nvm.sh"
           nvm use 0.10.48
-          npm install
+          npm install --legacy-peer-deps
         '
 
     - name: Install Bower globally
