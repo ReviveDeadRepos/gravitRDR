@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-13  # must be macos-13 to support x86_64 Rosetta
+    runs-on: macos-13  # macos-13 to support x86_64 Rosetta
 
     steps:
     - name: Checkout code
@@ -32,7 +32,7 @@ jobs:
         arch -x86_64 /bin/bash -c '
           export NVM_DIR="$HOME/.nvm"
           source "$NVM_DIR/nvm.sh"
-          nvm use 0.10.48
+          nvm use 14
           npm install --legacy-peer-deps
         '
 
@@ -41,7 +41,7 @@ jobs:
         arch -x86_64 /bin/bash -c '
           export NVM_DIR="$HOME/.nvm"
           source "$NVM_DIR/nvm.sh"
-          nvm use 0.10.48
+          nvm use 14
           npm install -g bower
         '
 
@@ -50,7 +50,7 @@ jobs:
         arch -x86_64 /bin/bash -c '
           export NVM_DIR="$HOME/.nvm"
           source "$NVM_DIR/nvm.sh"
-          nvm use 0.10.48
+          nvm use 14
           bower install --allow-root
         '
 
@@ -59,6 +59,6 @@ jobs:
         arch -x86_64 /bin/bash -c '
           export NVM_DIR="$HOME/.nvm"
           source "$NVM_DIR/nvm.sh"
-          nvm use 0.10.48
+          nvm use 14
           ./node_modules/.bin/grunt
         '
