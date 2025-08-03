@@ -1,4 +1,4 @@
-name: NodeJS with Grunt (Legacy)
+name: Build GravitRDR
 
 on:
   push:
@@ -8,39 +8,57 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
+    runs-on: macos-13  # must be macos-13 to support x86_64 Rosetta
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: Downgrade npm to 4.6.1 (last stable pre-lock)
-      run: npm install -g npm@4.6.1
-
-    - name: Show Node and npm versions
+    - name: Setup Node 0.10.48 and npm 1.4.28 using nvm (Rosetta x86_64)
       run: |
-        node --version
-        npm --version
-
-    - name: Clean potential modern lockfiles
-      run: rm -f package-lock.json
+        arch -x86_64 /bin/bash -c '
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+          export NVM_DIR="$HOME/.nvm"
+          source "$NVM_DIR/nvm.sh"
+          nvm install 0.10.48
+          nvm use 0.10.48
+          npm install -g npm@1.4.28
+          echo "node version: $(node -v)"
+          echo "npm version: $(npm -v)"
+        '
 
     - name: Install npm dependencies
-      run: npm install
+      run: |
+        arch -x86_64 /bin/bash -c '
+          export NVM_DIR="$HOME/.nvm"
+          source "$NVM_DIR/nvm.sh"
+          nvm use 0.10.48
+          npm install
+        '
 
     - name: Install Bower globally
-      run: npm install -g bower
+      run: |
+        arch -x86_64 /bin/bash -c '
+          export NVM_DIR="$HOME/.nvm"
+          source "$NVM_DIR/nvm.sh"
+          nvm use 0.10.48
+          npm install -g bower
+        '
 
-    - name: Install bower dependencies
-      run: bower install --allow-root
+    - name: Install Bower dependencies
+      run: |
+        arch -x86_64 /bin/bash -c '
+          export NVM_DIR="$HOME/.nvm"
+          source "$NVM_DIR/nvm.sh"
+          nvm use 0.10.48
+          bower install --allow-root
+        '
 
     - name: Run Grunt
-      run: grunt
+      run: |
+        arch -x86_64 /bin/bash -c '
+          export NVM_DIR="$HOME/.nvm"
+          source "$NVM_DIR/nvm.sh"
+          nvm use 0.10.48
+          ./node_modules/.bin/grunt
+        '
