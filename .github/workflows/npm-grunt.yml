@@ -14,6 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Python 3.7 for node-gyp
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.7'  # Compatible with node-gyp v5.1.1
+          architecture: 'x64'
+
       - name: Setup Node 14.x and npm 6 using nvm (Rosetta x86_64)
         run: |
           arch -x86_64 /bin/bash -c '
@@ -25,6 +31,7 @@ jobs:
             npm install -g npm@6
             echo "node version: $(node -v)"
             echo "npm version: $(npm -v)"
+            echo "python version: $(python3 --version)"
           '
 
       - name: Install npm dependencies
@@ -33,11 +40,16 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 14
-            npm install --legacy-peer-deps
+            npm install --legacy-peer-deps autoprefixer@~0.6 grunt@~0.4.2
             npm ci || npm install --legacy-peer-deps
+            git add package-lock.json
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
+            git commit -m "Update package-lock.json" || echo "No changes to commit"
           '
-        # Runs npm install --legacy-peer-deps to handle peer deps and update package-lock.json
-        # Then runs npm ci to ensure exact versions; falls back to npm install if npm ci fails
+        # Installs peer dependencies explicitly, runs npm install to update package-lock.json,
+        # then npm ci for exact versions; falls back to npm install if npm ci fails
+        # Commits package-lock.json to ensure it’s available for npm ci
 
       - name: Install Bower globally
         run: |
