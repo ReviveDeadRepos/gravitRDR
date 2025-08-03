@@ -1,56 +1,55 @@
 ## Introduction
 
-Gravit is a design tool for Mac, Windows, Linux, ChromeOS and the Browser made
-in the spirit for Freehand and Fireworks. It is completely written in HTML5,
-Javascript and CSS3. Gravit consists of the core engine called "Infinity", the
-actual Application and the core Module called "Gravit".
+GravitRDR is a non-commercial community fork of the original Gravit design tool, originally created for Mac, Windows, Linux, ChromeOS, and browsers. Gravit was built in the spirit of Freehand and Fireworks, fully written in HTML5, JavaScript, and CSS3. The original project consisted of the core engine called "Infinity", the actual Application, and the core Module called "Gravit".
 
-We'd like to encourage everyone in getting involved with this project. You can
-develop new features or take a ticket and fix it. Or if you're a UX/Designer, you
-could help designing new icons or improving the UI. To get started contributing,
-read the [GitHub Guide](https://guides.github.com/activities/contributing-to-open-source/)
+This fork is maintained independently by the ReviveDeadRepos community and is **not affiliated with, endorsed by, or sponsored by Quasado, Quasado e.K., or Corel**.
+
+We encourage everyone to get involved with this project. You can develop new features, fix tickets, or help improve the UI and icons. To get started contributing, read the [GitHub Guide](https://guides.github.com/activities/contributing-to-open-source/).
 
 ## Prerequisites
 
-* NodeJS + NPM
-* Grunt Client
-* Bower
-* SASS + Compass
+* NodeJS + NPM  
+* Grunt Client  
+* Bower  
+* SASS + Compass  
 
 ## Quick Start
 
-Install all prerequisites and make sure they're available on your path.
+Install all prerequisites and ensure they are available on your PATH.
 
-Then run `npm install` to install all nodejs dependencies
-Then run `bower install` to install all client javascript libraries
+Then run `npm install` to install all Node.js dependencies.  
+Then run `bower install` to install all client JavaScript libraries.
 
-Finally run `grunt`. You can then open Gravit in your
-webbrowser at http://127.0.0.1:8999/.
+Finally, run `grunt`. You can then open GravitRDR in your web browser at http://127.0.0.1:8999/.
 
-We recommend using Chrome as this is the browser also used for the standalone
-version.
+We recommend using Chrome, as it is also used for the standalone version.
 
 ## Quick Overview
 
-+ assets - contains all relevant assets like fonts, images, etc.
-+ shell - contains platform-specific code for standalone version
-+ src - contains all source code
-  + application - contains the application framework
-  + development - contains the development addon automatically loaded when developing
-  + gravit - contains the core module that is loaded by the application and provides all UI of Gravit
-  + infinity - contains the core rendering engine as well as core classes used everywhere else
-  + infinity-editor - contains editors, tools, guides and more based on infinity
-+ style - contains all styling files for the application
-+ test - contains all test files
++ assets - contains all relevant assets like fonts, images, etc.  
++ shell - contains platform-specific code for standalone version  
++ src - contains all source code  
+  + application - contains the application framework  
+  + development - contains the development addon automatically loaded when developing  
+  + gravit - contains the core module loaded by the application and provides all UI of GravitRDR  
+  + infinity - contains the core rendering engine as well as core classes used elsewhere  
+  + infinity-editor - contains editors, tools, guides, and more based on infinity  
++ style - contains all styling files for the application  
++ test - contains all test files  
 
 ## Community
 
-Issues are being tracked here on GitHub.
+Issues are tracked here on GitHub.
 
-## License
+## License and Trademark Notice
 
-`Gravit`'s code in this repo uses the GPL license, see our `LICENSE` file for detailed information.
-The name Gravit and the Gravit Logo as well as all related logos are exclusive trademarks of
-Quasado GmbH, Quasado e.K. and may not be used without prior written permission.
+This project is a non-commercial fork of the original Gravit project by Quasado.  
+The original code is licensed under the GNU General Public License (GPL) version 3 or later.  
+You must comply with the GPL when using or redistributing this code.
 
-`Gravit`'s code is also available as a commercial license. For more information, contact us.
+The names "Gravit", the Gravit Logo, and all related trademarks are the exclusive property of Quasado GmbH, Quasado e.K., and Corel, and are **not used in this project**. 
+All original branding has been removed or replaced.
+
+All original trademarks and branding have been removed or replaced in this fork.
+
+This project is **not affiliated with, endorsed by, or sponsored by Quasado, Quasado e.K., or Corel**.
