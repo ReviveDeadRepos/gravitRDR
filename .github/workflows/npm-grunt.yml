@@ -22,8 +22,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Downgrade to npm v1
-      run: npm install -g npm@1.4.28
+    - name: Downgrade to npm v3.10.10 (safe legacy)
+      run: npm install -g npm@3.10.10
 
     - name: Show Node and npm versions
       run: |
