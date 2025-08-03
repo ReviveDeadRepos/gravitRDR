@@ -17,7 +17,7 @@
         this._menuBar = new gui.Menu({ type: "menubar" });
 
         if (process.platform === 'darwin') {
-            this._menuBar.createMacBuiltin("Gravit", {
+            this._menuBar.createMacBuiltin("GravitRDR", {
                 hideEdit: true,
                 hideWindow: true
             });
@@ -369,7 +369,7 @@
     });
 
     $(window).load(function () {
-        gravit.storages.push(new GFileStorage());
+        gravitrdr.storages.push(new GFileStorage());
         gShellFinished();
     });
 })(this);

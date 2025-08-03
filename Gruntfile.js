@@ -9,7 +9,7 @@ module.exports = function (grunt) {
         build: 'build',
         dist: 'dist',
         tmp: 'tmp',
-        macBundleId: 'com.quasado.gravit',
+        macBundleId: 'com.revivedeadrepos.gravitrdr',
         macSignIdentity: '1269B5CE3B0DCC676DA70011A618EB6FA95F8F50'
     };
 
@@ -104,18 +104,18 @@ module.exports = function (grunt) {
         concat: {
             build: {
                 files: {
-                    '<%= cfg.build %>/browser/gravit-shell.js': ['shell/browser/*.js'],
-                    '<%= cfg.build %>/chrome/gravit-shell.js': ['shell/chrome/*.js', '!shell/chrome/background.js'],
-                    '<%= cfg.build %>/system/gravit-shell.js': ['shell/system/*.js']
+                    '<%= cfg.build %>/browser/gravitrdr-shell.js': ['shell/browser/*.js'],
+                    '<%= cfg.build %>/chrome/gravitrdr-shell.js': ['shell/chrome/*.js', '!shell/chrome/background.js'],
+                    '<%= cfg.build %>/system/gravitrdr-shell.js': ['shell/system/*.js']
                 }
             }
         },
         uglify: {
             build: {
                 files: {
-                    '<%= cfg.build %>/browser/gravit-shell.js': ['<%= cfg.build %>/browser/gravit-shell.js'],
-                    '<%= cfg.build %>/chrome/gravit-shell.js': ['<%= cfg.build %>/chrome/gravit-shell.js'],
-                    '<%= cfg.build %>/system/gravit-shell.js': ['<%= cfg.build %>/system/gravit-shell.js']
+                    '<%= cfg.build %>/browser/gravitrdr-shell.js': ['<%= cfg.build %>/browser/gravitrdr-shell.js'],
+                    '<%= cfg.build %>/chrome/gravitrdr-shell.js': ['<%= cfg.build %>/chrome/gravitrdr-shell.js'],
+                    '<%= cfg.build %>/system/gravitrdr-shell.js': ['<%= cfg.build %>/system/gravitrdr-shell.js']
                 }
             }
         },
@@ -181,13 +181,13 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         cwd: '<%= cfg.build %>/system/',
-                        dest: '<%= cfg.build %>/system-binaries/Gravit/osx/Gravit.app/Contents/',
+                        dest: '<%= cfg.build %>/system-binaries/GravitRDR/osx/GravitRDR.app/Contents/',
                         src: ['Info.plist']
                     },
                     {
                         expand: true,
                         cwd: 'shell/system/',
-                        dest: '<%= cfg.build %>/system-binaries/Gravit/osx/Gravit.app/Contents/Resources/',
+                        dest: '<%= cfg.build %>/system-binaries/GravitRDR/osx/GravitRDR.app/Contents/Resources/',
                         src: ['doc.icns']
                     }
                 ]
@@ -338,25 +338,25 @@ module.exports = function (grunt) {
     grunt.registerTask('_dist_osx', function () {
         var done = this.async();
 
-        var gravitAppDir = cfg.build + '/system-binaries/Gravit/osx/Gravit.app';
+        var gravitrdrAppDir = cfg.build + '/system-binaries/GravitRDR/osx/GravitRDR.app';
 
         var commands = [
             // sign
-            'codesign --deep -f -v -s ' + cfg.macSignIdentity + ' -i ' + cfg.macBundleId + ' "' + gravitAppDir + '/Contents/Frameworks/node-webkit Helper.app"',
-            'codesign --deep -f -v -s ' + cfg.macSignIdentity + ' -i ' + cfg.macBundleId + ' "' + gravitAppDir + '/Contents/Frameworks/node-webkit Helper EH.app"',
-            'codesign --deep -f -v -s ' + cfg.macSignIdentity + ' -i ' + cfg.macBundleId + ' "' + gravitAppDir + '/Contents/Frameworks/node-webkit Helper NP.app"',
-            'codesign --deep -f -v -s ' + cfg.macSignIdentity + ' -i ' + cfg.macBundleId + ' "' + gravitAppDir + '"',
+            'codesign --deep -f -v -s ' + cfg.macSignIdentity + ' -i ' + cfg.macBundleId + ' "' + gravitrdrAppDir + '/Contents/Frameworks/node-webkit Helper.app"',
+            'codesign --deep -f -v -s ' + cfg.macSignIdentity + ' -i ' + cfg.macBundleId + ' "' + gravitrdrAppDir + '/Contents/Frameworks/node-webkit Helper EH.app"',
+            'codesign --deep -f -v -s ' + cfg.macSignIdentity + ' -i ' + cfg.macBundleId + ' "' + gravitrdrAppDir + '/Contents/Frameworks/node-webkit Helper NP.app"',
+            'codesign --deep -f -v -s ' + cfg.macSignIdentity + ' -i ' + cfg.macBundleId + ' "' + gravitrdrAppDir + '"',
 
             // verify
-            'spctl --assess -vvvv "' + gravitAppDir + '/Contents/Frameworks/node-webkit Helper.app"',
-            'spctl --assess -vvvv "' + gravitAppDir + '/Contents/Frameworks/node-webkit Helper EH.app"',
-            'spctl --assess -vvvv "' + gravitAppDir + '/Contents/Frameworks/node-webkit Helper NP.app"',
-            'spctl --assess -vvvv "' + gravitAppDir + '"',
+            'spctl --assess -vvvv "' + gravitrdrAppDir + '/Contents/Frameworks/node-webkit Helper.app"',
+            'spctl --assess -vvvv "' + gravitrdrAppDir + '/Contents/Frameworks/node-webkit Helper EH.app"',
+            'spctl --assess -vvvv "' + gravitrdrAppDir + '/Contents/Frameworks/node-webkit Helper NP.app"',
+            'spctl --assess -vvvv "' + gravitrdrAppDir + '"',
 
             // package
-            'test -f ./dist/gravit-osx.dmg && rm ./dist/gravit-osx.dmg',
+            'test -f ./dist/gravitrdr-osx.dmg && rm ./dist/gravitrdr-osx.dmg',
             'mkdir ./dist',
-            './node_modules/appdmg/bin/appdmg ./shell/system/package/osx/dmg.json ' + cfg.dist + '/gravit-osx.dmg'
+            './node_modules/appdmg/bin/appdmg ./shell/system/package/osx/dmg.json ' + cfg.dist + '/gravitrdr-osx.dmg'
         ];
 
         console.log('Sign & Package for OS-X');
@@ -386,7 +386,7 @@ module.exports = function (grunt) {
         // TODO : Build installer
         var done = this.async();
 
-        exec('zip -r -X ../../../../' + cfg.dist + '/gravit-windows.zip *', {cwd: cfg.build + '/system-binaries/Gravit/win'}, function (error, stdout, stderr) {
+        exec('zip -r -X ../../../../' + cfg.dist + '/gravitrdr-windows.zip *', {cwd: cfg.build + '/system-binaries/GravitRDR/win'}, function (error, stdout, stderr) {
             if (stdout) console.log(stdout);
             if (stderr) console.log(stderr);
             if (error !== null) {
@@ -399,7 +399,7 @@ module.exports = function (grunt) {
     grunt.registerTask('_dist_linux', function () {
         var done = this.async();
 
-        exec('zip -r -X ../../../../' + cfg.dist + '/gravit-linux64.zip *', {cwd: cfg.build + '/system-binaries/Gravit/linux64'}, function (error, stdout, stderr) {
+        exec('zip -r -X ../../../../' + cfg.dist + '/gravitrdr-linux64.zip *', {cwd: cfg.build + '/system-binaries/GravitRDR/linux64'}, function (error, stdout, stderr) {
             if (stdout) console.log(stdout);
             if (stderr) console.log(stderr);
             if (error !== null) {
@@ -412,7 +412,7 @@ module.exports = function (grunt) {
     grunt.registerTask('_dist_chrome', function () {
         var done = this.async();
 
-        exec('zip -r -X ../../' + cfg.dist + '/gravit-chrome.zip *', {cwd: cfg.build + '/chrome'}, function (error, stdout, stderr) {
+        exec('zip -r -X ../../' + cfg.dist + '/gravitrdr-chrome.zip *', {cwd: cfg.build + '/chrome'}, function (error, stdout, stderr) {
             if (stdout) console.log(stdout);
             if (stderr) console.log(stderr);
             if (error !== null) {

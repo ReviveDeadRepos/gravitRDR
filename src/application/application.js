@@ -363,9 +363,9 @@
     GApplication.prototype.getStorage = function (url) {
         var protocol = new URI(url).protocol();
         if (protocol && protocol.length) {
-            for (var i = 0; i < gravit.storages.length; ++i) {
-                if (gravit.storages[i].getProtocol() === protocol) {
-                    return gravit.storages[i];
+            for (var i = 0; i < gravitrdr.storages.length; ++i) {
+                if (gravitrdr.storages[i].getProtocol() === protocol) {
+                    return gravitrdr.storages[i];
                 }
             }
         }
@@ -392,8 +392,8 @@
         }
 
         // Add all storages to check
-        for (var i = 0; i < gravit.storages.length; ++i) {
-            var storage = gravit.storages[i];
+        for (var i = 0; i < gravitrdr.storages.length; ++i) {
+            var storage = gravitrdr.storages[i];
             if (storage !== preferredStorage) {
                 storages.push(storage);
             }
@@ -523,7 +523,7 @@
      */
     GApplication.prototype.openDocumentFrom = function (storage) {
         var url = gApp.getActiveDocument() ? gApp.getActiveDocument().getUrl() : null;
-        storage.openResourcePrompt(url && url !== '' ? url : null, ['gravit'], function (url) {
+        storage.openResourcePrompt(url && url !== '' ? url : null, ['gravitrdr'], function (url) {
             gApp.openDocument(url);
         });
     };
@@ -539,7 +539,7 @@
 
         if (document) {
             // TODO : Set first parameter 'reference'
-            storage.saveResourcePrompt(null, document.getTitle(), 'gravit', function (url) {
+            storage.saveResourcePrompt(null, document.getTitle(), 'gravitrdr', function (url) {
                 document.setUrl(url)
                 document.save();
 
@@ -674,8 +674,8 @@
         var body = $('body');
 
         // Iterate modules and let each one initialize
-        for (var i = 0; i < gravit.modules.length; ++i) {
-            var module = gravit.modules[i];
+        for (var i = 0; i < gravitrdr.modules.length; ++i) {
+            var module = gravitrdr.modules[i];
             console.log("Init module <" + module.toString() + ">");
             module.init();
         }
@@ -761,20 +761,20 @@
         // TODO : Order our available tools by group
 
         // -- Register Actions
-        this._actions = gravit.actions.slice();
+        this._actions = gravitrdr.actions.slice();
         this._createMainMenu();
 
         // Add all available tools to toolmanager and register
         // their activation character(s) if any as shortcuts
-        if (gravit.tools) {
+        if (gravitrdr.tools) {
             var _createToolActivateAction = function (instance) {
                 return function () {
                     this._toolManager.activateTool(instance);
                 }.bind(this);
             }.bind(this);
 
-            for (var i = 0; i < gravit.tools.length; ++i) {
-                var tool = gravit.tools[i];
+            for (var i = 0; i < gravitrdr.tools.length; ++i) {
+                var tool = gravitrdr.tools[i];
 
                 // Register tool instance
                 this._toolManager.addTool(tool.instance);
@@ -1095,7 +1095,7 @@
     };
 
     GApplication.prototype._updateTitle = function () {
-        var title = 'Gravit';
+        var title = 'GravitRDR';
         var window = this.getWindows().getActiveWindow();
         if (window) {
             title += ' - ' + window.getTitle();

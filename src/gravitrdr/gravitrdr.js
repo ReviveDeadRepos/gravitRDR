@@ -1,43 +1,43 @@
 (function (_) {
     /**
-     * Gravit Core Module
-     * @class GravitModule
+     * GravitRDR Core Module
+     * @class GravitRDRModule
      * @constructor
      * @extends GModule
      */
-    function GravitModule() {
+    function GravitRDRModule() {
     }
 
-    IFObject.inherit(GravitModule, GModule);
+    IFObject.inherit(GravitRDRModule, GModule);
 
     /** @override */
-    GravitModule.prototype.init = function () {
+    GravitRDRModule.prototype.init = function () {
         // Register default exporters
-        gravit.exporters.push(
+        gravitrdr.exporters.push(
             new GImageExporter()
         );
 
         // Register default palettes
-        gravit.palettes.push(
+        gravitrdr.palettes.push(
             new GExportPalette(),
             new GStylePalette()
         );
 
         // Register default panels
-        gravit.panels.push(
+        gravitrdr.panels.push(
             new GPropertiesPanel(),
             new GTransformPanel()
         );
 
         // Register default sidebars
-        gravit.sidebars.push(
+        gravitrdr.sidebars.push(
             new GPagesLayersSidebar(),
             new GStylesSwatchesSidebar()
         );
 
         // Register default tools
         // TODO : I18N
-        gravit.tools.push(
+        gravitrdr.tools.push(
             {
                 instance: new IFPointerTool(),
                 title: 'Pointer',
@@ -169,13 +169,13 @@
         );
 
         // Register default color matcher
-        gravit.colorMatchers.push(
+        gravitrdr.colorMatchers.push(
             new GAnalogousMatcher(),
             new GComplementaryMatcher()
         );
 
         // Register default properties
-        gravit.properties.push(
+        gravitrdr.properties.push(
             new GInfoProperties(),
             new GDocumentProperties(),
             new GPolygonProperties(),
@@ -189,7 +189,7 @@
         );
 
         // Register default style entries
-        gravit.styleEntries.push(
+        gravitrdr.styleEntries.push(
             new GFillPaintEntry(),
             new GStrokePaintEntry(),
             new GBlurFilterEntry(),
@@ -198,13 +198,13 @@
         );
 
         // Register default transformers
-        gravit.transformers.push(
+        gravitrdr.transformers.push(
             new GAlignTransformer(),
             new GAdjustTransformer()
         );
 
         // Register default actions
-        gravit.actions.push(
+        gravitrdr.actions.push(
             // File
             new GNewAction(),
             new GOpenAction(),
@@ -318,9 +318,9 @@
     };
 
     /** @override */
-    GravitModule.prototype.toString = function () {
-        return '[Module Gravit]';
+    GravitRDRModule.prototype.toString = function () {
+        return '[Module GravitRDR]';
     };
 
-    gravit.modules.push(new GravitModule());
+    gravitrdr.modules.push(new GravitRDRModule());
 })(this);

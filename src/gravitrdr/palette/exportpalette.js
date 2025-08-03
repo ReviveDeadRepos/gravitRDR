@@ -71,8 +71,8 @@
         GPalette.prototype.init.call(this, htmlElement, controls);
 
         // Init our extensions / exporters
-        for (var k = 0; k < gravit.exporters.length; ++k) {
-            var exporter = gravit.exporters[k];
+        for (var k = 0; k < gravitrdr.exporters.length; ++k) {
+            var exporter = gravitrdr.exporters[k];
             if (!exporter.isStandalone()) {
                 var extensions = exporter.getExtensions();
                 for (var n = 0; n < extensions.length; ++n) {
@@ -103,7 +103,7 @@
                 exportVal.push({
                     'sz': '1x',
                     'sf': '',
-                    'ex': gravit.exporters[0].getExtensions()[0]
+                    'ex': gravitrdr.exporters[0].getExtensions()[0]
                 });
 
                 this._element.setProperty('export', exportVal, true);

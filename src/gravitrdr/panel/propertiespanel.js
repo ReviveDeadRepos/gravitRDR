@@ -80,8 +80,8 @@
         }.bind(this);
 
         // Initialize our properties panels
-        for (var i = 0; i < gravit.properties.length; ++i) {
-            _addPropertiesPanel(gravit.properties[i]);
+        for (var i = 0; i < gravitrdr.properties.length; ++i) {
+            _addPropertiesPanel(gravitrdr.properties[i]);
         }
     };
 

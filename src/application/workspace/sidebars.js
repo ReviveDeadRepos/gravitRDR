@@ -64,9 +64,9 @@
     GSidebars.prototype.init = function () {
         this._sidebars = [];
 
-        if (gravit.sidebars) {
-            for (var i = 0; i < gravit.sidebars.length; ++i) {
-                var sidebar = gravit.sidebars[i];
+        if (gravitrdr.sidebars) {
+            for (var i = 0; i < gravitrdr.sidebars.length; ++i) {
+                var sidebar = gravitrdr.sidebars[i];
 
                 var container = $('<div></div>')
                     .addClass('sidebar-container sidebar-' + sidebar.getId())

@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleName</key>
-	<string>Gravit</string>
+	<string>GravitRDR</string>
 	<key>CFBundleDisplayName</key>
 	<string>%name%</string>
 	<key>LSApplicationCategoryType</key>
@@ -15,12 +15,12 @@
     	<dict>
     		<key>CFBundleTypeExtensions</key>
     		<array>
-    			<string>gravit</string>
+    			<string>gravitrdr</string>
     		</array>
     		<key>CFBundleTypeIconFile</key>
     		<string>doc.icns</string>
     		<key>CFBundleTypeName</key>
-    		<string>Gravit Design</string>
+    		<string>GravitRDR Design</string>
     		<key>CFBundleTypeOSTypes</key>
     		<array>
     			<string>????</string>

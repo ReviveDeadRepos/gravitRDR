@@ -1,6 +1,6 @@
 (function (_) {
     /**
-     * Gravit Development Module
+     * GravitRDR Development Module
      * @class GDevelopmentModule
      * @constructor
      * @extends GModule
@@ -17,13 +17,13 @@
         }
 
         // Register test actions
-        gravit.actions = gravit.actions.concat(testActions);
+        gravitrdr.actions = gravitrdr.actions.concat(testActions);
     };
 
     /** @override */
     GDevelopmentModule.prototype.toString = function () {
-        return '[Module Gravit Development]';
+        return '[Module GravitRDR Development]';
     };
 
-    gravit.modules.push(new GDevelopmentModule());
+    gravitrdr.modules.push(new GDevelopmentModule());
 })(this);

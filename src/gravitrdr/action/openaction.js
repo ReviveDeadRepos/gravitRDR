@@ -67,11 +67,11 @@
      * @private
      */
     GOpenAction.prototype._getViableStorage = function () {
-        for (var i = 0; i < gravit.storages.length; ++i) {
-            var storage = gravit.storages[i];
+        for (var i = 0; i < gravitrdr.storages.length; ++i) {
+            var storage = gravitrdr.storages[i];
             if (storage.isAvailable() && storage.isPrompting()) {
                 var extensions = storage.getExtensions();
-                if (!extensions || extensions.isEmpty() || extensions.indexOf('gravit') >= 0) {
+                if (!extensions || extensions.isEmpty() || extensions.indexOf('gravitrdr') >= 0) {
                     return storage;
                 }
             }

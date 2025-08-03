@@ -957,8 +957,8 @@
                 var matcherSelect = $this.find('.matcher-select');
                 var matcherGroup = matcherSelect;
                 var lastCategory = null;
-                for (var i = 0; i < gravit.colorMatchers.length; ++i) {
-                    var matcher = gravit.colorMatchers[i];
+                for (var i = 0; i < gravitrdr.colorMatchers.length; ++i) {
+                    var matcher = gravitrdr.colorMatchers[i];
                     var category = ifLocale.get(matcher.getCategory());
 
                     // Add to selector

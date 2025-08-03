@@ -1,5 +1,5 @@
 {
-    "name": "Gravit",
+    "name": "gravitrdr",
     "main": "http://127.0.0.1:8999/",
     "window": {
         "toolbar": true,

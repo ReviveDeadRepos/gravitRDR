@@ -80,8 +80,8 @@
         }.bind(this);
 
         // Initialize our transform panels
-        for (var i = 0; i < gravit.transformers.length; ++i) {
-            _addTransformPanel(gravit.transformers[i]);
+        for (var i = 0; i < gravitrdr.transformers.length; ++i) {
+            _addTransformPanel(gravitrdr.transformers[i]);
         }
     };
 

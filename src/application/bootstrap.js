@@ -1,4 +1,4 @@
-var gravit = {
+var gravitrdr = {
     /**
      * Array<GModule>
      */
@@ -97,7 +97,7 @@ $(document).ready(function () {
         throw new Error("Shell needs to be initialized, first.");
     }
 
-    // Add Gravit Loader
+    // Add GravitRDR Loader
     __loader = $(gLoaderCode)
         .appendTo($('body'));
 

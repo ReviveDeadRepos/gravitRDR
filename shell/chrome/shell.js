@@ -115,7 +115,7 @@
     });
 
     $(window).load(function () {
-        gravit.storages.push(new GFileStorage());
+        gravitrdr.storages.push(new GFileStorage());
         gShellFinished();
     });
 })(this);

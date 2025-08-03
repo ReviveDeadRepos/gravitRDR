@@ -158,8 +158,8 @@
         // Add all palettes first and collect their grouping
         var lastGroup = null;
         var lastPalettes = null;
-        for (var i = 0; i < gravit.palettes.length; ++i) {
-            var palette = gravit.palettes[i];
+        for (var i = 0; i < gravitrdr.palettes.length; ++i) {
+            var palette = gravitrdr.palettes[i];
 
             this._addPaletteInfo(palette);
 

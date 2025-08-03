@@ -74,9 +74,9 @@
             .addClass('panels-frame')
             .appendTo(this._htmlElement);
 
-        if (gravit.panels) {
-            for (var i = 0; i < gravit.panels.length; ++i) {
-                var panel = gravit.panels[i];
+        if (gravitrdr.panels) {
+            for (var i = 0; i < gravitrdr.panels.length; ++i) {
+                var panel = gravitrdr.panels[i];
 
                 var tab = $('<button></button>')
                     .addClass('panel-tab')

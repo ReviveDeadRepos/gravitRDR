@@ -31,11 +31,11 @@
      */
     GToolbar.prototype.init = function () {
         // Add sidebars
-        if (gravit.sidebars && gravit.sidebars.length > 0) {
+        if (gravitrdr.sidebars && gravitrdr.sidebars.length > 0) {
             var sidebarsSection = this._htmlElement.find('.sidebars');
 
-            for (var i = 0; i < gravit.sidebars.length; ++i) {
-                var sidebar = gravit.sidebars[i];
+            for (var i = 0; i < gravitrdr.sidebars.length; ++i) {
+                var sidebar = gravitrdr.sidebars[i];
 
                 $('<button></button>')
                     .append($(sidebar.getIcon()))
@@ -67,8 +67,8 @@
 
         // Group tools together, first
         this._groupedTools = [];
-        for (var i = 0; i < gravit.tools.length; ++i) {
-            var tool = gravit.tools[i];
+        for (var i = 0; i < gravitrdr.tools.length; ++i) {
+            var tool = gravitrdr.tools[i];
             var foundGroup = false;
             for (var k = 0; k < this._groupedTools.length; ++k) {
                 if (this._groupedTools[k].group === tool.group) {
@@ -308,9 +308,9 @@
 
     /** @private */
     GToolbar.prototype._getToolInfo = function (toolInstance) {
-        for (var i = 0; i < gravit.tools.length; ++i) {
-            if (gravit.tools[i].instance === toolInstance) {
-                return gravit.tools[i];
+        for (var i = 0; i < gravitrdr.tools.length; ++i) {
+            if (gravitrdr.tools[i].instance === toolInstance) {
+                return gravitrdr.tools[i];
             }
         }
         return null;

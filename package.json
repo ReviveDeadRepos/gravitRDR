@@ -1,7 +1,7 @@
 {
-    "name": "Gravit",
-    "description" : "Gravit, the versatile Design Tool",
-    "author" : "Quasado",
+    "name": "gravitrdr",
+    "description" : "GravitRDR, the forked versatile Design Tool. Continued development by RDR, which is unrelated to the original Gravit project and Corel Vector.",
+    "author" : "NellowTCS",
     "version": "0.0.3.1",
     "private": true,
     "devDependencies": {

@@ -212,8 +212,8 @@
         var effectEntries = [];
 
         // Initialize all style entry handlers and create menus for them
-        for (var i = 0; i < gravit.styleEntries.length; ++i) {
-            var styleEntry = gravit.styleEntries[i];
+        for (var i = 0; i < gravitrdr.styleEntries.length; ++i) {
+            var styleEntry = gravitrdr.styleEntries[i];
             var entryClass = styleEntry.getEntryClass();
             this._styleEntries[IFObject.getTypeId(entryClass)] = styleEntry;
 
