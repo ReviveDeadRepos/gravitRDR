@@ -22,8 +22,19 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Build
+    - name: Show Node and npm versions
       run: |
-        npm install
-        bower install
-        grunt
+        node --version
+        npm --version
+
+    - name: Install npm dependencies (with legacy peer deps)
+      run: npm install --legacy-peer-deps
+
+    - name: Install Bower globally
+      run: npm install -g bower
+
+    - name: Install bower dependencies
+      run: bower install --allow-root
+
+    - name: Run Grunt
+      run: grunt
