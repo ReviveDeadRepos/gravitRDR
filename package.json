@@ -2,7 +2,7 @@
     "name": "gravitrdr",
     "description" : "GravitRDR, the forked versatile Design Tool. Continued development by RDR, which is unrelated to the original Gravit project and Corel Vector.",
     "author" : "NellowTCS",
-    "version": "0.0.3.1",
+    "version": "0.1.0",
     "private": true,
     "devDependencies": {
         "grunt": "~0.4.1",
