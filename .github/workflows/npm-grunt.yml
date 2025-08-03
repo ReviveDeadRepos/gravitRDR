@@ -23,8 +23,10 @@ jobs:
           nvm install 0.10.48
           nvm use 0.10.48
           npm install -g npm@1.4.28
+          npm config set python /usr/bin/python
           echo "node version: $(node -v)"
           echo "npm version: $(npm -v)"
+          npm config get python
         '
 
     - name: Install npm dependencies
