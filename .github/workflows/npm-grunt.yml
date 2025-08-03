@@ -12,15 +12,18 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [6.x] # Node 6.x comes with npm 3.x (closest to npm v1 style)
+        node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+
+    - name: Downgrade to npm v1
+      run: npm install -g npm@1.4.28
 
     - name: Show Node and npm versions
       run: |
