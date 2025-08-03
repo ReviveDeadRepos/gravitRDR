@@ -47,7 +47,8 @@ This project is a non-commercial fork of the original Gravit project by Quasado.
 The original code is licensed under the GNU General Public License (GPL) version 3 or later.  
 You must comply with the GPL when using or redistributing this code.
 
-The names "Gravit", the Gravit Logo, and all related trademarks are the exclusive property of Quasado GmbH, Quasado e.K., and Corel, and are **not used in this project**. 
+The names "Gravit", the Gravit Logo, and all related trademarks are the exclusive property of Quasado GmbH, Quasado e.K., and Corel, and are **not used in this project**.
+
 All original branding has been removed or replaced.
 
 All original trademarks and branding have been removed or replaced in this fork.
