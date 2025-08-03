@@ -14,19 +14,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup Node 0.10.48 and npm 1.4.28 using nvm (Rosetta x86_64)
+    - name: Setup Node 14.x and npm 6 using nvm (Rosetta x86_64)
       run: |
         arch -x86_64 /bin/bash -c '
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
           export NVM_DIR="$HOME/.nvm"
           source "$NVM_DIR/nvm.sh"
-          nvm install 0.10.48
-          nvm use 0.10.48
-          npm install -g npm@1.4.28
-          npm config set python /usr/bin/python
+          nvm install 14
+          nvm use 14
+          npm install -g npm@6
           echo "node version: $(node -v)"
           echo "npm version: $(npm -v)"
-          npm config get python
         '
 
     - name: Install npm dependencies (legacy peer deps)
