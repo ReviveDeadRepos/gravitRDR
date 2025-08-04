@@ -29,12 +29,11 @@ jobs:
           echo "Checking Homebrew prefix..."
           echo $HOMEBREW_PREFIX
           arch
-        # Diagnostic to confirm macOS, architecture, and Homebrew setup
+        # Diagnostic to confirm macOS and architecture
 
       - name: Setup x86_64 Homebrew
         run: |
           arch -x86_64 /bin/bash -c '
-            # Install Homebrew in /usr/local for x86_64
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
             echo "export PATH=/usr/local/bin:/usr/local/sbin:$PATH" >> ~/.zshrc
             source ~/.zshrc
@@ -49,19 +48,35 @@ jobs:
             brew install nasm
             brew install libtool
             brew install gettext
-            brew link gettext --force  # Ensure libintl.8.dylib is available
+            brew install openssl@1.1
+            brew link gettext --force
+            brew link openssl@1.1 --force
             nasm --version
             glibtool --version
+            openssl version
             ls -l /usr/local/lib/libintl*
+            ls -l /usr/local/opt/openssl@1.1/lib/libssl*
             brew list gettext
+            brew list openssl@1.1
           '
-        # Installs nasm, libtool, gettext in /usr/local for Rosetta
+        # Installs nasm, libtool, gettext, openssl@1.1 for Rosetta
 
       - name: Setup Python 3.7 for node-gyp
+        env:
+          PYTHON_CONFIGURE_OPTS: "--with-openssl=/usr/local/opt/openssl@1.1"
         uses: actions/setup-python@v5
         with:
           python-version: '3.7'
           architecture: 'x64'
+
+      - name: Verify Python SSL
+        run: |
+          arch -x86_64 /bin/bash -c '
+            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+            python3.7 -c "import ssl; print(ssl.OPENSSL_VERSION)"
+            python3.7 -m pip --version
+          '
+        # Confirms SSL module and pip are functional
 
       - name: Setup Node 10.x and npm 6 using nvm (Rosetta x86_64)
         run: |
