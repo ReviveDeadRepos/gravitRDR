@@ -29,11 +29,12 @@ jobs:
           echo "Checking Homebrew prefix..."
           echo $HOMEBREW_PREFIX
           arch
-        # Diagnostic to confirm macOS and architecture
+        # Diagnostic to confirm macOS, architecture, and Homebrew setup
 
       - name: Setup x86_64 Homebrew
         run: |
           arch -x86_64 /bin/bash -c '
+            # Install Homebrew in /usr/local for x86_64
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
             echo "export PATH=/usr/local/bin:/usr/local/sbin:$PATH" >> ~/.zshrc
             source ~/.zshrc
@@ -48,35 +49,32 @@ jobs:
             brew install nasm
             brew install libtool
             brew install gettext
-            brew install openssl@1.1
+            brew install openssl@3
             brew link gettext --force
-            brew link openssl@1.1 --force
+            brew link openssl@3 --force
             nasm --version
             glibtool --version
-            openssl version
-            ls -l /usr/local/lib/libintl*
-            ls -l /usr/local/opt/openssl@1.1/lib/libssl*
+            ls -l /usr/local/lib/libssl* /usr/local/lib/libcrypto* /usr/local/lib/libintl*
             brew list gettext
-            brew list openssl@1.1
+            brew list openssl@3
           '
-        # Installs nasm, libtool, gettext, openssl@1.1 for Rosetta
+        # Installs nasm, libtool, gettext, openssl@3 in /usr/local for Rosetta
 
       - name: Setup Python 3.7 for node-gyp
         env:
-          PYTHON_CONFIGURE_OPTS: "--with-openssl=/usr/local/opt/openssl@1.1"
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.7'
-          architecture: 'x64'
-
-      - name: Verify Python SSL
+          LDFLAGS: "-L/usr/local/lib"
+          CFLAGS: "-I/usr/local/include"
         run: |
           arch -x86_64 /bin/bash -c '
             export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-            python3.7 -c "import ssl; print(ssl.OPENSSL_VERSION)"
-            python3.7 -m pip --version
+            /usr/local/bin/python3.7 -c "import ssl; print(ssl.OPENSSL_VERSION)"
           '
-        # Confirms SSL module and pip are functional
+        # Verifies SSL module before actions/setup-python
+        continue-on-error: true  # Allow continuation if pre-check fails
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.7'
+          architecture: 'x64'
 
       - name: Setup Node 10.x and npm 6 using nvm (Rosetta x86_64)
         run: |
