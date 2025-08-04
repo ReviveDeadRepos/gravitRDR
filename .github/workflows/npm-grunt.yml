@@ -81,7 +81,15 @@ jobs:
       - name: Install grunt-cli globally (temporary workaround)
         run: |
           arch -x86_64 /bin/bash -c '
-            npm install -g grunt-cli
+            npm install -g grunt-cli autoprefixer grunt-contrib-imagemin
+          '
+
+      - name: Install Ruby & Compass
+        run: |
+          arch -x86_64 /bin/bash -c '
+            brew install ruby
+            gem install compass
+            compass version
           '
 
       - name: Run Grunt
