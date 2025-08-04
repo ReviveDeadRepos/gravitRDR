@@ -82,11 +82,11 @@ jobs:
       - name: Install grunt-cli globally (temporary workaround)
         run: |
           arch -x86_64 /bin/bash -c '
-            # Install grunt CLI globally
+            export NVM_DIR="$HOME/.nvm"
+            source "$NVM_DIR/nvm.sh"
+            nvm use 10
             npm install -g grunt-cli
-
-            # Install dev dependencies locally
-            npm install autoprefixer grunt-contrib-imagemin grunt-node-webkit-builder@0.2.0 --save-dev --legacy-peer-deps
+            npm install autoprefixer grunt-contrib-imagemin grunt-node-webkit-builder@0.2.0 --save-dev --legacy-peer-deps --no-optional || echo "Skipping optional install failures"
           '
 
       - name: Install Ruby & Compass
