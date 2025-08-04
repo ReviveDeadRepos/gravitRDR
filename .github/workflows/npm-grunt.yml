@@ -51,7 +51,7 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
-            npm install --legacy-peer-deps --no-optional --ignore-scripts || echo "Ignoring failures for now"
+            npm install --legacy-peer-deps --no-optional || echo "Ignoring failures for now"
             git add package-lock.json
             git config user.name "GitHub Actions"
             git config user.email "actions@github.com"
@@ -78,11 +78,17 @@ jobs:
             bower install --allow-root
           '
 
+      - name: Install grunt-cli globally (temporary workaround)
+        run: |
+          arch -x86_64 /bin/bash -c '
+            npm install -g grunt-cli
+          '
+
       - name: Run Grunt
         run: |
           arch -x86_64 /bin/bash -c '
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
-            ./node_modules/.bin/grunt
+            grunt
           '
