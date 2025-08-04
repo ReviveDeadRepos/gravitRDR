@@ -78,6 +78,14 @@ jobs:
             nvm use 10
             bower install --allow-root
           '
+      - name: Install grunt-cli globally
+        run: |
+          arch -x86_64 /bin/bash -c '
+            export NVM_DIR="$HOME/.nvm"
+            source "$NVM_DIR/nvm.sh"
+            nvm use 10
+            npm install -g grunt-cli@1.4.3
+          '
 
       - name: Install Ruby & Compass
         run: |

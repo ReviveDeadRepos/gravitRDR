@@ -320,10 +320,10 @@ module.exports = function (grunt) {
             html: ['<%= cfg.build %>/source/{,*/}*.html'],
             css: ['<%= cfg.build %>/source/{,*/}*.css']
         },
-        nodewebkit: {
+        nwbuild: {
             options: {
                 version: '0.10.1',
-                platforms: ['win', 'osx', 'linux64'],
+                platforms: ['win32', 'osx64', 'linux64'], // note platform strings differ
                 cacheDir: './node-webkit',
                 buildDir: '<%= cfg.build %>/system-binaries',
                 macIcns: 'shell/system/appicon.icns',
@@ -455,7 +455,7 @@ module.exports = function (grunt) {
             'copy:preBuild',
             'copy:build',
             'replace:build',
-            'nodewebkit',
+            'nwbuild',
             'copy:postBuild'
         ]);
     });
