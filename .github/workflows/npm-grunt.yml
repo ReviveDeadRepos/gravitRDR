@@ -27,6 +27,7 @@ jobs:
           arch -x86_64 /bin/bash -c '
             brew install nasm
             nasm --version
+            brew install jpegtran
           '
         # Installs nasm to allow jpegtran-bin@0.1.7 to compile libjpeg-turbo
 
