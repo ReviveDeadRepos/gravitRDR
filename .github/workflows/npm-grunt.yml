@@ -82,12 +82,12 @@ jobs:
       - name: Install grunt-cli globally (temporary workaround)
         run: |
           arch -x86_64 /bin/bash -c '
-          # Install grunt CLI globally
-          npm install -g grunt-cli
+            # Install grunt CLI globally
+            npm install -g grunt-cli
 
-          # Install dev dependencies locally
-          npm install autoprefixer grunt-contrib-imagemin grunt-node-webkit-builder@1.0.10 --save-dev --legacy-peer-deps
-        '
+            # Install dev dependencies locally
+            npm install autoprefixer grunt-contrib-imagemin grunt-node-webkit-builder@1.0.10 --save-dev --legacy-peer-deps
+          '
 
       - name: Install Ruby & Compass
         run: |
