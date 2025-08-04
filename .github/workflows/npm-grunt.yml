@@ -43,18 +43,10 @@ jobs:
 
       - name: Patch jpegtran-bin build script to remove -m32 (32-bit macOS not supported)
         run: |
-          mkdir -p .patches
-          cat > .patches/disable-m32.patch <<EOF
---- a/build.js
-+++ b/build.js
-@@ -76,7 +76,7 @@
-   binBuild.url(url, [
--    "./configure --disable-shared --host i686-apple-darwin CFLAGS='-O3 -m32' LDFLAGS=-m32",
-+    "./configure --disable-shared CFLAGS='-O3' LDFLAGS=",
-     "make install prefix=" + this.tmpDir + " bindir=" + this.dest() + " bin_PROGRAMS=jpegtran"
-   ]);
-EOF
-
+          arch -x86_64 /bin/bash -c '
+            mkdir -p .patches
+            echo "--- a/build.js\n+++ b/build.js\n@@ -76,7 +76,7 @@\n  binBuild.url(url, [\n-    \"./configure --disable-shared --host i686-apple-darwin CFLAGS='-O3 -m32' LDFLAGS=-m32\",\n+    \"./configure --disable-shared CFLAGS='-O3' LDFLAGS=\",\n    \"make install prefix=\" + this.tmpDir + \" bindir=\" + this.dest() + \" bin_PROGRAMS=jpegtran\"\n  ]);\n" > .patches/disable-m32.patch
+          '
 
 
       - name: Install npm dependencies and apply jpegtran-bin patch
