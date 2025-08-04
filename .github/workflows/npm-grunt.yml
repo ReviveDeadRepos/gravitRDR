@@ -26,21 +26,36 @@ jobs:
           sysctl -n machdep.cpu.brand_string
           sw_vers
           xcodebuild -version
-          brew --version
-        # Diagnostic to confirm macOS version and Homebrew
+          echo "Checking Homebrew prefix..."
+          echo $HOMEBREW_PREFIX
+          arch
+        # Diagnostic to confirm macOS, architecture, and Homebrew setup
+
+      - name: Setup x86_64 Homebrew
+        run: |
+          arch -x86_64 /bin/bash -c '
+            # Install Homebrew in /usr/local for x86_64
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            echo "export PATH=/usr/local/bin:/usr/local/sbin:$PATH" >> ~/.zshrc
+            source ~/.zshrc
+            brew --version
+          '
 
       - name: Install Homebrew dependencies
         run: |
           arch -x86_64 /bin/bash -c '
+            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
             brew update
             brew install nasm
             brew install libtool
             brew install gettext
+            brew link gettext --force  # Ensure libintl.8.dylib is available
             nasm --version
             glibtool --version
+            ls -l /usr/local/lib/libintl*
             brew list gettext
           '
-        # Installs nasm, libtool, and gettext for libintl.8.dylib
+        # Installs nasm, libtool, gettext in /usr/local for Rosetta
 
       - name: Setup Python 3.7 for node-gyp
         uses: actions/setup-python@v5
@@ -51,6 +66,7 @@ jobs:
       - name: Setup Node 10.x and npm 6 using nvm (Rosetta x86_64)
         run: |
           arch -x86_64 /bin/bash -c '
+            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
@@ -65,6 +81,7 @@ jobs:
       - name: Install npm dependencies
         run: |
           arch -x86_64 /bin/bash -c '
+            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
@@ -79,6 +96,7 @@ jobs:
       - name: Install Bower globally
         run: |
           arch -x86_64 /bin/bash -c '
+            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
@@ -88,6 +106,7 @@ jobs:
       - name: Install Bower dependencies
         run: |
           arch -x86_64 /bin/bash -c '
+            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
@@ -97,6 +116,7 @@ jobs:
       - name: Run Grunt
         run: |
           arch -x86_64 /bin/bash -c '
+            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
