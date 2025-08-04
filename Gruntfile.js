@@ -1,5 +1,9 @@
 var exec = require('child_process').exec;
 
+// Lodash patch attempt
+const _ = require('lodash');
+_.unique = _.uniq;
+
 module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
