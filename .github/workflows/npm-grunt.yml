@@ -56,6 +56,7 @@ jobs:
             git config user.name "GitHub Actions"
             git config user.email "actions@github.com"
             git commit -m "Update package-lock.json" || echo "No changes to commit"
+            git push origin HEAD:master || echo "No changes to push"
           '
         # Installs all dependencies to ensure package-lock.json includes everything
         # Commits package-lock.json
@@ -81,8 +82,12 @@ jobs:
       - name: Install grunt-cli globally (temporary workaround)
         run: |
           arch -x86_64 /bin/bash -c '
-            npm install -g grunt-cli autoprefixer grunt-contrib-imagemin
-          '
+          # Install grunt CLI globally
+          npm install -g grunt-cli
+
+          # Install dev dependencies locally
+          npm install autoprefixer grunt-contrib-imagemin grunt-node-webkit-builder@1.0.10 --save-dev --legacy-peer-deps
+        '
 
       - name: Install Ruby & Compass
         run: |
