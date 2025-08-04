@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-13  # macOS 13 to support x86_64 Rosetta
+    runs-on: macos-11  # macOS 11 for better i386 support in Rosetta
 
     steps:
       - name: Checkout code
@@ -22,13 +22,15 @@ jobs:
           python-version: '3.7'  # Compatible with node-gyp v5.1.1
           architecture: 'x64'
 
-      - name: Install nasm for jpegtran-bin
+      - name: Install nasm and libtool for jpegtran-bin
         run: |
           arch -x86_64 /bin/bash -c '
             brew install nasm
+            brew install libtool
             nasm --version
+            glibtool --version
           '
-        # Installs nasm to allow jpegtran-bin@0.1.7 to compile libjpeg-turbo
+        # Installs nasm and libtool for libjpeg-turbo compilation
 
       - name: Setup Node 10.x and npm 6 using nvm (Rosetta x86_64)
         run: |
@@ -58,8 +60,7 @@ jobs:
             git commit -m "Update package-lock.json" || echo "No changes to commit"
           '
         # Installs all dependencies to ensure package-lock.json includes everything
-        # Then npm ci for exact versions; falls back to npm install if npm ci fails
-        # Commits package-lock.json
+        # npm ci for exact versions; falls back to npm install if npm ci fails
 
       - name: Install Bower globally
         run: |
