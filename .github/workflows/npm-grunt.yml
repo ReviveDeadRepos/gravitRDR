@@ -6,9 +6,13 @@ on:
   pull_request:
     branches: ["master"]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true  # Cancels older runs to free the queue
+
 jobs:
   build:
-    runs-on: macos-11  # macOS 11 for better i386 support in Rosetta
+    runs-on: macos-10.15  # macOS Catalina for i386 support
 
     steps:
       - name: Checkout code
@@ -19,10 +23,10 @@ jobs:
       - name: Setup Python 3.7 for node-gyp
         uses: actions/setup-python@v5
         with:
-          python-version: '3.7'  # Compatible with node-gyp v5.1.1
+          python-version: '3.7'
           architecture: 'x64'
 
-      - name: Install nasm and libtool for jpegtran-bin
+      - name: Install nasm and libtool
         run: |
           arch -x86_64 /bin/bash -c '
             brew install nasm
@@ -30,7 +34,6 @@ jobs:
             nasm --version
             glibtool --version
           '
-        # Installs nasm and libtool for libjpeg-turbo compilation
 
       - name: Setup Node 10.x and npm 6 using nvm (Rosetta x86_64)
         run: |
@@ -59,8 +62,6 @@ jobs:
             git config user.email "actions@github.com"
             git commit -m "Update package-lock.json" || echo "No changes to commit"
           '
-        # Installs all dependencies to ensure package-lock.json includes everything
-        # npm ci for exact versions; falls back to npm install if npm ci fails 
 
       - name: Install Bower globally
         run: |
