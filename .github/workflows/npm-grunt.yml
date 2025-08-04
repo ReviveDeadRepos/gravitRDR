@@ -6,13 +6,9 @@ on:
   pull_request:
     branches: ["master"]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true  # Cancels all older/queued runs
-
 jobs:
   build:
-    runs-on: macos-latest  # macOS 14 for runner availability
+    runs-on: macos-13  # macOS 13 to support x86_64 Rosetta
 
     steps:
       - name: Checkout code
@@ -20,66 +16,23 @@ jobs:
         with:
           persist-credentials: true  # Allow committing package-lock.json
 
-      - name: Check runner status
-        run: |
-          echo "Checking runner status..."
-          sysctl -n machdep.cpu.brand_string
-          sw_vers
-          xcodebuild -version
-          echo "Checking Homebrew prefix..."
-          echo $HOMEBREW_PREFIX
-          arch
-        # Diagnostic to confirm macOS, architecture, and Homebrew setup
-
-      - name: Setup x86_64 Homebrew
-        run: |
-          arch -x86_64 /bin/bash -c '
-            # Install Homebrew in /usr/local for x86_64
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-            echo "export PATH=/usr/local/bin:/usr/local/sbin:$PATH" >> ~/.zshrc
-            source ~/.zshrc
-            brew --version
-          '
-
-      - name: Install Homebrew dependencies
-        run: |
-          arch -x86_64 /bin/bash -c '
-            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-            brew update
-            brew install nasm
-            brew install libtool
-            brew install gettext
-            brew install openssl@3
-            brew link gettext --force
-            brew link openssl@3 --force
-            nasm --version
-            glibtool --version
-            ls -l /usr/local/lib/libssl* /usr/local/lib/libcrypto* /usr/local/lib/libintl*
-            brew list gettext
-            brew list openssl@3
-          '
-        # Installs nasm, libtool, gettext, openssl@3 in /usr/local for Rosetta
-
       - name: Setup Python 3.7 for node-gyp
-        env:
-          LDFLAGS: "-L/usr/local/lib"
-          CFLAGS: "-I/usr/local/include"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.7'  # Compatible with node-gyp v5.1.1
+          architecture: 'x64'
+
+      - name: Install nasm for jpegtran-bin
         run: |
           arch -x86_64 /bin/bash -c '
-            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-            /usr/local/bin/python3.7 -c "import ssl; print(ssl.OPENSSL_VERSION)"
+            brew install nasm
+            nasm --version
           '
-        # Verifies SSL module before actions/setup-python
-        continue-on-error: true  # Allow continuation if pre-check fails
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.7'
-          architecture: 'x64'
+        # Installs nasm to allow jpegtran-bin@0.1.7 to compile libjpeg-turbo
 
       - name: Setup Node 10.x and npm 6 using nvm (Rosetta x86_64)
         run: |
           arch -x86_64 /bin/bash -c '
-            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
@@ -94,7 +47,6 @@ jobs:
       - name: Install npm dependencies
         run: |
           arch -x86_64 /bin/bash -c '
-            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
@@ -105,11 +57,13 @@ jobs:
             git config user.email "actions@github.com"
             git commit -m "Update package-lock.json" || echo "No changes to commit"
           '
+        # Installs all dependencies to ensure package-lock.json includes everything
+        # Then npm ci for exact versions; falls back to npm install if npm ci fails
+        # Commits package-lock.json
 
       - name: Install Bower globally
         run: |
           arch -x86_64 /bin/bash -c '
-            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
@@ -119,7 +73,6 @@ jobs:
       - name: Install Bower dependencies
         run: |
           arch -x86_64 /bin/bash -c '
-            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
@@ -129,7 +82,6 @@ jobs:
       - name: Run Grunt
         run: |
           arch -x86_64 /bin/bash -c '
-            export PATH=/usr/local/bin:/usr/local/sbin:$PATH
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
