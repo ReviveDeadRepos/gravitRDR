@@ -86,7 +86,7 @@ jobs:
             source "$NVM_DIR/nvm.sh"
             nvm use 10
             npm install -g grunt-cli
-            npm install autoprefixer grunt-contrib-imagemin grunt-node-webkit-builder@0.2.0 --save-dev --legacy-peer-deps --no-optional || echo "Skipping optional install failures"
+            npm install autoprefixer grunt-contrib-imagemin@1.0.1 grunt-node-webkit-builder@0.2.0 --save-dev --legacy-peer-deps --no-optional || echo "Skipping optional install failures"
           '
 
       - name: Install Ruby & Compass
