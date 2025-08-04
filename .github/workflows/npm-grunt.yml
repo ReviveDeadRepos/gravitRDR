@@ -12,8 +12,8 @@ concurrency:
 
 jobs:
   build:
-    runs-on: macos-10.15  # macOS Catalina for i386 support
-
+    runs-on: macos-12
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
