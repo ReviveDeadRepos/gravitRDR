@@ -45,17 +45,18 @@ jobs:
         run: |
           arch -x86_64 /bin/bash -c '
             mkdir -p .patches
-            cat > .patches/disable-m32.patch <<EOF
-              --- a/build.js
-              +++ b/build.js
-              @@ -76,7 +76,7 @@
-                binBuild.url(url, [
-              -    "./configure --disable-shared --host i686-apple-darwin CFLAGS=\'-O3 -m32\' LDFLAGS=-m32",
-              +    "./configure --disable-shared CFLAGS=\'-O3\' LDFLAGS=",
-                  "make install prefix=" + this.tmpDir + " bindir=" + this.dest() + " bin_PROGRAMS=jpegtran"
-                ]);
-              EOF
+            cat > .patches/disable-m32.patch <<'"'"'EOF'"'"'
+--- a/build.js
++++ b/build.js
+@@ -76,7 +76,7 @@
+   binBuild.url(url, [
+-    "./configure --disable-shared --host i686-apple-darwin CFLAGS='-O3 -m32' LDFLAGS=-m32",
++    "./configure --disable-shared CFLAGS='-O3' LDFLAGS=",
+     "make install prefix=" + this.tmpDir + " bindir=" + this.dest() + " bin_PROGRAMS=jpegtran"
+   ]);
+EOF
           '
+
 
       - name: Install npm dependencies and apply jpegtran-bin patch
         run: |
