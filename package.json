@@ -30,6 +30,6 @@
         "grunt-node-webkit-builder": "0.2.0",
         "load-grunt-tasks": "5.1.0",
         "time-grunt": "0.1.1",
-        "appdmg": "0.2.0"
+        "appdmg": "0.4.0"
     }
 }
