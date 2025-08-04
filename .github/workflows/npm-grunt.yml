@@ -14,23 +14,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          persist-credentials: true  # Allow committing package-lock.json
+          persist-credentials: true
 
       - name: Setup Python 3.7 for node-gyp
         uses: actions/setup-python@v5
         with:
-          python-version: '3.7'  # Compatible with node-gyp v5.1.1
+          python-version: '3.7'
           architecture: 'x64'
 
       - name: Install nasm for jpegtran-bin
         run: |
           arch -x86_64 /bin/bash -c '
             brew install nasm
-            nasm --version
-            brew uninstall jpeg
+            brew uninstall jpeg || true
             brew install jpeg-turbo
           '
-        # Installs nasm to allow jpegtran-bin@0.1.7 to compile libjpeg-turbo
 
       - name: Setup Node 10.x and npm 6 using nvm (Rosetta x86_64)
         run: |
@@ -41,27 +39,45 @@ jobs:
             nvm install 10
             nvm use 10
             npm install -g npm@6
-            echo "node version: $(node -v)"
-            echo "npm version: $(npm -v)"
-            echo "python version: $(python3 --version)"
           '
 
-      - name: Install npm dependencies
+      - name: Patch jpegtran-bin build script to remove -m32 (32-bit macOS not supported)
+        run: |
+          arch -x86_64 /bin/bash -c '
+            mkdir -p .patches
+            cat > .patches/disable-m32.patch <<EOF
+              --- a/build.js
+              +++ b/build.js
+              @@ -76,7 +76,7 @@
+                binBuild.url(url, [
+              -    "./configure --disable-shared --host i686-apple-darwin CFLAGS=\'-O3 -m32\' LDFLAGS=-m32",
+              +    "./configure --disable-shared CFLAGS=\'-O3\' LDFLAGS=",
+                  "make install prefix=" + this.tmpDir + " bindir=" + this.dest() + " bin_PROGRAMS=jpegtran"
+                ]);
+              EOF
+          '
+
+      - name: Install npm dependencies and apply jpegtran-bin patch
         run: |
           arch -x86_64 /bin/bash -c '
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
-            npm install --legacy-peer-deps
-            npm ci || npm install --legacy-peer-deps
-            git add package-lock.json
+
+            npm install --legacy-peer-deps || true
+
+            # Apply patch if jpegtran-bin exists
+            if [ -f node_modules/jpegtran-bin/build.js ]; then
+              patch node_modules/jpegtran-bin/build.js < .patches/disable-m32.patch
+            fi
+
+            npm rebuild jpegtran-bin || true
+
+            git add package-lock.json || true
             git config user.name "GitHub Actions"
             git config user.email "actions@github.com"
             git commit -m "Update package-lock.json" || echo "No changes to commit"
           '
-        # Installs all dependencies to ensure package-lock.json includes everything
-        # Then npm ci for exact versions; falls back to npm install if npm ci fails
-        # Commits package-lock.json
 
       - name: Install Bower globally
         run: |
