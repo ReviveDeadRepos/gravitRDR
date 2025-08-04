@@ -8,11 +8,11 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true  # Cancels older runs to free the queue
+  cancel-in-progress: true  # Cancels all older/queued runs
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-latest  # macOS 14 for runner availability
 
     steps:
       - name: Checkout code
@@ -20,20 +20,33 @@ jobs:
         with:
           persist-credentials: true  # Allow committing package-lock.json
 
+      - name: Check runner status
+        run: |
+          echo "Checking runner status..."
+          sysctl -n machdep.cpu.brand_string
+          sw_vers
+          xcodebuild -version
+          brew --version
+        # Diagnostic to confirm macOS version and Homebrew
+
+      - name: Install Homebrew dependencies
+        run: |
+          arch -x86_64 /bin/bash -c '
+            brew update
+            brew install nasm
+            brew install libtool
+            brew install gettext
+            nasm --version
+            glibtool --version
+            brew list gettext
+          '
+        # Installs nasm, libtool, and gettext for libintl.8.dylib
+
       - name: Setup Python 3.7 for node-gyp
         uses: actions/setup-python@v5
         with:
           python-version: '3.7'
           architecture: 'x64'
-
-      - name: Install nasm and libtool
-        run: |
-          arch -x86_64 /bin/bash -c '
-            brew install nasm
-            brew install libtool
-            nasm --version
-            glibtool --version
-          '
 
       - name: Setup Node 10.x and npm 6 using nvm (Rosetta x86_64)
         run: |
