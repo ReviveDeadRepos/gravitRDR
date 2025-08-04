@@ -60,7 +60,7 @@ jobs:
             git commit -m "Update package-lock.json" || echo "No changes to commit"
           '
         # Installs all dependencies to ensure package-lock.json includes everything
-        # npm ci for exact versions; falls back to npm install if npm ci fails
+        # npm ci for exact versions; falls back to npm install if npm ci fails 
 
       - name: Install Bower globally
         run: |
