@@ -28,7 +28,7 @@
         "grunt-concurrent": "0.3.0",
         "grunt-text-replace": "0.3.12",
         "grunt-nw-builder": "3.0.0",
-        "load-grunt-tasks": "0.1.0",
+        "load-grunt-tasks": "5.1.0",
         "time-grunt": "0.1.1",
         "appdmg": "0.2.0"
     }
