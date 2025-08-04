@@ -43,9 +43,8 @@ jobs:
 
       - name: Patch jpegtran-bin build script to remove -m32 (32-bit macOS not supported)
         run: |
-          arch -x86_64 /bin/bash -c '
-            mkdir -p .patches
-            cat > .patches/disable-m32.patch <<'"'"'EOF'"'"'
+          mkdir -p .patches
+          cat > .patches/disable-m32.patch <<EOF
 --- a/build.js
 +++ b/build.js
 @@ -76,7 +76,7 @@
@@ -55,7 +54,7 @@ jobs:
      "make install prefix=" + this.tmpDir + " bindir=" + this.dest() + " bin_PROGRAMS=jpegtran"
    ]);
 EOF
-          '
+
 
 
       - name: Install npm dependencies and apply jpegtran-bin patch
