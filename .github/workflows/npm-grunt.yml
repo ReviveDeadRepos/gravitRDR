@@ -8,37 +8,28 @@ on:
 
 jobs:
   build:
-    runs-on: macos-13  # macOS 13 to support x86_64 Rosetta
+    runs-on: macos-13
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          persist-credentials: true  # Allow committing package-lock.json
+          persist-credentials: true
 
       - name: Setup Python 3.7 for node-gyp
         uses: actions/setup-python@v5
         with:
-          python-version: '3.7'  # Compatible with node-gyp v5.1.1
+          python-version: '3.7'
           architecture: 'x64'
 
-      # - name: Install nasm for jpegtran-bin
-      #   run: |
-      #     arch -x86_64 /bin/bash -c '
-      #       brew install nasm
-      #       nasm --version
-      #       brew install jpeg-turbo
-      #     '
-      #   # Installs nasm to allow jpegtran-bin@0.1.7 to compile libjpeg-turbo
-
-      - name: Setup Node 10.x and npm 6 using nvm (Rosetta x86_64)
+      - name: Setup Node 12.x and npm 6 using nvm (Rosetta x86_64)
         run: |
           arch -x86_64 /bin/bash -c '
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
-            nvm install 10
-            nvm use 10
+            nvm install 12
+            nvm use 12
             npm install -g npm@6
             echo "node version: $(node -v)"
             echo "npm version: $(npm -v)"
@@ -50,7 +41,7 @@ jobs:
           arch -x86_64 /bin/bash -c '
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
-            nvm use 10
+            nvm use 12
             npm install --legacy-peer-deps
             git add package-lock.json
             git config user.name "GitHub Actions"
@@ -58,15 +49,13 @@ jobs:
             git commit -m "Update package-lock.json" || echo "No changes to commit"
             git push origin HEAD:master || echo "No changes to push"
           '
-        # Installs all dependencies to ensure package-lock.json includes everything
-        # Commits package-lock.json
 
       - name: Install Bower globally
         run: |
           arch -x86_64 /bin/bash -c '
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
-            nvm use 10
+            nvm use 12
             npm install -g bower
           '
 
@@ -75,15 +64,16 @@ jobs:
           arch -x86_64 /bin/bash -c '
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
-            nvm use 10
+            nvm use 12
             bower install --allow-root
           '
+
       - name: Install grunt-cli globally
         run: |
           arch -x86_64 /bin/bash -c '
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
-            nvm use 10
+            nvm use 12
             npm install -g grunt-cli@1.4.3
           '
 
@@ -100,7 +90,7 @@ jobs:
           arch -x86_64 /bin/bash -c '
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
-            nvm use 10
-            grep -rnw node_modules/ -e '_.unique'
+            nvm use 12
+            grep -rnw node_modules/ -e '_.unique' || echo "No _.unique references found"
             npx grunt build
           '
