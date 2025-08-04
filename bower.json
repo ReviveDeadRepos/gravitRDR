@@ -12,7 +12,7 @@
     "color-thief": "2.3.0",
     "uri.js": "1.19.7",
     "Blob.js": "git://github.com/eligrey/Blob.js.git#0.3.0",
-    "canvas-toBlob.js": "git://github.com/eligrey/canvas-toBlob.js.git#1.0.0"
+    "canvas-toBlob.js": "git://github.com/eligrey/canvas-toBlob.js.git"
   },
   "devDependencies": {},
   "private": true
