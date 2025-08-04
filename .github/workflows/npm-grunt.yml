@@ -14,13 +14,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          persist-credentials: true  # Allow committing package-lock.json
 
       - name: Setup Python 3.7 for node-gyp
         uses: actions/setup-python@v5
         with:
-          python-version: '3.7'
+          python-version: '3.7'  # Compatible with node-gyp v5.1.1
           architecture: 'x64'
+
+      - name: Install nasm for jpegtran-bin
+        run: |
+          arch -x86_64 /bin/bash -c '
+            brew install nasm
+            nasm --version
+          '
+        # Installs nasm to allow jpegtran-bin@0.1.7 to compile libjpeg-turbo
 
       - name: Setup Node 10.x and npm 6 using nvm (Rosetta x86_64)
         run: |
@@ -49,6 +57,9 @@ jobs:
             git config user.email "actions@github.com"
             git commit -m "Update package-lock.json" || echo "No changes to commit"
           '
+        # Installs all dependencies to ensure package-lock.json includes everything
+        # Then npm ci for exact versions; falls back to npm install if npm ci fails
+        # Commits package-lock.json
 
       - name: Install Bower globally
         run: |
