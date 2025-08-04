@@ -101,5 +101,6 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
             nvm use 10
+            grep -rnw node_modules/ -e '_.unique'
             npx grunt build
           '
