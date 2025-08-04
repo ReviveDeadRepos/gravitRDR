@@ -86,7 +86,7 @@ jobs:
             npm install -g grunt-cli
 
             # Install dev dependencies locally
-            npm install autoprefixer grunt-contrib-imagemin grunt-node-webkit-builder@1.0.10 --save-dev --legacy-peer-deps
+            npm install autoprefixer grunt-contrib-imagemin grunt-node-webkit-builder@0.2.0 --save-dev --legacy-peer-deps
           '
 
       - name: Install Ruby & Compass
