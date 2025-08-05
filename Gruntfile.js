@@ -114,8 +114,13 @@ module.exports = function (grunt) {
                 }
             }
         },
-        uglify: {
+        terser: {
             build: {
+                options: {
+                    ecma: 2015,
+                    compress: true,
+                    mangle: true
+                },
                 files: {
                     '<%= cfg.build %>/browser/gravitrdr-shell.js': ['<%= cfg.build %>/browser/gravitrdr-shell.js'],
                     '<%= cfg.build %>/chrome/gravitrdr-shell.js': ['<%= cfg.build %>/chrome/gravitrdr-shell.js'],
@@ -323,19 +328,17 @@ module.exports = function (grunt) {
             },
             html: ['<%= cfg.build %>/source/{,*/}*.html'],
             css: ['<%= cfg.build %>/source/{,*/}*.css']
-        },
-        nodewebkit: {
-            options: {
-                version: '0.10.1',
-                platforms: ['win', 'osx', 'linux64'],
-                cacheDir: './node-webkit',
-                buildDir: '<%= cfg.build %>/system-binaries',
-                macIcns: 'shell/system/appicon.icns',
-                macZip: false,
-                winIco: 'shell/system/appicon.ico'
-            },
-            src: '<%= cfg.build %>/system/**/*'
         }
+    });
+
+    grunt.registerTask('nwjs', 'Custom NW.js build', function () {
+        const done = this.async();
+        grunt.log.writeln('Running NW.js build manually...');
+        require('child_process').exec('node build-nw.mjs', function (err, stdout, stderr) {
+            if (stdout) grunt.log.writeln(stdout);
+            if (stderr) grunt.log.error(stderr);
+            done(err);
+        });
     });
 
     // Private tasks
@@ -454,12 +457,12 @@ module.exports = function (grunt) {
             'compass:build',
             'concat',
             'cssmin',
-            'uglify',
+            'terser',
             'usemin',
             'copy:preBuild',
             'copy:build',
             'replace:build',
-            'nodewebkit',
+            'nwjs',
             'copy:postBuild'
         ]);
     });
