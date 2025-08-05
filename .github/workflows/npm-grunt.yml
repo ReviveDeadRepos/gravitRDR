@@ -82,7 +82,7 @@ jobs:
           arch -x86_64 /bin/bash -c '
             brew install ruby
             gem install compass
-            compass versionb
+            compass version
           '
 
       - name: Run Grunt
