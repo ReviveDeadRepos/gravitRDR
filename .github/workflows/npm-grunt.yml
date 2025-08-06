@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-13  # Intel-based (x86_64) I think
+    runs-on: macos-13
 
     steps:
       - name: Checkout code
@@ -50,15 +50,10 @@ jobs:
           gem install compass
           compass version
 
-
-      - name: Patch Compass for Ruby >= 3.2
+      - name: Patch Compass
         run: |
           export GEM_PATH="/usr/local/lib/ruby/gems/3.2.0"
-          COMPASS_PATH=$(find "$GEM_PATH" -path "*compass-1.0.3/lib/compass/commands/project_base.rb")
-          if [[ -f "$COMPASS_PATH" ]]; then
-            sed -i '' 's/File\.exists?/File.exist?/g' "$COMPASS_PATH"
-          fi
-
+          find "$GEM_PATH" -type f -name "*.rb" -exec sed -i '' 's/File\.exists?/File.exist?/g' {} +
 
       - name: Run Grunt build
         run: |
