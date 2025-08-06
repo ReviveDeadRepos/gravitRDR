@@ -35,16 +35,27 @@ jobs:
         run: |
           npm install -g grunt-cli@1.4.3
 
-      - name: Install Ruby & Compass
+      - name: Install Ruby 3.2 & Compass
         run: |
           brew unlink ruby || true
           brew install ruby@3.2
-          echo 'export PATH="/opt/homebrew/opt/ruby@3.2/bin:$PATH"' >> ~/.zprofile
-          source ~/.zprofile
+
+          # Add Ruby 3.2 to path (Homebrew Intel/macOS path)
+          echo 'export PATH="/usr/local/opt/ruby@3.2/bin:$PATH"' >> ~/.bash_profile
+          echo 'export GEM_HOME="/usr/local/lib/ruby/gems/3.2.0"' >> ~/.bash_profile
+          echo 'export GEM_PATH="/usr/local/lib/ruby/gems/3.2.0"' >> ~/.bash_profile
+          echo 'export PATH="$GEM_HOME/bin:$PATH"' >> ~/.bash_profile
+          source ~/.bash_profile
+
           gem install compass
           compass version
 
+
       - name: Run Grunt build
         run: |
-          grep -rnw node_modules/ -e "_.unique" || echo "No _.unique references found"
+          export PATH="/usr/local/opt/ruby@3.2/bin:$PATH"
+          export GEM_HOME="/usr/local/lib/ruby/gems/3.2.0"
+          export GEM_PATH="/usr/local/lib/ruby/gems/3.2.0"
+          export PATH="$GEM_HOME/bin:$PATH"
+          
           npx grunt build
