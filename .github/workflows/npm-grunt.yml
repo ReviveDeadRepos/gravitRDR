@@ -63,3 +63,23 @@ jobs:
           export PATH="$GEM_HOME/bin:$PATH"
           
           npx grunt build
+      
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gravitRDR-osx
+          path: build/system-binaries/GravitRDR/osx
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gravitRDR-win
+          path: build/system-binaries/GravitRDR/win
+
+      - name: Upload Linux artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gravitRDR-linux
+          path: build/system-binaries/GravitRDR/linux
+
+      
