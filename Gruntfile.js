@@ -70,7 +70,8 @@ module.exports = function (grunt) {
         clean: {
             dev: '<%= cfg.tmp %>',
             build: '<%= cfg.build %>',
-            dist: '<%= cfg.dist %>'
+            dist: '<%= cfg.dist %>',
+            concat: ['<%= cfg.build %>/source/concat']
         },
         mocha: {
             all: {
@@ -116,16 +117,21 @@ module.exports = function (grunt) {
         },
         terser: {
             build: {
-                options: {
-                    ecma: 2015,
-                    compress: true,
-                    mangle: true
-                },
+                options: { compress: true, mangle: true },
                 files: {
                     '<%= cfg.build %>/browser/gravitrdr-shell.js': ['<%= cfg.build %>/browser/gravitrdr-shell.js'],
                     '<%= cfg.build %>/chrome/gravitrdr-shell.js': ['<%= cfg.build %>/chrome/gravitrdr-shell.js'],
                     '<%= cfg.build %>/system/gravitrdr-shell.js': ['<%= cfg.build %>/system/gravitrdr-shell.js']
                 }
+            },
+            generated: { // Added to process useminPrepare files
+                options: { compress: true, mangle: true },
+                files: [
+                    { dest: 'build/source/infinity-libraries.js', src: ['build/source/concat/infinity-libraries.js'] },
+                    { dest: 'build/source/infinity-core.js', src: ['build/source/concat/infinity-core.js'] },
+                    { dest: 'build/source/infinity-editor.js', src: ['build/source/concat/infinity-editor.js'] },
+                    { dest: 'build/source/gravitrdr.js', src: ['build/source/concat/gravitrdr.js'] }
+                ]
             }
         },
         copy: {
@@ -318,7 +324,8 @@ module.exports = function (grunt) {
         },
         useminPrepare: {
             options: {
-                dest: '<%= cfg.build %>/source'
+                dest: '<%= cfg.build %>/source',
+                staging: '<%= cfg.build %>/source'
             },
             html: 'src/index.html'
         },
@@ -440,16 +447,6 @@ module.exports = function (grunt) {
         ]);
     });
 
-
-    // New task for building browser version
-    grunt.registerTask('build-browser', function (target) {
-        grunt.task.run([
-            'clean:dev',
-            'compass:dev',
-            'copy:dev',
-        ]);
-    });
-
     grunt.registerTask('test', function (target) {
         grunt.task.run([
             'clean:dev',
@@ -468,6 +465,7 @@ module.exports = function (grunt) {
             'concat',
             'cssmin',
             'terser',
+            'clean:concat',
             'usemin',
             'copy:preBuild',
             'copy:build',

@@ -1,26 +1,4 @@
 import nwbuild from 'nw-builder';
-import fs from 'fs';
-import path from 'path';
-
-// Utility to recursively copy a directory
-function copyDir(src, dest) {
-  if (!fs.existsSync(src)) return;
-  if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
-  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
-    const srcPath = path.join(src, entry.name);
-    const destPath = path.join(dest, entry.name);
-    if (entry.isDirectory()) {
-      copyDir(srcPath, destPath);
-    } else {
-      fs.copyFileSync(srcPath, destPath);
-    }
-  }
-}
-
-// Copy Infinity core into build/system/infinity before packaging
-const infinitySrc = path.resolve('./build/infinity');
-const infinityDest = path.resolve('./build/system/infinity');
-copyDir(infinitySrc, infinityDest);
 
 const commonOptions = {
   version: '0.75.0',
