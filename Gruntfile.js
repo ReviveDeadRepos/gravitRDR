@@ -440,6 +440,16 @@ module.exports = function (grunt) {
         ]);
     });
 
+
+    // New task for building browser version
+    grunt.registerTask('build-browser', function (target) {
+        grunt.task.run([
+            'clean:dev',
+            'compass:dev',
+            'copy:dev',
+        ]);
+    });
+
     grunt.registerTask('test', function (target) {
         grunt.task.run([
             'clean:dev',
