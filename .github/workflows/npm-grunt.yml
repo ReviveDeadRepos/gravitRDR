@@ -37,9 +37,9 @@ jobs:
 
       - name: Install Ruby & Compass
         run: |
-          brew unlink ruby
-          brew install ruby@3.2
-          echo 'export PATH="/opt/homebrew/opt/ruby@3.2/bin:$PATH"' >> ~/.zprofile
+          brew unlink ruby || true
+          brew install ruby@2.6
+          echo 'export PATH="/opt/homebrew/opt/ruby@2.6/bin:$PATH"' >> ~/.zprofile
           source ~/.zprofile
           gem install compass
           compass version

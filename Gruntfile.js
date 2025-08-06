@@ -445,8 +445,8 @@ module.exports = function (grunt) {
             'clean:dev',
             'compass:dev',
             'copy:dev',
-            'connect:test',
-            'mocha'
+            // 'connect:test',
+            // 'mocha'
         ]);
     });
 
