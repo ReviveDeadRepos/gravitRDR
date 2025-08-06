@@ -8,89 +8,40 @@ on:
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-13  # Intel-based (x86_64) I think
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          persist-credentials: true
 
-      - name: Setup Python 3.7 for node-gyp
+      - name: Setup Python for node-gyp
         uses: actions/setup-python@v5
         with:
-          python-version: '3.7'
-          architecture: 'x64'
+          python-version: '3.11'
 
-      - name: Setup Node 18.x and npm 6 using nvm (Rosetta x86_64)
-        run: |
-          arch -x86_64 /bin/bash -c '
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            source "$NVM_DIR/nvm.sh"
-            nvm install 18
-            nvm use 18
-            npm install -g npm@6
-            echo "node version: $(node -v)"
-            echo "npm version: $(npm -v)"
-            echo "python version: $(python3 --version)"
-          '
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
 
-      - name: Install npm dependencies
+      - name: Install npm & Bower dependencies
         run: |
-          arch -x86_64 /bin/bash -c '
-            export NVM_DIR="$HOME/.nvm"
-            source "$NVM_DIR/nvm.sh"
-            nvm use 18
-            npm install --legacy-peer-deps
-            git add package-lock.json
-            git config user.name "GitHub Actions"
-            git config user.email "actions@github.com"
-            git commit -m "Update package-lock.json" || echo "No changes to commit"
-            git push origin HEAD:master || echo "No changes to push"
-          '
-
-      - name: Install Bower globally
-        run: |
-          arch -x86_64 /bin/bash -c '
-            export NVM_DIR="$HOME/.nvm"
-            source "$NVM_DIR/nvm.sh"
-            nvm use 18
-            npm install -g bower
-          '
-
-      - name: Install Bower dependencies
-        run: |
-          arch -x86_64 /bin/bash -c '
-            export NVM_DIR="$HOME/.nvm"
-            source "$NVM_DIR/nvm.sh"
-            nvm use 18
-            bower install --allow-root
-          '
+          npm install --legacy-peer-deps
+          npm install -g bower
+          bower install --allow-root
 
       - name: Install grunt-cli globally
         run: |
-          arch -x86_64 /bin/bash -c '
-            export NVM_DIR="$HOME/.nvm"
-            source "$NVM_DIR/nvm.sh"
-            nvm use 18
-            npm install -g grunt-cli@1.4.3
-          '
+          npm install -g grunt-cli@1.4.3
 
       - name: Install Ruby & Compass
         run: |
-          arch -x86_64 /bin/bash -c '
-            brew install ruby
-            gem install compass
-            compass version
-          '
+          brew install ruby
+          gem install compass
+          compass version
 
-      - name: Run Grunt
+      - name: Run Grunt build
         run: |
-          arch -x86_64 /bin/bash -c '
-            export NVM_DIR="$HOME/.nvm"
-            source "$NVM_DIR/nvm.sh"
-            nvm use 18
-            grep -rnw node_modules/ -e '_.unique' || echo "No _.unique references found"
-            npx grunt build
-          '
+          grep -rnw node_modules/ -e "_.unique" || echo "No _.unique references found"
+          npx grunt build
