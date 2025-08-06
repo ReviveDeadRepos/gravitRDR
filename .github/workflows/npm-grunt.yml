@@ -51,6 +51,15 @@ jobs:
           compass version
 
 
+      - name: Patch Compass for Ruby >= 3.2
+        run: |
+          export GEM_PATH="/usr/local/lib/ruby/gems/3.2.0"
+          COMPASS_PATH=$(find "$GEM_PATH" -path "*compass-1.0.3/lib/compass/commands/project_base.rb")
+          if [[ -f "$COMPASS_PATH" ]]; then
+            sed -i '' 's/File\.exists?/File.exist?/g' "$COMPASS_PATH"
+          fi
+
+
       - name: Run Grunt build
         run: |
           export PATH="/usr/local/opt/ruby@3.2/bin:$PATH"
