@@ -140,7 +140,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'bower_components/font-awesome/fonts',
+                        cwd: 'node_modules/font-awesome/fonts',
                         dest: '<%= cfg.tmp %>/font/',
                         src: '{,*/}*.*'
                     }
@@ -152,7 +152,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'bower_components/font-awesome/fonts',
+                        cwd: 'node_modules/font-awesome/fonts',
                         dest: '<%= cfg.build %>/source/font/',
                         src: '{,*/}*.*'
                     },
@@ -175,7 +175,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'bower_components/jquery/dist/',
+                        cwd: 'node_modules/jquery/dist/',
                         dest: '<%= cfg.build %>/chrome/',
                         src: 'jquery.min.js'
                     },
@@ -184,7 +184,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'bower_components/jquery/dist/',
+                        cwd: 'node_modules/jquery/dist/',
                         dest: '<%= cfg.build %>/system/',
                         src: 'jquery.min.js'
                     }
