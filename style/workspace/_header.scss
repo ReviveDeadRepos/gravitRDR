@@ -1,0 +1,12 @@
+@import '../variables';
+
+#header {
+  position: absolute;
+  width: 100%;
+  background: $frameColor;
+
+  > * {
+    height: 2em !important;
+    padding: 2px 0px;
+  }
+}
