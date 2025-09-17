@@ -9,8 +9,7 @@ We encourage everyone to get involved with this project. You can develop new fea
 ## Prerequisites
 
 * NodeJS + NPM  
-* Grunt Client  
-* Bower  
+* Grunt Client   
 * SASS + Compass  
 
 ## Quick Start
@@ -18,7 +17,6 @@ We encourage everyone to get involved with this project. You can develop new fea
 Install all prerequisites and ensure they are available on your PATH.
 
 Then run `npm install` to install all Node.js dependencies.  
-Then run `bower install` to install all client JavaScript libraries.
 
 Finally, run `grunt`. You can then open GravitRDR in your web browser at http://127.0.0.1:8999/.
 

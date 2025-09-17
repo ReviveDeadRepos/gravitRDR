@@ -25,11 +25,9 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Install npm & Bower dependencies
+      - name: Install npm dependencies
         run: |
           npm install --legacy-peer-deps
-          npm install -g bower
-          bower install --allow-root
 
       - name: Install grunt-cli globally
         run: npm install -g grunt-cli@1.4.3
