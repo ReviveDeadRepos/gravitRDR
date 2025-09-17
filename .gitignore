@@ -1,9 +1,0 @@
-.idea
-.tmp
-.sass-cache
-node_modules
-node-webkit
-bower_components
-build
-dist
-tmp
