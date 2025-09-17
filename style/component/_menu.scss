@@ -98,7 +98,7 @@
 
 /** Add tail arrow indicator to right and spacing if sub-menu and not root */
 .g-menu:not(.g-menu-root) > .g-menu-item-menu > span.g-menu-item-tail:before {
-  content:$fa-var-caret-right;
+  content:$var-caret-right;
 }
 
 /** Icon needs fixed width */
@@ -164,7 +164,7 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content:$fa-var-check;
+  content:$var-check;
 }
 
 /** Adjustments for menu bar */

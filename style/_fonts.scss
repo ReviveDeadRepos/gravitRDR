@@ -1,4 +1,6 @@
 // FontAwesome import
 $fa-font-path: 'font';
+@import '../node_modules/@fortawesome/fontawesome-free/scss/variables';
+@import '../node_modules/@fortawesome/fontawesome-free/scss/icons';
 @import '../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '../node_modules/@fortawesome/fontawesome-free/scss/solid.scss';

@@ -373,16 +373,6 @@ module.exports = function (grunt) {
             },
             html: ['<%= cfg.build %>/source/{,*/}*.html'],
             css: ['<%= cfg.build %>/source/{,*/}*.css']
-        },
-        postcss: {
-            options: {
-                processors: [
-                    require('postcss-import')()
-                ]
-            },
-            build: {
-                src: '<%= cfg.build %>/source/*.css'
-            }
         }
     });
 
@@ -510,7 +500,6 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:build',
             'sass:build',
-            'postcss:build',
             'autoprefixer:build',
             'copy:processedCSS',
             'useminPrepare',

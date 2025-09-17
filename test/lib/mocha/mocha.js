@@ -2180,10 +2180,10 @@ exports = module.exports = HTMLCov;
  */
 
 function HTMLCov(runner) {
-  var jade = require('jade')
-    , file = __dirname + '/templates/coverage.jade'
+  var pug = require('pug')
+    , file = __dirname + '/templates/coverage.pug'
     , str = fs.readFileSync(file, 'utf8')
-    , fn = jade.compile(str, { filename: file })
+    , fn = pug.compile(str, { filename: file })
     , self = this;
 
   JSONCov.call(this, runner, false);
