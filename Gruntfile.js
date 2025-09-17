@@ -229,6 +229,16 @@ module.exports = function (grunt) {
                     }
                 ]
             },
+            processedCSS: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= cfg.build %>/source/',
+                        dest: '<%= cfg.tmp %>/',
+                        src: ['*.css']
+                    }
+                ]
+            },
             build: {
                 files: [
                     // Browser
@@ -249,6 +259,12 @@ module.exports = function (grunt) {
                         cwd: 'shell/browser/',
                         dest: '<%= cfg.build %>/browser/',
                         src: ['index.html']
+                    },
+                    {
+                        expand: true,
+                        cwd: 'node_modules/jquery/dist/',
+                        dest: '<%= cfg.build %>/browser/',
+                        src: ['jquery.min.js']
                     },
 
                     // Infinity
@@ -357,6 +373,16 @@ module.exports = function (grunt) {
             },
             html: ['<%= cfg.build %>/source/{,*/}*.html'],
             css: ['<%= cfg.build %>/source/{,*/}*.css']
+        },
+        postcss: {
+            options: {
+                processors: [
+                    require('postcss-import')()
+                ]
+            },
+            build: {
+                src: '<%= cfg.build %>/source/*.css'
+            }
         }
     });
 
@@ -483,9 +509,11 @@ module.exports = function (grunt) {
     grunt.registerTask('build', function (target) {
         grunt.task.run([
             'clean:build',
-            'useminPrepare',
             'sass:build',
+            'postcss:build',
             'autoprefixer:build',
+            'copy:processedCSS',
+            'useminPrepare',
             'concat',
             'cssmin',
             'terser',
