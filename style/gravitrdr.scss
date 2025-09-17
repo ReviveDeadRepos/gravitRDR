@@ -1,6 +1,5 @@
-@import "compass/css3/user-interface";
-@import "compass/css3/box-sizing";
-@import "compass/reset";
+@import 'modern-normalize/modern-normalize.css';
+@import 'mixins';
 
 @import 'fonts';
 @import 'base';

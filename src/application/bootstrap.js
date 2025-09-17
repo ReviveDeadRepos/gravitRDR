@@ -146,7 +146,7 @@ $(document).ready(function () {
     ifFont.addType('Source Code Pro', IFFont.Style.Normal, IFFont.Weight.Heavy, 'font/SourceCodePro-Black.ttf');
 
     // FontAwesome
-    ifFont.addType('FontAwesome', IFFont.Style.Normal, IFFont.Weight.Regular, gShell.isDevelopment() ? '../node_modules/font-awesome/fonts/FontAwesome-webfont.ttf' : 'font/FontAwesome-webfont.ttf', IFFont.Category.Iconic);
+    ifFont.addType('FontAwesome', IFFont.Style.Normal, IFFont.Weight.Regular, gShell.isDevelopment() ? '../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf' : 'font/fa-solid-900.ttf', IFFont.Category.Iconic);
 });
 
 $(window).load(function () {

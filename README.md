@@ -10,7 +10,7 @@ We encourage everyone to get involved with this project. You can develop new fea
 
 * NodeJS + NPM  
 * Grunt Client   
-* SASS + Compass  
+* Sass
 
 ## Quick Start
 

@@ -22,9 +22,9 @@ module.exports = function (grunt) {
         pkg: pgk,
 
         watch: {
-            compass: {
+            sass: {
                 files: ['style/{,*/}*.{scss,sass}'],
-                tasks: ['compass']
+                tasks: ['sass:dev', 'autoprefixer:dev']
             },
             livereload: {
                 options: {
@@ -81,29 +81,51 @@ module.exports = function (grunt) {
                 }
             }
         },
-        compass: {
+        autoprefixer: {
             options: {
-                sassDir: 'style',
-                cssDir: '<%= cfg.tmp %>',
-                generatedImagesDir: '<%= cfg.tmp %>/image/generated',
-                imagesDir: 'assets/image/images',
-                javascriptsDir: 'src',
-                fontsDir: '<%= cfg.tmp %>/font',
-                httpImagesPath: '/image',
-                httpGeneratedImagesPath: '/image/generated',
-                httpFontsPath: '/font',
-                relativeAssets: false
+                browsers: ['last 2 versions', '> 1%', 'ie >= 11']
+            },
+            dev: {
+                src: '<%= cfg.tmp %>/*.css'
+            },
+            build: {
+                src: '<%= cfg.build %>/source/*.css'
+            }
+        },
+        sass: {
+            options: {
+                implementation: require('sass'),
+                sourceMap: true,
+                loadPaths: [
+                    'node_modules',
+                    'style'
+                ]
             },
             dev: {
                 options: {
-                    debugInfo: true
-                }
+                    style: 'expanded',
+                    sourceMap: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'style',
+                    src: ['*.scss'],
+                    dest: '<%= cfg.tmp %>',
+                    ext: '.css'
+                }]
             },
             build: {
                 options: {
-                    debugInfo: false,
-                    generatedImagesDir: '<%= cfg.build %>/source/image/generated'
-                }
+                    style: 'compressed',
+                    sourceMap: false
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'style',
+                    src: ['*.scss'],
+                    dest: '<%= cfg.build %>/source',
+                    ext: '.css'
+                }]
             }
         },
         concat: {
@@ -140,7 +162,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'node_modules/font-awesome/fonts',
+                        cwd: 'node_modules/@fortawesome/fontawesome-free/webfonts',
                         dest: '<%= cfg.tmp %>/font/',
                         src: '{,*/}*.*'
                     }
@@ -152,7 +174,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
-                        cwd: 'node_modules/font-awesome/fonts',
+                        cwd: 'node_modules/@fortawesome/fontawesome-free/webfonts',
                         dest: '<%= cfg.build %>/source/font/',
                         src: '{,*/}*.*'
                     },
@@ -440,7 +462,8 @@ module.exports = function (grunt) {
     grunt.registerTask('dev', function (target) {
         grunt.task.run([
             'clean:dev',
-            'compass:dev',
+            'sass:dev',
+            'autoprefixer:dev',
             'copy:dev',
             'connect:livereload',
             'watch'
@@ -450,7 +473,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', function (target) {
         grunt.task.run([
             'clean:dev',
-            'compass:dev',
+            'sass:dev',
             'copy:dev',
             // 'connect:test',
             // 'mocha'
@@ -461,7 +484,8 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:build',
             'useminPrepare',
-            'compass:build',
+            'sass:build',
+            'autoprefixer:build',
             'concat',
             'cssmin',
             'terser',

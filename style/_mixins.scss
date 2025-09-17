@@ -1,0 +1,18 @@
+// Box sizing mixin (replacement for compass/css3/box-sizing)
+@mixin box-sizing($type: border-box) {
+  box-sizing: $type;
+}
+
+// User interface mixins (replacement for compass/css3/user-interface)
+@mixin user-select($value) {
+  -webkit-user-select: $value;
+  -moz-user-select: $value;
+  -ms-user-select: $value;
+  user-select: $value;
+}
+
+@mixin appearance($value) {
+  -webkit-appearance: $value;
+  -moz-appearance: $value;
+  appearance: $value;
+}
