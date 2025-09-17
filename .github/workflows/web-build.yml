@@ -1,0 +1,67 @@
+name: Build & Deploy GravitRDR to GitHub Pages
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  build-and-deploy:
+    runs-on: macos-13
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python for node-gyp
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install npm & Bower dependencies
+        run: |
+          npm install --legacy-peer-deps
+          npm install -g bower
+          bower install --allow-root
+
+      - name: Install grunt-cli globally
+        run: npm install -g grunt-cli@1.4.3
+
+      - name: Install Ruby 3.2 & Compass
+        run: |
+          brew unlink ruby || true
+          brew install ruby@3.2
+          echo 'export PATH="/usr/local/opt/ruby@3.2/bin:$PATH"' >> ~/.bash_profile
+          echo 'export GEM_HOME="/usr/local/lib/ruby/gems/3.2.0"' >> ~/.bash_profile
+          echo 'export GEM_PATH="/usr/local/lib/ruby/gems/3.2.0"' >> ~/.bash_profile
+          echo 'export PATH="$GEM_HOME/bin:$PATH"' >> ~/.bash_profile
+          source ~/.bash_profile
+          gem install compass
+          compass version
+
+      - name: Patch Compass
+        run: |
+          export GEM_PATH="/usr/local/lib/ruby/gems/3.2.0"
+          find "$GEM_PATH" -type f -name "*.rb" -exec sed -i '' 's/File\.exists?/File.exist?/g' {} +
+
+      - name: Run Grunt dist
+        run: |
+          export PATH="/usr/local/opt/ruby@3.2/bin:$PATH"
+          export GEM_HOME="/usr/local/lib/ruby/gems/3.2.0"
+          export GEM_PATH="/usr/local/lib/ruby/gems/3.2.0"
+          export PATH="$GEM_HOME/bin:$PATH"
+          npx grunt dist
+
+      - name: Deploy browser build to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/browser
+          publish_branch: gh-pages
