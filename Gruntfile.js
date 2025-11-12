@@ -1,4 +1,8 @@
 var exec = require('child_process').exec;
+const execSync = require('child_process').execSync;
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
 
 // Lodash patch attempt
 const _ = require('lodash');
@@ -16,6 +20,78 @@ module.exports = function (grunt) {
         macBundleId: 'com.revivedeadrepos.gravitrdr',
         macSignIdentity: '1269B5CE3B0DCC676DA70011A618EB6FA95F8F50'
     };
+
+    grunt.registerTask('ensure-ttf', 'Generate fa-solid-900.ttf from FontAwesome webfonts if missing', function () {
+        try {
+            var done = this.async();
+            var webfontsDir = path.join('node_modules', '@fortawesome', 'fontawesome-free', 'webfonts');
+            var base = 'fa-solid-900';
+            var ttfIn = path.join(webfontsDir, base + '.ttf');
+            var woff2In = path.join(webfontsDir, base + '.woff2');
+
+            // Targets to place the TTF (dev and build)
+            var targets = [
+                path.join(cfg.build, 'source', 'font'),
+                path.join(cfg.tmp, 'font')
+            ];
+
+            // Ensure target directories exist
+            targets.forEach(function (t) {
+                try { fs.mkdirSync(t, { recursive: true }); } catch (e) { /* ignore */ }
+            });
+
+            // Helper to copy or move into each target
+            function copyToTargets(srcPath) {
+                targets.forEach(function (t) {
+                    var outPath = path.join(t, base + '.ttf');
+                    try {
+                        fs.copyFileSync(srcPath, outPath);
+                        grunt.log.writeln('FontAwesome TTF available at: ' + outPath);
+                    } catch (err) {
+                        grunt.log.warn('Failed to copy TTF to ' + outPath + ': ' + err);
+                    }
+                });
+            }
+
+            // If a .ttf exists in node_modules, copy it into targets
+            if (fs.existsSync(ttfIn)) {
+                grunt.log.writeln('Found existing FontAwesome .ttf in node_modules, copying to build/tmp font directories.');
+                copyToTargets(ttfIn);
+                return done();
+            }
+
+            // If a .woff2 exists, try to decompress it to a temporary ttf then copy to targets
+            if (fs.existsSync(woff2In)) {
+                grunt.log.writeln('Found FontAwesome .woff2 in node_modules, attempting to generate .ttf via npx woff2_decompress...');
+                var tmpOut = path.join(os.tmpdir(), base + '-' + Date.now() + '.ttf');
+                try {
+                    // Use npx to run woff2_decompress; this requires the woff2 CLI to be available (recommended: npm i -D woff2)
+                    execSync('npx woff2_decompress "' + woff2In + '" "' + tmpOut + '"', { stdio: 'inherit' });
+
+                    if (fs.existsSync(tmpOut)) {
+                        copyToTargets(tmpOut);
+                        try { fs.unlinkSync(tmpOut); } catch (e) { /* ignore cleanup errors */ }
+                        return done();
+                    } else {
+                        grunt.log.warn('woff2_decompress completed but temporary TTF not found: ' + tmpOut);
+                        return done();
+                    }
+                } catch (err) {
+                    grunt.log.warn('Failed to run woff2_decompress: ' + err);
+                    grunt.log.warn('You may need to install the woff2 CLI as a dev dependency: npm i -D woff2');
+                    return done();
+                }
+            }
+
+            // Nothing found
+            grunt.log.warn('FontAwesome fa-solid-900: no .ttf or .woff2 found in node_modules/@fortawesome/fontawesome-free/webfonts. Please ensure @fortawesome/fontawesome-free is installed or provide a .ttf.');
+            return done();
+        } catch (e) {
+            grunt.log.error('Error in ensure-ttf: ' + e);
+            // signal task completion even on errors
+            return;
+        }
+    });
 
     grunt.initConfig({
         cfg: cfg,
@@ -508,6 +584,7 @@ module.exports = function (grunt) {
             'terser',
             'clean:concat',
             'usemin',
+            'ensure-ttf',
             'copy:preBuild',
             'copy:build',
             'replace:build',
