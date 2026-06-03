@@ -1,6 +1,11 @@
-@import 'variables';
+@import "variables";
 
-button, .g-button, input, textArea, select, .g-input {
+button,
+.g-button,
+input,
+textArea,
+select,
+.g-input {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -19,10 +24,12 @@ button, .g-button, input, textArea, select, .g-input {
   }
 }
 
-button, .g-button {
+button,
+.g-button {
   border: 1px solid $frameDarkColor;
 
-  &, * {
+  &,
+  * {
     vertical-align: middle;
     text-align: center;
     color: $textColor;
@@ -33,10 +40,12 @@ button, .g-button {
     stroke: $textColor;
   }
 
-  &:active, &.g-active {
+  &:active,
+  &.g-active {
     background: $activeColor;
 
-    &, * {
+    &,
+    * {
       color: $activeTextColor;
     }
 
@@ -49,10 +58,12 @@ button, .g-button {
   &.g-flat {
     border: none;
 
-    &:active, &.g-active {
+    &:active,
+    &.g-active {
       background: transparent;
 
-      &, * {
+      &,
+      * {
         color: $selectedColor;
       }
 
@@ -64,7 +75,8 @@ button, .g-button {
   }
 
   &:disabled {
-    &, * {
+    &,
+    * {
       color: $disabledTextColor !important;
     }
 
@@ -79,7 +91,10 @@ button, .g-button {
   }
 }
 
-select, input, textArea, .g-input {
+select,
+input,
+textArea,
+.g-input {
   border: 1px solid $frameDarkColor;
   border-radius: 0px;
 
@@ -96,7 +111,7 @@ select, input, textArea, .g-input {
 
 select {
   text-indent: 0.01px;
-  text-overflow: '';
+  text-overflow: "";
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNCcgaGVpZ2h0PSc1Jz4NCjxwb2x5Z29uIHBvaW50cz0iMCwwIDEwLDAgNSw1IiBmaWxsPSJyZ2IoMTk5LCAxOTksIDE5OSkiLz4NCjwvc3ZnPg==");
   background-repeat: no-repeat;
   background-position: right center;
@@ -134,7 +149,8 @@ input[type="range"] {
   }
 }
 
-input[type=checkbox], input[type=radio] {
+input[type="checkbox"],
+input[type="radio"] {
   width: 1em;
   height: 1em;
   vertical-align: middle;
@@ -146,11 +162,10 @@ input[type=checkbox], input[type=radio] {
   }
 }
 
-input[type=radio] {
+input[type="radio"] {
   border-radius: 2em;
   bottom: 2px;
 }
-
 
 /** Switch */
 .g-switch {
@@ -162,7 +177,8 @@ input[type=radio] {
     margin-right: 3px;
   }
 
-  &, * {
+  &,
+  * {
     cursor: pointer;
   }
 

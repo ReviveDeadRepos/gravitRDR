@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 $pivotButtonSize: 6px;
 $pivotButtonSpace: 3px;
@@ -26,23 +26,33 @@ $pivotButtonSpace: 3px;
     background: white;
     top: 0px;
 
-    &[data-side="tl"], &[data-side="lc"], &[data-side="bl"] {
+    &[data-side="tl"],
+    &[data-side="lc"],
+    &[data-side="bl"] {
       left: 0px;
     }
 
-    &[data-side="tc"], &[data-side="cc"], &[data-side="bc"] {
+    &[data-side="tc"],
+    &[data-side="cc"],
+    &[data-side="bc"] {
       left: $pivotButtonSize + $pivotButtonSpace;
     }
 
-    &[data-side="tr"], &[data-side="rc"], &[data-side="br"] {
+    &[data-side="tr"],
+    &[data-side="rc"],
+    &[data-side="br"] {
       left: $pivotButtonSize * 2 + $pivotButtonSpace * 2;
     }
 
-    &[data-side="lc"], &[data-side="cc"], &[data-side="rc"] {
+    &[data-side="lc"],
+    &[data-side="cc"],
+    &[data-side="rc"] {
       top: $pivotButtonSize + $pivotButtonSpace;
     }
 
-    &[data-side="bl"], &[data-side="bc"], &[data-side="br"] {
+    &[data-side="bl"],
+    &[data-side="bc"],
+    &[data-side="br"] {
       top: $pivotButtonSize * 2 + $pivotButtonSpace * 2;
     }
 

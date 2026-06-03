@@ -8,15 +8,15 @@ We encourage everyone to get involved with this project. You can develop new fea
 
 ## Prerequisites
 
-* NodeJS + NPM  
-* Grunt Client   
-* Sass
+- NodeJS + NPM
+- Grunt Client
+- Sass
 
 ## Quick Start
 
 Install all prerequisites and ensure they are available on your PATH.
 
-Then run `npm install` to install all Node.js dependencies.  
+Then run `npm install` to install all Node.js dependencies.
 
 Finally, run `grunt`. You can then open GravitRDR in your web browser at http://127.0.0.1:8999/.
 
@@ -24,16 +24,16 @@ We recommend using Chrome, as it is also used for the standalone version.
 
 ## Quick Overview
 
-+ assets - contains all relevant assets like fonts, images, etc.  
-+ shell - contains platform-specific code for standalone version  
-+ src - contains all source code  
-  + application - contains the application framework  
-  + development - contains the development addon automatically loaded when developing  
-  + gravit - contains the core module loaded by the application and provides all UI of GravitRDR  
-  + infinity - contains the core rendering engine as well as core classes used elsewhere  
-  + infinity-editor - contains editors, tools, guides, and more based on infinity  
-+ style - contains all styling files for the application  
-+ test - contains all test files  
+- assets - contains all relevant assets like fonts, images, etc.
+- shell - contains platform-specific code for standalone version
+- src - contains all source code
+  - application - contains the application framework
+  - development - contains the development addon automatically loaded when developing
+  - gravit - contains the core module loaded by the application and provides all UI of GravitRDR
+  - infinity - contains the core rendering engine as well as core classes used elsewhere
+  - infinity-editor - contains editors, tools, guides, and more based on infinity
+- style - contains all styling files for the application
+- test - contains all test files
 
 ## Community
 

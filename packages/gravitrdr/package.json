@@ -1,0 +1,17 @@
+{
+  "name": "@gravitrdr/gravitrdr",
+  "version": "0.1.0",
+  "description": "GravitRDR addon",
+  "private": true,
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./*": "./*"
+  },
+  "dependencies": {
+    "@gravitrdr/infinity-core": "^0.1.0",
+    "@gravitrdr/infinity-editor": "^0.1.0",
+    "@gravitrdr/application": "^0.1.0"
+  }
+}

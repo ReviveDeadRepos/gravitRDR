@@ -1,4 +1,4 @@
-@import '../../variables';
+@import "../../variables";
 
 .palette-style {
   padding: 0px;
@@ -54,9 +54,10 @@
         }
 
         &.drop {
-            background: $dragColor;
-            &, * {
-              color: $dragTextColor;
+          background: $dragColor;
+          &,
+          * {
+            color: $dragTextColor;
           }
         }
 

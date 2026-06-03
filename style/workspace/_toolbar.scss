@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 #toolbar {
   @include box-sizing(border-box);
@@ -91,7 +91,8 @@
   &.g-hover {
     background: $activeColor;
 
-    &, * {
+    &,
+    * {
       color: $activeTextColor;
     }
 

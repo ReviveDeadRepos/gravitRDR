@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .g-panel {
   > .header {
@@ -29,16 +29,21 @@
       text-align: right;
       white-space: nowrap;
 
-      input, button, .g-button, select {
+      input,
+      button,
+      .g-button,
+      select {
         border: none;
         background: transparent !important;
         box-shadow: none;
         margin: 0px;
       }
 
-      button, .g-button {
+      button,
+      .g-button {
         &.g-active {
-          &, * {
+          &,
+          * {
             color: $selectedColor;
           }
         }

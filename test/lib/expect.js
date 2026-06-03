@@ -9,4 +9,3 @@ module.exports = function (chai, util) {
     return new chai.Assertion(val, message);
   };
 };
-

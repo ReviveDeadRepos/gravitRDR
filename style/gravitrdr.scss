@@ -1,38 +1,38 @@
-@import 'modern-normalize';
-@import 'mixins';
+@import "modern-normalize";
+@import "mixins";
 
-@import 'fonts';
-@import 'base';
-@import 'contenteditable';
-@import 'cursors';
-@import 'input';
+@import "fonts";
+@import "base";
+@import "contenteditable";
+@import "cursors";
+@import "input";
 
-@import 'component/form';
-@import 'component/menu';
-@import 'component/tree';
-@import 'component/overlay';
-@import 'component/panel';
-@import 'component/colorswatch';
-@import 'component/colorpanel';
-@import 'component/gradienteditor';
-@import 'component/pivot';
-@import 'component/stylepanel';
-@import 'component/swatchpanel';
+@import "component/form";
+@import "component/menu";
+@import "component/tree";
+@import "component/overlay";
+@import "component/panel";
+@import "component/colorswatch";
+@import "component/colorpanel";
+@import "component/gradienteditor";
+@import "component/pivot";
+@import "component/stylepanel";
+@import "component/swatchpanel";
 
-@import 'workspace/workspace';
-@import 'workspace/header';
-@import 'workspace/toolbar';
-@import 'workspace/panels';
-@import 'workspace/sidebars';
-@import 'workspace/windows';
-@import 'workspace/palettes';
+@import "workspace/workspace";
+@import "workspace/header";
+@import "workspace/toolbar";
+@import "workspace/panels";
+@import "workspace/sidebars";
+@import "workspace/windows";
+@import "workspace/palettes";
 
 // GravitRDR Module
 
-@import 'module/sidebar/pageslayerssidebar';
+@import "module/sidebar/pageslayerssidebar";
 
-@import 'module/palette/export';
-@import 'module/palette/style';
+@import "module/palette/export";
+@import "module/palette/style";
 
-@import 'module/panel/properties';
-@import 'module/panel/transform';
+@import "module/panel/properties";
+@import "module/panel/transform";

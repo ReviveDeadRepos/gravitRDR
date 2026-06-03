@@ -1,13 +1,16 @@
-@import '../variables';
+@import "../variables";
 
 /** Base styling for ul menu */
 .g-menu {
   margin: 0px;
   padding: 0px;
 
-  &, * {
+  &,
+  * {
     /** Make everything based on border-box model */
-    *, *:before, *:after {
+    *,
+    *:before,
+    *:after {
       @include box-sizing(border-box);
     }
   }
@@ -21,7 +24,7 @@
   background: $frameDarkColor;
   color: $textColor;
   padding: 4px 0px;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.50);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 /** Clear border-radius depending on direction */
@@ -50,7 +53,8 @@
   white-space: nowrap;
   vertical-align: middle;
 
-  &, * {
+  &,
+  * {
     font: $menuFont;
   }
 }
@@ -98,7 +102,7 @@
 
 /** Add tail arrow indicator to right and spacing if sub-menu and not root */
 .g-menu:not(.g-menu-root) > .g-menu-item-menu > span.g-menu-item-tail:before {
-  content:$var-caret-right;
+  content: $var-caret-right;
 }
 
 /** Icon needs fixed width */
@@ -158,13 +162,13 @@
 }
 
 .g-menu-item.g-menu-item-checked > span.g-menu-item-icon:before {
-  font-family:  FontAwesome !important;
+  font-family: FontAwesome !important;
   font-style: normal;
   font-weight: normal;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content:$var-check;
+  content: $var-check;
 }
 
 /** Adjustments for menu bar */

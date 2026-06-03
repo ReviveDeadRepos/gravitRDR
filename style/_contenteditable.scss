@@ -1,10 +1,11 @@
-[contenteditable='true'], .contenteditable {
-
+[contenteditable="true"],
+.contenteditable {
   &:focus {
     outline: rgba(0, 0, 0, 0) solid 1px;
   }
 
-  &, * {
+  &,
+  * {
     @include user-select(all);
     cursor: auto;
   }

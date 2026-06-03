@@ -1,0 +1,86 @@
+import { GAction } from "@gravitrdr/application";
+import { IFObject } from "@gravitrdr/infinity-core";
+import { IFLocale } from "@gravitrdr/infinity-core";
+import { GApplication } from "@gravitrdr/application";
+import { IFKey } from "@gravitrdr/infinity-core";
+
+/**
+ * Action for showing / hiding the rulers
+ * @class GShowRulersAction
+ * @extends GAction
+ * @constructor
+ */
+export function GShowRulersAction() {}
+IFObject.inherit(GShowRulersAction, GAction);
+
+GShowRulersAction.ID = "view.show-rulers";
+GShowRulersAction.TITLE = new IFLocale.Key(GShowRulersAction, "title");
+
+/**
+ * @override
+ */
+GShowRulersAction.prototype.getId = function () {
+  return GShowRulersAction.ID;
+};
+
+/**
+ * @override
+ */
+GShowRulersAction.prototype.getTitle = function () {
+  return GShowRulersAction.TITLE;
+};
+
+/**
+ * @override
+ */
+GShowRulersAction.prototype.getCategory = function () {
+  return GApplication.CATEGORY_VIEW;
+};
+
+/**
+ * @override
+ */
+GShowRulersAction.prototype.getGroup = function () {
+  return "show";
+};
+
+/**
+ * @override
+ */
+GShowRulersAction.prototype.getShortcut = function () {
+  return [IFKey.Constant.META, IFKey.Constant.OPTION, "R"];
+};
+
+/**
+ * @override
+ */
+GShowRulersAction.prototype.isEnabled = function () {
+  // TODO
+  return false;
+};
+
+/** @override */
+GShowRulersAction.prototype.isCheckable = function () {
+  return true;
+};
+
+/**
+ * @override
+ */
+GShowRulersAction.prototype.isChecked = function () {
+  // TODO
+  return false;
+};
+
+/**
+ * @override
+ */
+GShowRulersAction.prototype.execute = function () {
+  // TODO
+  return false;
+};
+
+/** @override */
+GShowRulersAction.prototype.toString = function () {
+  return "[Object GShowRulersAction]";
+};

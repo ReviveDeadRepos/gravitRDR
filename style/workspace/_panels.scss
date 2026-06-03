@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 #panels {
   @include box-sizing(border-box);
@@ -22,10 +22,12 @@
       text-transform: uppercase;
       border: none;
 
-      &:active, &.g-active {
+      &:active,
+      &.g-active {
         background: $frameColor;
 
-        &, * {
+        &,
+        * {
           color: $textColor;
         }
       }
