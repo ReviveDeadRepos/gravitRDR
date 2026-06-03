@@ -158,7 +158,7 @@
                         var raw = new Uint8Array(buffer);
                         var result = Module.decompress(raw);
                         if (result !== false) {
-                            finish(result.buffer);
+                            finish(Uint8Array.from(result).buffer);
                             return;
                         }
                     }
