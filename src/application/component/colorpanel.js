@@ -509,13 +509,11 @@
                                 var image = new Image();
                                 image.src = event.target.result;
                                 image.onload = function () {
-                                    var colorThief = new ColorThief();
-                                    var mainColor = cvColorThiefColor(colorThief.getColor(image));
-                                    _addPaletteColor(mainColor);
+                                    var mainColor = cvColorThiefColor(ColorThief.getColorSync(image).array());
 
-                                    var palette = colorThief.getPalette(image, 8);
+                                    var palette = ColorThief.getPaletteSync(image, { colorCount: 8 });
                                     for (var i = 0; i < palette.length; ++i) {
-                                        var convertedColor = cvColorThiefColor(palette[i]);
+                                        var convertedColor = cvColorThiefColor(palette[i].array());
 
                                         // Take care to avoid duplications with dominant color
                                         if (!IFColor.equals(convertedColor, mainColor)) {

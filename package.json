@@ -39,11 +39,10 @@
     "appdmg": "0.6.6"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "7.0.1",
+    "@fortawesome/fontawesome-free": "7.2.0",
     "blob.js": "1.0.1",
     "canvas-toBlob.js": "file:vendor/canvas-toBlob.js",
-    "color-thief": "^2.2.5",
-    "color-thief-node": "1.0.4",
+    "colorthief": "^3.3.1",
     "jqtree": "1.8.10",
     "jquery": "3.7.1",
     "lodash": "^4.17.21",
