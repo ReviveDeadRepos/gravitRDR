@@ -5,47 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-
-    <!-- build:css(tmp) gravitrdr.css -->
-    <link rel="stylesheet" href="gravitrdr.css">
-    <!-- endbuild -->
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script>
+
+<!-- CSS entry (triggers Vite to compile SCSS) -->
+<script type="module" src="entries/style.js"></script>
+
 <script src="../node_modules/jquery/dist/jquery.js"></script>
 
-<!-- ############################################################## -->
-<!-- # Infinity Libs ############################################## -->
-<!-- ############################################################## -->
-<!-- build:js infinity-libraries.js -->
 <script src="../node_modules/jqtree/tree.jquery.js"></script>
-
 <script src="../node_modules/mousetrap/mousetrap.js"></script>
-
 <script src="../node_modules/opentype.js/dist/opentype.js"></script>
-
 <script src="../node_modules/wawoff2/build/decompress_binding.js"></script>
-
 <script src="../node_modules/rangy/lib/rangy-core.js"></script>
 <script src="../node_modules/rangy/lib/rangy-classapplier.js"></script>
 <script src="../node_modules/rangy/lib/rangy-selectionsaverestore.js"></script>
-
 <script src="../node_modules/pako/dist/pako.js"></script>
-
 <script src="../node_modules/colorthief/dist/umd/color-thief.global.js"></script>
-
 <script src="../node_modules/urijs/src/URI.js"></script>
-
 <script src="../node_modules/blob.js/Blob.js"></script>
 
-<!-- endbuild -->
-
-<!-- ############################################################## -->
-<!-- # Infinity Core ############################################## -->
-<!-- ############################################################## -->
-<!-- build:js infinity-core.js -->
-<!-- Core -->
+<!-- Infinity Core -->
 <script src="infinity/core/object.js"></script>
 <script src="infinity/core/system.js"></script>
 <script src="infinity/core/cursor.js"></script>
@@ -53,18 +33,15 @@
 <script src="infinity/core/locale.js"></script>
 <script src="infinity/core/math.js"></script>
 <script src="infinity/core/util.js"></script>
-<!-- Event -->
 <script src="infinity/event/event.js"></script>
 <script src="infinity/event/eventtarget.js"></script>
 <script src="infinity/event/inputevent.js"></script>
 <script src="infinity/event/keyevent.js"></script>
 <script src="infinity/event/mouseevent.js"></script>
-<!-- Geometry -->
 <script src="infinity/geometry/length.js"></script>
 <script src="infinity/geometry/point.js"></script>
 <script src="infinity/geometry/rect.js"></script>
 <script src="infinity/geometry/transform.js"></script>
-<!-- Vertex -->
 <script src="infinity/vertex/vertex.js"></script>
 <script src="infinity/vertex/vertexsource.js"></script>
 <script src="infinity/vertex/vertextarget.js"></script>
@@ -73,7 +50,6 @@
 <script src="infinity/vertex/vertexpixelaligner.js"></script>
 <script src="infinity/vertex/vertextransformer.js"></script>
 <script src="infinity/vertex/vertexoffsetter.js"></script>
-<!-- Paint -->
 <script src="infinity/paint/pattern.js"></script>
 <script src="infinity/paint/annotation.js"></script>
 <script src="infinity/paint/bitmap.js"></script>
@@ -86,7 +62,6 @@
 <script src="infinity/paint/paintcanvas.js"></script>
 <script src="infinity/paint/paintconfiguration.js"></script>
 <script src="infinity/paint/paintcontext.js"></script>
-<!-- Scene -->
 <script src="infinity/scene/node.js"></script>
 <script src="infinity/scene/element.js"></script>
 <script src="infinity/scene/block.js"></script>
@@ -125,30 +100,21 @@
 <script src="infinity/scene/shape/ellipse.js"></script>
 <script src="infinity/scene/shape/path.js"></script>
 <script src="infinity/scene/shape/text.js"></script>
-<!-- View -->
 <script src="infinity/view/stage.js"></script>
 <script src="infinity/view/scenestage.js"></script>
 <script src="infinity/view/widget.js"></script>
 <script src="infinity/view/view.js"></script>
-<!-- Root -->
 <script src="infinity/platform.js"></script>
-<!-- I18N -->
 <script src="infinity/i18n/i18n_en.js"></script>
 <script src="infinity/i18n/i18n_de.js"></script>
-<!-- endbuild -->
 
-<!-- ############################################################## -->
-<!-- # Infinity-Editor ################################################### -->
-<!-- ############################################################## -->
-<!-- build:js infinity-editor.js -->
-<!-- Guide -->
+<!-- Infinity Editor -->
 <script src="infinity-editor/guide/guides.js"></script>
 <script src="infinity-editor/guide/guide.js"></script>
 <script src="infinity-editor/guide/gridguide.js"></script>
 <script src="infinity-editor/guide/unitguide.js"></script>
 <script src="infinity-editor/guide/pageguide.js"></script>
 <script src="infinity-editor/guide/shapeboxguide.js"></script>
-<!-- Editor -->
 <script src="infinity-editor/scene/transformbox.js"></script>
 <script src="infinity-editor/scene/elementeditor.js"></script>
 <script src="infinity-editor/scene/blockeditor.js"></script>
@@ -165,7 +131,6 @@
 <script src="infinity-editor/scene/structure/pageeditor.js"></script>
 <script src="infinity-editor/scene/structure/layereditor.js"></script>
 <script src="infinity-editor/scene/structure/sliceeditor.js"></script>
-<!-- Tool -->
 <script src="infinity-editor/tool/tool.js"></script>
 <script src="infinity-editor/tool/toolmanager.js"></script>
 <script src="infinity-editor/tool/selecttool.js"></script>
@@ -188,23 +153,17 @@
 <script src="infinity-editor/tool/pagetool.js"></script>
 <script src="infinity-editor/tool/transformtool.js"></script>
 <script src="infinity-editor/tool/slicetool.js"></script>
-<!-- View -->
 <script src="infinity-editor/view/editorbackstage.js"></script>
 <script src="infinity-editor/view/editorscenestage.js"></script>
 <script src="infinity-editor/view/editortoolstage.js"></script>
 <script src="infinity-editor/view/editorfrontstage.js"></script>
 <script src="infinity-editor/view/editorview.js"></script>
-<!-- Root -->
 <script src="infinity-editor/editor.js"></script>
 <script src="infinity-editor/editorpaintconfiguration.js"></script>
-<!-- I18N -->
 <script src="infinity-editor/i18n/i18n_en.js"></script>
 <script src="infinity-editor/i18n/i18n_de.js"></script>
-<!-- endbuild -->
 
-
-<!-- build:js gravitrdr.js -->
-<!-- Component -->
+<!-- Application / GravitRDR -->
 <script src="application/component/autoedit.js"></script>
 <script src="application/component/panel.js"></script>
 <script src="application/component/patterntarget.js"></script>
@@ -222,7 +181,6 @@
 <script src="application/component/menubar.js"></script>
 <script src="application/component/menuitem.js"></script>
 <script src="application/component/menubutton.js"></script>
-<!-- Extension -->
 <script src="application/extension/action.js"></script>
 <script src="application/extension/colormatcher.js"></script>
 <script src="application/extension/exporter.js"></script>
@@ -235,7 +193,6 @@
 <script src="application/extension/storage.js"></script>
 <script src="application/extension/styleentry.js"></script>
 <script src="application/extension/transformer.js"></script>
-<!-- Workspace -->
 <script src="application/workspace/header.js"></script>
 <script src="application/workspace/palettes.js"></script>
 <script src="application/workspace/panels.js"></script>
@@ -243,22 +200,17 @@
 <script src="application/workspace/toolbar.js"></script>
 <script src="application/workspace/window.js"></script>
 <script src="application/workspace/windows.js"></script>
-<!-- Util -->
 <script src="application/util/ciede2000.js"></script>
 <script src="application/util/image.js"></script>
 <script src="application/util/selectors.js"></script>
-<!-- Root -->
 <script src="application/shell.js"></script>
 <script src="application/application.js"></script>
 <script src="application/document.js"></script>
 <script src="application/bootstrap.js"></script>
-<!-- I18N -->
 <script src="application/i18n/i18n_en.js"></script>
 <script src="application/i18n/i18n_de.js"></script>
-<!-- ############# -->
-<!-- BEGIN: GRAVITRDR-AddOn -->
-<!-- ############# -->
-<!-- Action -->
+
+<!-- GravitRDR AddOn -->
 <script src="gravitrdr/action/addlayeraction.js"></script>
 <script src="gravitrdr/action/deletelayeraction.js"></script>
 <script src="gravitrdr/action/addpageaction.js"></script>
@@ -308,18 +260,13 @@
 <script src="gravitrdr/action/ungroupaction.js"></script>
 <script src="gravitrdr/action/zoominaction.js"></script>
 <script src="gravitrdr/action/zoomoutaction.js"></script>
-<!-- Colormatcher -->
 <script src="gravitrdr/colormatcher/analogousmatcher.js"></script>
 <script src="gravitrdr/colormatcher/complementarymatcher.js"></script>
-<!-- Exporter -->
 <script src="gravitrdr/exporter/imagexporter.js"></script>
-<!-- Palette -->
 <script src="gravitrdr/palette/exportpalette.js"></script>
 <script src="gravitrdr/palette/stylepalette.js"></script>
-<!-- Panel -->
 <script src="gravitrdr/panel/propertiespanel.js"></script>
 <script src="gravitrdr/panel/transformpanel.js"></script>
-<!-- Properties -->
 <script src="gravitrdr/properties/documentproperties.js"></script>
 <script src="gravitrdr/properties/polygonproperties.js"></script>
 <script src="gravitrdr/properties/pathproperties.js"></script>
@@ -330,10 +277,8 @@
 <script src="gravitrdr/properties/pageproperties.js"></script>
 <script src="gravitrdr/properties/textproperties.js"></script>
 <script src="gravitrdr/properties/sliceproperties.js"></script>
-<!-- Sidebar -->
 <script src="gravitrdr/sidebar/pageslayerssidebar.js"></script>
 <script src="gravitrdr/sidebar/stylesswatchessidebar.js"></script>
-<!-- Style-Entry -->
 <script src="gravitrdr/styleentry/patternpaintentry.js"></script>
 <script src="gravitrdr/styleentry/areapaintentry.js"></script>
 <script src="gravitrdr/styleentry/fillpaintentry.js"></script>
@@ -341,29 +286,19 @@
 <script src="gravitrdr/styleentry/blurfilterentry.js"></script>
 <script src="gravitrdr/styleentry/offsetveffectentry.js"></script>
 <script src="gravitrdr/styleentry/shadoweffectentry.js"></script>
-<!-- Transformer -->
 <script src="gravitrdr/transformer/aligntransformer.js"></script>
 <script src="gravitrdr/transformer/adjusttransformer.js"></script>
-<!-- I18N -->
 <script src="gravitrdr/i18n/i18n_en.js"></script>
 <script src="gravitrdr/i18n/i18n_de.js"></script>
-<!-- Root -->
 <script src="gravitrdr/gravitrdr.js"></script>
-<!-- ############# -->
-<!-- END: GRAVITRDR-MODULE -->
-<!-- ############# -->
-<!-- endbuild -->
 
 <!-- Development stuff -->
-
 <script src="development/bootstrap.js"></script>
-<!-- Tests -->
 <script src="development/test/clone_scene.js"></script>
 <script src="development/test/create_multiple_pages.js"></script>
 <script src="development/test/create_rect_grid_page.js"></script>
 <script src="development/test/serialize_scene.js"></script>
 <script src="development/test/deserialize_scene.js"></script>
-<!-- Root -->
 <script src="development/testaction.js"></script>
 <script src="development/development.js"></script>
 

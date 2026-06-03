@@ -6,7 +6,7 @@ const commonOptions = {
   cacheDir: './node-webkit/cache',
   zip: false,
   glob: false,
-  srcDir: './build/system'
+  srcDir: './dist/browser'
 };
 
 // macOS (icns)

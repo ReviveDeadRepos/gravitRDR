@@ -1,4 +1,4 @@
-name: Build GravitRDR
+name: Build GravitRDR (NW.js Binaries)
 
 on:
   push:
@@ -14,11 +14,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Python for node-gyp
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
       - name: Setup Node.js 18
         uses: actions/setup-node@v4
         with:
@@ -26,15 +21,10 @@ jobs:
           cache: 'npm'
 
       - name: Install npm dependencies
-        run: |
-          npm install --legacy-peer-deps
+        run: npm install --legacy-peer-deps
 
-      - name: Install grunt-cli globally
-        run: |
-          npm install -g grunt-cli@1.4.3
-
-      - name: Run Grunt build
-        run: npx grunt build
+      - name: Build NW.js binaries
+        run: npm run build:nw
       
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
