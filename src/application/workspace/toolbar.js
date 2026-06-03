@@ -120,8 +120,10 @@
                             .on('change', function () {
                                 var zoomLevel = ifUtil.parseNumber($(this).val());
                                 if (!isNaN(zoomLevel) && zoomLevel !== 0) {
-                                    var view = gApp.getWindows().getActiveWindow().getView();
-                                    var centerPoint = view.getViewTransform().mapPoint(new IFPoint(view.getWidth() / 2.0, view.getHeight() / 2.0));
+                                var win = gApp.getWindows().getActiveWindow();
+                                if (!win) return;
+                                var view = win.getView();
+                                var centerPoint = view.getViewTransform().mapPoint(new IFPoint(view.getWidth() / 2.0, view.getHeight() / 2.0));
                                     view.zoomAtCenter(centerPoint, zoomLevel);
                                 }
                             }))

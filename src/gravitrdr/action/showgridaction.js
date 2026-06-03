@@ -75,7 +75,9 @@
      * @override
      */
     GShowGridAction.prototype.execute = function () {
-        var view = gApp.getWindows().getActiveWindow().getView();
+        var window = gApp.getWindows().getActiveWindow();
+        if (!window) return;
+        var view = window.getView();
         view.getViewConfiguration().gridVisible = !view.getViewConfiguration().gridVisible;
         view.invalidate();
     };

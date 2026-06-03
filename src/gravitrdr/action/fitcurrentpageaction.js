@@ -63,8 +63,11 @@
      */
     GFitCurrentPageAction.prototype.execute = function () {
         var document = gApp.getActiveDocument();
+        if (!document) return;
         var currentPage = document.getScene().getActivePage();
-        document.getActiveWindow().getView().zoomAll(currentPage.getPaintBBox(), false);
+        var activeWindow = document.getActiveWindow();
+        if (!activeWindow) return;
+        activeWindow.getView().zoomAll(currentPage.getPaintBBox(), false);
     };
 
     /** @override */

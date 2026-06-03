@@ -62,7 +62,9 @@
      */
     GFitSelectionAction.prototype.execute = function () {
         var document = gApp.getActiveDocument();
-        var editor = document ? document.getEditor() : null;
+        if (!document) return;
+        var editor = document.getEditor();
+        if (!editor) return;
         var selection = editor.getSelection();
         var selBBox = null;
 
@@ -74,7 +76,9 @@
         }
 
         if (selBBox && !selBBox.isEmpty()) {
-            document.getActiveWindow().getView().zoomAll(selBBox, false);
+            var activeWindow = document.getActiveWindow();
+            if (!activeWindow) return;
+            activeWindow.getView().zoomAll(selBBox, false);
         }
     };
 

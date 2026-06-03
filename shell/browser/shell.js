@@ -114,7 +114,7 @@
         gShellReady();
     });
 
-    $(window).load(function () {
+    $(window).on('load', function () {
         gShellFinished();
     });
 })(this);

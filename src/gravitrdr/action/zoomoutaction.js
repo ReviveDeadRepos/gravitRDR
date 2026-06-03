@@ -63,7 +63,9 @@
      * @override
      */
     GZoomOutAction.prototype.execute = function () {
-        var view = gApp.getWindows().getActiveWindow().getView();
+        var window = gApp.getWindows().getActiveWindow();
+        if (!window) return;
+        var view = window.getView();
         var newZoom = view.getZoom() / GZoomOutAction.ZOOM_STEP;
         var scene = view.getScene();
         var zoomPoint = null;

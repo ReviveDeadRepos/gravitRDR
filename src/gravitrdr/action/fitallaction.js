@@ -62,11 +62,14 @@
      */
     GFitAllAction.prototype.execute = function () {
         var document = gApp.getActiveDocument();
+        if (!document) return;
+        var activeWindow = document.getActiveWindow();
+        if (!activeWindow) return;
         if (document.getScene().getProperty('singlePage')) {
             var currentPage = document.getScene().getActivePage();
-            document.getActiveWindow().getView().zoomAll(currentPage.getPaintBBox(), false);
+            activeWindow.getView().zoomAll(currentPage.getPaintBBox(), false);
         } else {
-            document.getActiveWindow().getView().zoomAll(document.getScene().getPaintBBox(), false);
+            activeWindow.getView().zoomAll(document.getScene().getPaintBBox(), false);
         }
     };
 

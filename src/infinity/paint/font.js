@@ -119,38 +119,52 @@
         request.responseType = 'arraybuffer';
         request.onload = function () {
             if (request.response && request.response instanceof ArrayBuffer) {
-                var font = opentype.parse(request.response);
-                if (font && font.supported) {
-                    // Insert our variant
-                    type.variants[variant] = {
-                        url: url,
-                        font: font,
-                        outlines: {}
-                    };
+                var buffer = request.response;
+                var finish = function (fontBuffer) {
+                    var font = opentype.parse(fontBuffer);
+                    if (font && font.supported) {
+                        type.variants[variant] = {
+                            url: url,
+                            font: font,
+                            outlines: {}
+                        };
 
-                    // Inject a new font-face style
-                    $('<style></style>')
-                        .attr('type', 'text/css')
-                        .text('@font-face {' +
-                            'font-family: "' + family + '";' +
-                            'src: url("' + url + '");' +
-                            'font-weight: ' + weight.toString() + ';' +
-                            'font-style: ' + _styleToCss(style) + ';' +
-                            '} ')
-                        .appendTo($('body'));
+                        $('<style></style>')
+                            .attr('type', 'text/css')
+                            .text('@font-face {' +
+                                'font-family: "' + family + '";' +
+                                'src: url("' + url + '");' +
+                                'font-weight: ' + weight.toString() + ';' +
+                                'font-style: ' + _styleToCss(style) + ';' +
+                                '} ')
+                            .appendTo($('body'));
 
-                    // Sucks but inject an invisible span to ensure the font gets loaded
-                    $('<span></span>')
-                        .css({
-                            'position': 'absolute',
-                            'opacity': '0',
-                            'font-family': family,
-                            'font-weight': weight.toString(),
-                            'font-style': _styleToCss(style)
-                        })
-                        .text('.')
-                        .appendTo($('body'));
+                        $('<span></span>')
+                            .css({
+                                'position': 'absolute',
+                                'opacity': '0',
+                                'font-family': family,
+                                'font-weight': weight.toString(),
+                                'font-style': _styleToCss(style)
+                            })
+                            .text('.')
+                            .appendTo($('body'));
+                    }
+                };
+
+                var isWoff2 = url.slice(-6).toLowerCase() === '.woff2';
+                if (isWoff2 && typeof Module !== 'undefined') {
+                    if (Module.decompress) {
+                        var raw = new Uint8Array(buffer);
+                        var result = Module.decompress(raw);
+                        if (result !== false) {
+                            finish(result.buffer);
+                            return;
+                        }
+                    }
                 }
+
+                finish(buffer);
             }
         };
         request.send();

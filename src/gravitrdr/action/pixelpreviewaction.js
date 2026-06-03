@@ -68,7 +68,9 @@
      * @override
      */
     GPixelPreviewAction.prototype.execute = function () {
-        var view = gApp.getWindows().getActiveWindow().getView();
+        var window = gApp.getWindows().getActiveWindow();
+        if (!window) return;
+        var view = window.getView();
         view.getViewConfiguration().pixelMode = !view.getViewConfiguration().pixelMode;
         view.invalidate();
     };

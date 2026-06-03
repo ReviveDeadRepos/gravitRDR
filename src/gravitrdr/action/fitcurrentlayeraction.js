@@ -56,8 +56,11 @@
      */
     GFitCurrentLayerAction.prototype.execute = function () {
         var document = gApp.getActiveDocument();
+        if (!document) return;
         var activeLayer = document.getScene().getActiveLayer();
-        document.getActiveWindow().getView().zoomAll(activeLayer.getPaintBBox(), false);
+        var activeWindow = document.getActiveWindow();
+        if (!activeWindow) return;
+        activeWindow.getView().zoomAll(activeLayer.getPaintBBox(), false);
     };
 
     /** @override */

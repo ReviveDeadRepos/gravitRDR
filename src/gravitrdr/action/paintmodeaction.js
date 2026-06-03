@@ -76,7 +76,9 @@
      * @override
      */
     GPaintModeAction.prototype.execute = function () {
-        var view = gApp.getWindows().getActiveWindow().getView();
+        var window = gApp.getWindows().getActiveWindow();
+        if (!window) return;
+        var view = window.getView();
         view.getViewConfiguration().paintMode = this._paintMode;
         view.invalidate();
     };

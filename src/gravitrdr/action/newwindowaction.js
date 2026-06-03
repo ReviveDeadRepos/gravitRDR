@@ -59,7 +59,10 @@
      * @override
      */
     GNewWindowAction.prototype.execute = function () {
-        gApp.getWindows().addWindow(gApp.getWindows().getActiveWindow());
+        var window = gApp.getWindows().getActiveWindow();
+        if (window) {
+            gApp.getWindows().addWindow(window);
+        }
     };
 
     /** @override */
