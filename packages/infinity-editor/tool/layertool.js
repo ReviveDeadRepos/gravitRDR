@@ -1,53 +1,53 @@
-import { IFSelectTool } from './selecttool';
-import { IFObject } from '@gravitrdr/infinity-core'
-import { IFLayer } from '@gravitrdr/infinity-core'
-    /**
-     * The layer tool
-     * @class IFLayerTool
-     * @extends IFSelectTool
-     * @constructor
-     */
-export     function IFLayerTool() {
-        IFSelectTool.call(this);
-    };
+import { IFSelectTool } from "./selecttool";
+import { IFObject } from "@gravitrdr/infinity-core";
+import { IFLayer } from "@gravitrdr/infinity-core";
+/**
+ * The layer tool
+ * @class IFLayerTool
+ * @extends IFSelectTool
+ * @constructor
+ */
+export function IFLayerTool() {
+  IFSelectTool.call(this);
+}
 
-    IFObject.inherit(IFLayerTool, IFSelectTool);
+IFObject.inherit(IFLayerTool, IFSelectTool);
 
-    /** @override */
-    IFLayerTool.prototype.activate = function (view) {
-        IFSelectTool.prototype.activate.call(this, view);
+/** @override */
+IFLayerTool.prototype.activate = function (view) {
+  IFSelectTool.prototype.activate.call(this, view);
 
-        // Store current selection & select active layer
-        this._editor.storeSelection();
+  // Store current selection & select active layer
+  this._editor.storeSelection();
 
-        var activeLayer = this._scene.getActiveLayer();
-        if (activeLayer) {
-            this._editor.updateSelection(false, [activeLayer])
-        } else {
-            this._editor.clearSelection();
-        }
-    };
+  var activeLayer = this._scene.getActiveLayer();
+  if (activeLayer) {
+    this._editor.updateSelection(false, [activeLayer]);
+  } else {
+    this._editor.clearSelection();
+  }
+};
 
-    /** @override */
-    IFLayerTool.prototype.deactivate = function (view) {
-        // Restore previous selection
-        this._editor.restoreSelection();
+/** @override */
+IFLayerTool.prototype.deactivate = function (view) {
+  // Restore previous selection
+  this._editor.restoreSelection();
 
-        IFSelectTool.prototype.deactivate.call(this, view);
-    };
+  IFSelectTool.prototype.deactivate.call(this, view);
+};
 
-    /** @override */
-    IFLayerTool.prototype._getSelectableElement = function (element) {
-        for (var p = element; p !== null; p = p.getParent()) {
-            if (p instanceof IFLayer) {
-                return p;
-            }
-        }
+/** @override */
+IFLayerTool.prototype._getSelectableElement = function (element) {
+  for (var p = element; p !== null; p = p.getParent()) {
+    if (p instanceof IFLayer) {
+      return p;
+    }
+  }
 
-        return null;
-    };
+  return null;
+};
 
-    /** override */
-    IFLayerTool.prototype.toString = function () {
-        return "[Object IFLayerTool]";
-    };
+/** override */
+IFLayerTool.prototype.toString = function () {
+  return "[Object IFLayerTool]";
+};

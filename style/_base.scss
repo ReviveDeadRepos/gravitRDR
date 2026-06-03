@@ -1,6 +1,7 @@
-@import 'variables';
+@import "variables";
 
-body, html {
+body,
+html {
   margin: 0px;
   padding: 0px;
   height: 100%;
@@ -9,7 +10,8 @@ body, html {
   /** Prevent double-tap = zoom on windows mobile */
   -ms-content-zooming: none;
 
-  &, * {
+  &,
+  * {
     font: $font;
     line-height: $baseline;
     vertical-align: middle;
@@ -19,7 +21,8 @@ body, html {
     font-size: 14px;
   }
 
-  button, input {
+  button,
+  input {
     // Removes inner padding and border in FF3+
     // www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/
     &::-moz-focus-inner {

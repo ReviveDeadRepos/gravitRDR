@@ -1,16 +1,16 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  root: 'src',
-  appType: 'mpa',
+  root: "src",
+  appType: "mpa",
   build: {
-    outDir: '../build/source',
+    outDir: "../build/source",
     emptyOutDir: true,
     cssCodeSplit: false,
     rollupOptions: {
       input: {
-        style: 'src/entries/style.js',
-        app: 'src/entries/app.js',
+        style: "src/entries/style.js",
+        app: "src/entries/app.js",
       },
     },
   },
@@ -20,7 +20,7 @@ export default defineConfig({
     },
     preprocessorOptions: {
       scss: {
-        includePaths: ['node_modules', 'style'],
+        includePaths: ["node_modules", "style"],
       },
     },
   },

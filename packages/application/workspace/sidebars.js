@@ -1,91 +1,91 @@
-import { GSidebar } from '../extension/sidebar';
-    /**
-     * The global sidebars class
-     * @class GSidebars
-     * @constructor
-     */
-export     function GSidebars(htmlElement) {
-        this._htmlElement = htmlElement;
-    };
+import { GSidebar } from "../extension/sidebar";
+/**
+ * The global sidebars class
+ * @class GSidebars
+ * @constructor
+ */
+export function GSidebars(htmlElement) {
+  this._htmlElement = htmlElement;
+}
 
-    /**
-     * @type {JQuery}
-     * @private
-     */
-    GSidebars.prototype._htmlElement = null;
+/**
+ * @type {JQuery}
+ * @private
+ */
+GSidebars.prototype._htmlElement = null;
 
-    /**
-     * @type {Array<{{container: JQuery, sidebar: GSidebar}}>}
-     * @private
-     */
-    GSidebars.prototype._sidebars = null;
+/**
+ * @type {Array<{{container: JQuery, sidebar: GSidebar}}>}
+ * @private
+ */
+GSidebars.prototype._sidebars = null;
 
-    /**
-     * @type {String}
-     * @private
-     */
-    GSidebars.prototype._activeSidebar = null;
+/**
+ * @type {String}
+ * @private
+ */
+GSidebars.prototype._activeSidebar = null;
 
-    /**
-     * @returns {String} the id of the active sidebar or null for none
-     */
-    GSidebars.prototype.getActiveSidebar = function () {
-        return this._activeSidebar;
-    };
+/**
+ * @returns {String} the id of the active sidebar or null for none
+ */
+GSidebars.prototype.getActiveSidebar = function () {
+  return this._activeSidebar;
+};
 
-    /**
-     * Set an active sidebar
-     * @param {String} sidebarId
-     */
-    GSidebars.prototype.setActiveSidebar = function (sidebarId) {
-        if (sidebarId !== this._activeSidebar) {
-            for (var i = 0; i < this._sidebars.length; ++i) {
-                var sidebar = this._sidebars[i];
-                var id = sidebar.sidebar.getId();
+/**
+ * Set an active sidebar
+ * @param {String} sidebarId
+ */
+GSidebars.prototype.setActiveSidebar = function (sidebarId) {
+  if (sidebarId !== this._activeSidebar) {
+    for (var i = 0; i < this._sidebars.length; ++i) {
+      var sidebar = this._sidebars[i];
+      var id = sidebar.sidebar.getId();
 
-                if (id === sidebarId) {
-                    sidebar.container.css('display', '');
-                    sidebar.sidebar.activate();
-                } else {
-                    sidebar.container.css('display', 'none');
-                    if (id === this._activeSidebar) {
-                        sidebar.sidebar.deactivate();
-                    }
-                }
-            }
-
-            this._activeSidebar = sidebarId;
+      if (id === sidebarId) {
+        sidebar.container.css("display", "");
+        sidebar.sidebar.activate();
+      } else {
+        sidebar.container.css("display", "none");
+        if (id === this._activeSidebar) {
+          sidebar.sidebar.deactivate();
         }
-    };
+      }
+    }
 
-    /**
-     * Called from the workspace to initialize
-     */
-    GSidebars.prototype.init = function () {
-        this._sidebars = [];
+    this._activeSidebar = sidebarId;
+  }
+};
 
-        if (gravitrdr.sidebars) {
-            for (var i = 0; i < gravitrdr.sidebars.length; ++i) {
-                var sidebar = gravitrdr.sidebars[i];
+/**
+ * Called from the workspace to initialize
+ */
+GSidebars.prototype.init = function () {
+  this._sidebars = [];
 
-                var container = $('<div></div>')
-                    .addClass('sidebar-container sidebar-' + sidebar.getId())
-                    .css('display', 'none')
-                    .appendTo(this._htmlElement);
+  if (gravitrdr.sidebars) {
+    for (var i = 0; i < gravitrdr.sidebars.length; ++i) {
+      var sidebar = gravitrdr.sidebars[i];
 
-                sidebar.init(container);
+      var container = $("<div></div>")
+        .addClass("sidebar-container sidebar-" + sidebar.getId())
+        .css("display", "none")
+        .appendTo(this._htmlElement);
 
-                this._sidebars.push({
-                    container: container,
-                    sidebar: sidebar
-                });
-            }
-        }
-    };
+      sidebar.init(container);
 
-    /**
-     * Called from the workspace to relayout
-     */
-    GSidebars.prototype.relayout = function () {
-        // NO-OP
-    };
+      this._sidebars.push({
+        container: container,
+        sidebar: sidebar,
+      });
+    }
+  }
+};
+
+/**
+ * Called from the workspace to relayout
+ */
+GSidebars.prototype.relayout = function () {
+  // NO-OP
+};

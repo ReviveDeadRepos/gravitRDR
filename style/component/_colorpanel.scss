@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .g-color-panel {
   width: 275px;
@@ -88,7 +88,8 @@
       width: 100%;
     }
 
-    .previous-color, .current-color {
+    .previous-color,
+    .current-color {
       display: inline-block;
       width: 3em;
     }
@@ -195,7 +196,8 @@
       width: 100%;
       padding-bottom: 7px;
 
-      > div, > span {
+      > div,
+      > span {
         display: table-cell;
         vertical-align: middle;
       }
@@ -246,8 +248,8 @@
       background-position: center center;
       background-repeat: no-repeat;
       margin: 5px 0px;
-      background-color: #FFF;
-      border: 5px solid #FFF;
+      background-color: #fff;
+      border: 5px solid #fff;
     }
 
     .image-palette {

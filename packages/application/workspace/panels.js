@@ -1,117 +1,120 @@
-import { GPanel } from '../extension/panel';
-import { ifLocale } from '@gravitrdr/infinity-core'
-    /**
-     * The global panels class
-     * @class GPanels
-     * @constructor
-     */
-export     function GPanels(htmlElement) {
-        this._htmlElement = htmlElement;
-    };
+import { GPanel } from "../extension/panel";
+import { ifLocale } from "@gravitrdr/infinity-core";
+/**
+ * The global panels class
+ * @class GPanels
+ * @constructor
+ */
+export function GPanels(htmlElement) {
+  this._htmlElement = htmlElement;
+}
 
-    /**
-     * @type {JQuery}
-     * @private
-     */
-    GPanels.prototype._htmlElement = null;
+/**
+ * @type {JQuery}
+ * @private
+ */
+GPanels.prototype._htmlElement = null;
 
-    /**
-     * @type {Array<{{container: JQuery, panel: GPanel}}>}
-     * @private
-     */
-    GPanels.prototype._panels = null;
+/**
+ * @type {Array<{{container: JQuery, panel: GPanel}}>}
+ * @private
+ */
+GPanels.prototype._panels = null;
 
-    /**
-     * @type {String}
-     * @private
-     */
-    GPanels.prototype._activePanel = null;
+/**
+ * @type {String}
+ * @private
+ */
+GPanels.prototype._activePanel = null;
 
-    /**
-     * @returns {String} the id of the active panel or null for none
-     */
-    GPanels.prototype.getActivePanel = function () {
-        return this._activePanel;
-    };
+/**
+ * @returns {String} the id of the active panel or null for none
+ */
+GPanels.prototype.getActivePanel = function () {
+  return this._activePanel;
+};
 
-    /**
-     * Set an active panel
-     * @param {String} panelId
-     */
-    GPanels.prototype.setActivePanel = function (panelId) {
-        if (panelId !== this._activePanel) {
-            for (var i = 0; i < this._panels.length; ++i) {
-                var panel = this._panels[i];
-                var id = panel.panel.getId();
+/**
+ * Set an active panel
+ * @param {String} panelId
+ */
+GPanels.prototype.setActivePanel = function (panelId) {
+  if (panelId !== this._activePanel) {
+    for (var i = 0; i < this._panels.length; ++i) {
+      var panel = this._panels[i];
+      var id = panel.panel.getId();
 
-                if (id === panelId) {
-                    panel.container.css('display', '');
-                    panel.tab.addClass('g-active');
-                    panel.panel.activate();
-                } else {
-                    panel.container.css('display', 'none');
-                    panel.tab.removeClass('g-active');
-                    if (id === this._activePanel) {
-                        panel.panel.deactivate();
-                    }
-                }
-            }
-
-            this._activePanel = panelId;
+      if (id === panelId) {
+        panel.container.css("display", "");
+        panel.tab.addClass("g-active");
+        panel.panel.activate();
+      } else {
+        panel.container.css("display", "none");
+        panel.tab.removeClass("g-active");
+        if (id === this._activePanel) {
+          panel.panel.deactivate();
         }
-    };
+      }
+    }
 
-    /**
-     * Called from the workspace to initialize
-     */
-    GPanels.prototype.init = function () {
-        this._panels = [];
+    this._activePanel = panelId;
+  }
+};
 
-        var panelsTabs = $('<div></div>')
-            .addClass('panels-tabs')
-            .appendTo(this._htmlElement);
+/**
+ * Called from the workspace to initialize
+ */
+GPanels.prototype.init = function () {
+  this._panels = [];
 
-        var panelsFrame = $('<div></div>')
-            .addClass('panels-frame')
-            .appendTo(this._htmlElement);
+  var panelsTabs = $("<div></div>")
+    .addClass("panels-tabs")
+    .appendTo(this._htmlElement);
 
-        if (gravitrdr.panels) {
-            for (var i = 0; i < gravitrdr.panels.length; ++i) {
-                var panel = gravitrdr.panels[i];
+  var panelsFrame = $("<div></div>")
+    .addClass("panels-frame")
+    .appendTo(this._htmlElement);
 
-                var tab = $('<button></button>')
-                    .addClass('panel-tab')
-                    .attr('data-panel-id', panel.getId())
-                    .text(ifLocale.get(panel.getTitle()))
-                    .on('click', function (evt) {
-                        this.setActivePanel($(evt.target).attr('data-panel-id'));
-                    }.bind(this))
-                    .appendTo(panelsTabs);
+  if (gravitrdr.panels) {
+    for (var i = 0; i < gravitrdr.panels.length; ++i) {
+      var panel = gravitrdr.panels[i];
 
-                var container = $('<div></div>')
-                    .addClass('panel-container panel-' + panel.getId())
-                    .css('display', 'none')
-                    .appendTo(panelsFrame);
+      var tab = $("<button></button>")
+        .addClass("panel-tab")
+        .attr("data-panel-id", panel.getId())
+        .text(ifLocale.get(panel.getTitle()))
+        .on(
+          "click",
+          function (evt) {
+            this.setActivePanel($(evt.target).attr("data-panel-id"));
+          }.bind(this),
+        )
+        .appendTo(panelsTabs);
 
-                panel.init(container);
+      var container = $("<div></div>")
+        .addClass("panel-container panel-" + panel.getId())
+        .css("display", "none")
+        .appendTo(panelsFrame);
 
-                this._panels.push({
-                    tab: tab,
-                    container: container,
-                    panel: panel
-                });
+      panel.init(container);
 
-                // Activate the first panel found
-                if (!this._activePanel) {
-                    this.setActivePanel(panel.getId());
-                }
-            }
-        }
-    };
+      this._panels.push({
+        tab: tab,
+        container: container,
+        panel: panel,
+      });
 
-    /**
-     * Called from the workspace to relayout
-     */
-    GPanels.prototype.relayout = function () {
-        // NO-OP
-    };
+      // Activate the first panel found
+      if (!this._activePanel) {
+        this.setActivePanel(panel.getId());
+      }
+    }
+  }
+};
+
+/**
+ * Called from the workspace to relayout
+ */
+GPanels.prototype.relayout = function () {
+  // NO-OP
+};

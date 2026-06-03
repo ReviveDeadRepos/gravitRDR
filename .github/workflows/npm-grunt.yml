@@ -17,15 +17,15 @@ jobs:
       - name: Setup Node.js 18
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
 
       - name: Install npm dependencies
         run: npm install --legacy-peer-deps
 
       - name: Build NW.js binaries
         run: npm run build:nw
-      
+
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
@@ -43,5 +43,3 @@ jobs:
         with:
           name: gravitRDR-linux
           path: build/system-binaries/GravitRDR/linux
-
-      

@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 table.g-form {
   td {
@@ -39,7 +39,8 @@ div.g-form {
       }
 
       > label {
-        &:first-child, &:last-child {
+        &:first-child,
+        &:last-child {
           display: block;
           text-align: center;
         }

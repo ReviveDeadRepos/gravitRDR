@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 #palettes {
   @include box-sizing(border-box);
@@ -11,7 +11,8 @@
   .palette-group {
     overflow: hidden;
 
-    &:last-child, &.collapsed-palette {
+    &:last-child,
+    &.collapsed-palette {
       border-bottom: none;
     }
 
@@ -56,10 +57,12 @@
           text-transform: uppercase;
           //color: $selectedColor;
 
-          &:active, &.g-active {
+          &:active,
+          &.g-active {
             background: $activeColor;
 
-            &, * {
+            &,
+            * {
               color: $activeTextColor;
             }
 

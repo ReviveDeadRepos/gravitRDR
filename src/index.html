@@ -1,41 +1,45 @@
 <!doctype html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-</head>
-<body>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+  </head>
+  <body>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/jqtree/tree.jquery.js"></script>
+    <script src="../node_modules/mousetrap/mousetrap.js"></script>
+    <script src="../node_modules/opentype.js/dist/opentype.js"></script>
+    <script src="../node_modules/wawoff2/build/decompress_binding.js"></script>
+    <script src="../node_modules/rangy/lib/rangy-core.js"></script>
+    <script src="../node_modules/rangy/lib/rangy-classapplier.js"></script>
+    <script src="../node_modules/rangy/lib/rangy-selectionsaverestore.js"></script>
+    <script src="../node_modules/pako/dist/pako.js"></script>
+    <script src="../node_modules/colorthief/dist/umd/color-thief.global.js"></script>
+    <script src="../node_modules/urijs/src/URI.js"></script>
+    <script src="../node_modules/blob.js/Blob.js"></script>
 
-<script src="../node_modules/jquery/dist/jquery.js"></script>
-<script src="../node_modules/jqtree/tree.jquery.js"></script>
-<script src="../node_modules/mousetrap/mousetrap.js"></script>
-<script src="../node_modules/opentype.js/dist/opentype.js"></script>
-<script src="../node_modules/wawoff2/build/decompress_binding.js"></script>
-<script src="../node_modules/rangy/lib/rangy-core.js"></script>
-<script src="../node_modules/rangy/lib/rangy-classapplier.js"></script>
-<script src="../node_modules/rangy/lib/rangy-selectionsaverestore.js"></script>
-<script src="../node_modules/pako/dist/pako.js"></script>
-<script src="../node_modules/colorthief/dist/umd/color-thief.global.js"></script>
-<script src="../node_modules/urijs/src/URI.js"></script>
-<script src="../node_modules/blob.js/Blob.js"></script>
+    <!-- CSS entry (triggers Vite to compile SCSS) -->
+    <script type="module" src="entries/style.js"></script>
 
-<!-- CSS entry (triggers Vite to compile SCSS) -->
-<script type="module" src="entries/style.js"></script>
+    <!-- Application entry (ESM — loads all packages via workspace) -->
+    <script type="module" src="entries/app.js"></script>
 
-<!-- Application entry (ESM — loads all packages via workspace) -->
-<script type="module" src="entries/app.js"></script>
-
-<!-- Include the proper shell for development -->
-<script>
-    if (this['process'] && this['require']) {
-        document.writeln('<script src="/shell/system/filestorage.js"><\/script>');
+    <!-- Include the proper shell for development -->
+    <script>
+      if (this["process"] && this["require"]) {
+        document.writeln(
+          '<script src="/shell/system/filestorage.js"><\/script>',
+        );
         document.writeln('<script src="/shell/system/winstate.js"><\/script>');
         document.writeln('<script src="/shell/system/shell.js"><\/script>');
-    } else {
+      } else {
         document.writeln('<script src="/shell/browser/shell.js"><\/script>');
-    }
-</script>
-</body>
+      }
+    </script>
+  </body>
 </html>

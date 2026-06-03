@@ -1,54 +1,54 @@
-import { IFSelectTool } from './selecttool';
-import { IFObject } from '@gravitrdr/infinity-core'
-import { IFPage } from '@gravitrdr/infinity-core'
-    /**
-     * The page tool
-     * @class IFPageTool
-     * @extends IFSelectTool
-     * @constructor
-     * @version 1.0
-     */
-export     function IFPageTool() {
-        IFSelectTool.call(this);
-    };
+import { IFSelectTool } from "./selecttool";
+import { IFObject } from "@gravitrdr/infinity-core";
+import { IFPage } from "@gravitrdr/infinity-core";
+/**
+ * The page tool
+ * @class IFPageTool
+ * @extends IFSelectTool
+ * @constructor
+ * @version 1.0
+ */
+export function IFPageTool() {
+  IFSelectTool.call(this);
+}
 
-    IFObject.inherit(IFPageTool, IFSelectTool);
+IFObject.inherit(IFPageTool, IFSelectTool);
 
-    /** @override */
-    IFPageTool.prototype.activate = function (view) {
-        IFSelectTool.prototype.activate.call(this, view);
+/** @override */
+IFPageTool.prototype.activate = function (view) {
+  IFSelectTool.prototype.activate.call(this, view);
 
-        // Store current selection & select active page
-        this._editor.storeSelection();
+  // Store current selection & select active page
+  this._editor.storeSelection();
 
-        var activePage = this._scene.getActivePage();
-        if (activePage) {
-            this._editor.updateSelection(false, [activePage])
-        } else {
-            this._editor.clearSelection();
-        }
-    };
+  var activePage = this._scene.getActivePage();
+  if (activePage) {
+    this._editor.updateSelection(false, [activePage]);
+  } else {
+    this._editor.clearSelection();
+  }
+};
 
-    /** @override */
-    IFPageTool.prototype.deactivate = function (view) {
-        // Restore previous selection
-        this._editor.restoreSelection();
+/** @override */
+IFPageTool.prototype.deactivate = function (view) {
+  // Restore previous selection
+  this._editor.restoreSelection();
 
-        IFSelectTool.prototype.deactivate.call(this, view);
-    };
+  IFSelectTool.prototype.deactivate.call(this, view);
+};
 
-    /** @override */
-    IFPageTool.prototype._getSelectableElement = function (element) {
-        for (var p = element; p !== null; p = p.getParent()) {
-            if (p instanceof IFPage) {
-                return p;
-            }
-        }
+/** @override */
+IFPageTool.prototype._getSelectableElement = function (element) {
+  for (var p = element; p !== null; p = p.getParent()) {
+    if (p instanceof IFPage) {
+      return p;
+    }
+  }
 
-        return null;
-    };
+  return null;
+};
 
-    /** override */
-    IFPageTool.prototype.toString = function () {
-        return "[Object IFPageTool]";
-    };
+/** override */
+IFPageTool.prototype.toString = function () {
+  return "[Object IFPageTool]";
+};

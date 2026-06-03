@@ -1,1 +1,1 @@
-import '../../style/gravitrdr.scss';
+import "../../style/gravitrdr.scss";

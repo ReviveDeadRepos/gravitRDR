@@ -1,44 +1,43 @@
-import { GEventTarget } from '@gravitrdr/infinity-core'
-import { IFLocale } from '@gravitrdr/infinity-core'
-import { GDocument } from '../document';
-import { IFElement } from '@gravitrdr/infinity-core'
+import { GEventTarget } from "@gravitrdr/infinity-core";
+import { IFLocale } from "@gravitrdr/infinity-core";
+import { GDocument } from "../document";
+import { IFElement } from "@gravitrdr/infinity-core";
 
-    /**
-     * Base class for transformer panels
-     * @class GTransformer
-     * @extends GEventTarget
-     * @constructor
-     */
-export     function GTransformer() {
-    };
+/**
+ * Base class for transformer panels
+ * @class GTransformer
+ * @extends GEventTarget
+ * @constructor
+ */
+export function GTransformer() {}
 
-    /**
-     * Called to return the category of the panel
-     * @return {String|IFLocale.Key}
-     */
-    GTransformer.prototype.getCategory = function () {
-        throw new Error("Not Supported.");
-    };
+/**
+ * Called to return the category of the panel
+ * @return {String|IFLocale.Key}
+ */
+GTransformer.prototype.getCategory = function () {
+  throw new Error("Not Supported.");
+};
 
-    /**
-     * Called to initialize the transform panel
-     * @param {JQuery} panel the panel to init on
-     */
-    GTransformer.prototype.init = function (panel) {
-        throw new Error("Not Supported.");
-    };
+/**
+ * Called to initialize the transform panel
+ * @param {JQuery} panel the panel to init on
+ */
+GTransformer.prototype.init = function (panel) {
+  throw new Error("Not Supported.");
+};
 
-    /**
-     * Called to update
-     * @param {GDocument} document the document to work on
-     * @param {Array<IFElement>} elements array of transformable elements, contains at least one
-     * @return {Boolean} true if this transform panel is available, false if not
-     */
-    GTransformer.prototype.update = function (document, elements) {
-        throw new Error("Not Supported.");
-    };
+/**
+ * Called to update
+ * @param {GDocument} document the document to work on
+ * @param {Array<IFElement>} elements array of transformable elements, contains at least one
+ * @return {Boolean} true if this transform panel is available, false if not
+ */
+GTransformer.prototype.update = function (document, elements) {
+  throw new Error("Not Supported.");
+};
 
-    /** @override */
-    GTransformer.prototype.toString = function () {
-        return "[Object GTransformer]";
-    };
+/** @override */
+GTransformer.prototype.toString = function () {
+  return "[Object GTransformer]";
+};

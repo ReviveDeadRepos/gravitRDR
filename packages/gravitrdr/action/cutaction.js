@@ -1,97 +1,99 @@
-import { GAction } from '@gravitrdr/application'
-import { IFObject } from '@gravitrdr/infinity-core'
-import { IFLocale } from '@gravitrdr/infinity-core'
-import { GApplication } from '@gravitrdr/application'
-import { IFKey } from '@gravitrdr/infinity-core'
-import { GCopyAction } from './copyaction';
+import { GAction } from "@gravitrdr/application";
+import { IFObject } from "@gravitrdr/infinity-core";
+import { IFLocale } from "@gravitrdr/infinity-core";
+import { GApplication } from "@gravitrdr/application";
+import { IFKey } from "@gravitrdr/infinity-core";
+import { GCopyAction } from "./copyaction";
 
-    /**
-     * Action for cutting the current selection to the clipboard
-     * @class GCutAction
-     * @extends GAction
-     * @constructor
-     */
-export     function GCutAction() {
-    };
-    IFObject.inherit(GCutAction, GAction);
+/**
+ * Action for cutting the current selection to the clipboard
+ * @class GCutAction
+ * @extends GAction
+ * @constructor
+ */
+export function GCutAction() {}
+IFObject.inherit(GCutAction, GAction);
 
-    GCutAction.ID = 'edit.cut';
-    GCutAction.TITLE = new IFLocale.Key(GCutAction, "title");
+GCutAction.ID = "edit.cut";
+GCutAction.TITLE = new IFLocale.Key(GCutAction, "title");
 
-    /**
-     * @override
-     */
-    GCutAction.prototype.getId = function () {
-        return GCutAction.ID;
-    };
+/**
+ * @override
+ */
+GCutAction.prototype.getId = function () {
+  return GCutAction.ID;
+};
 
-    /**
-     * @override
-     */
-    GCutAction.prototype.getTitle = function () {
-        return GCutAction.TITLE;
-    };
+/**
+ * @override
+ */
+GCutAction.prototype.getTitle = function () {
+  return GCutAction.TITLE;
+};
 
-    /**
-     * @override
-     */
-    GCutAction.prototype.getCategory = function () {
-        return GApplication.CATEGORY_EDIT;
-    };
+/**
+ * @override
+ */
+GCutAction.prototype.getCategory = function () {
+  return GApplication.CATEGORY_EDIT;
+};
 
-    /**
-     * @override
-     */
-    GCutAction.prototype.getGroup = function () {
-        return "ccp";
-    };
+/**
+ * @override
+ */
+GCutAction.prototype.getGroup = function () {
+  return "ccp";
+};
 
-    /**
-     * @override
-     */
-    GCutAction.prototype.getShortcut = function () {
-        return [IFKey.Constant.META, 'X'];
-    };
+/**
+ * @override
+ */
+GCutAction.prototype.getShortcut = function () {
+  return [IFKey.Constant.META, "X"];
+};
 
-    /**
-     * @override
-     */
-    GCutAction.prototype.isEnabled = function () {
-        if (document.activeElement && $(document.activeElement).is(":editable")) {
-            return true;
-        }
+/**
+ * @override
+ */
+GCutAction.prototype.isEnabled = function () {
+  if (document.activeElement && $(document.activeElement).is(":editable")) {
+    return true;
+  }
 
-        if (gApp.getActiveDocument() && !!gApp.getActiveDocument().getEditor().getSelection()) {
-            return true;
-        }
+  if (
+    gApp.getActiveDocument() &&
+    !!gApp.getActiveDocument().getEditor().getSelection()
+  ) {
+    return true;
+  }
 
-        return false;
-    };
+  return false;
+};
 
-    /**
-     * @override
-     */
-    GCutAction.prototype.execute = function () {
-        if (document.activeElement && $(document.activeElement).is(":editable")) {
-            document.execCommand('cut');
-        } else {
-            var editor = gApp.getActiveDocument().getEditor();
+/**
+ * @override
+ */
+GCutAction.prototype.execute = function () {
+  if (document.activeElement && $(document.activeElement).is(":editable")) {
+    document.execCommand("cut");
+  } else {
+    var editor = gApp.getActiveDocument().getEditor();
 
-            // Run copy action, first
-            gApp.executeAction(GCopyAction.ID);
+    // Run copy action, first
+    gApp.executeAction(GCopyAction.ID);
 
-            // Delete selection now
-            editor.beginTransaction();
-            try {
-                editor.deleteSelection(true);
-            } finally {
-                // TODO : I18N
-                editor.commitTransaction('Cut Selection');
-            }
-        }
-    };
+    // Delete selection now
+    editor.beginTransaction();
+    try {
+      editor.deleteSelection(true);
+    } finally {
+      // TODO : I18N
+      editor.commitTransaction("Cut Selection");
+    }
+  }
+};
 
-    /** @override */
-    GCutAction.prototype.toString = function () {
-        return "[Object GCutAction]";
-    };
+/** @override */
+GCutAction.prototype.toString = function () {
+  return "[Object GCutAction]";
+};

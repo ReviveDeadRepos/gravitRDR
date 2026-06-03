@@ -1,75 +1,74 @@
-import { GAction } from '@gravitrdr/application'
-import { IFObject } from '@gravitrdr/infinity-core'
-import { IFLocale } from '@gravitrdr/infinity-core'
-import { GApplication } from '@gravitrdr/application'
-import { IFKey } from '@gravitrdr/infinity-core'
+import { GAction } from "@gravitrdr/application";
+import { IFObject } from "@gravitrdr/infinity-core";
+import { IFLocale } from "@gravitrdr/infinity-core";
+import { GApplication } from "@gravitrdr/application";
+import { IFKey } from "@gravitrdr/infinity-core";
 
-    /**
-     * Action for cloning the current view
-     * @class GNewWindowAction
-     * @extends GAction
-     * @constructor
-     */
-export     function GNewWindowAction() {
-    };
-    IFObject.inherit(GNewWindowAction, GAction);
+/**
+ * Action for cloning the current view
+ * @class GNewWindowAction
+ * @extends GAction
+ * @constructor
+ */
+export function GNewWindowAction() {}
+IFObject.inherit(GNewWindowAction, GAction);
 
-    GNewWindowAction.ID = 'view.clone';
-    GNewWindowAction.TITLE = new IFLocale.Key(GNewWindowAction, "title");
+GNewWindowAction.ID = "view.clone";
+GNewWindowAction.TITLE = new IFLocale.Key(GNewWindowAction, "title");
 
-    /**
-     * @override
-     */
-    GNewWindowAction.prototype.getId = function () {
-        return GNewWindowAction.ID;
-    };
+/**
+ * @override
+ */
+GNewWindowAction.prototype.getId = function () {
+  return GNewWindowAction.ID;
+};
 
-    /**
-     * @override
-     */
-    GNewWindowAction.prototype.getTitle = function () {
-        return GNewWindowAction.TITLE;
-    };
+/**
+ * @override
+ */
+GNewWindowAction.prototype.getTitle = function () {
+  return GNewWindowAction.TITLE;
+};
 
-    /**
-     * @override
-     */
-    GNewWindowAction.prototype.getCategory = function () {
-        return GApplication.CATEGORY_WINDOW;
-    };
+/**
+ * @override
+ */
+GNewWindowAction.prototype.getCategory = function () {
+  return GApplication.CATEGORY_WINDOW;
+};
 
-    /**
-     * @override
-     */
-    GNewWindowAction.prototype.getGroup = function () {
-        return "view";
-    };
+/**
+ * @override
+ */
+GNewWindowAction.prototype.getGroup = function () {
+  return "view";
+};
 
-    /**
-     * @override
-     */
-    GNewWindowAction.prototype.getShortcut = function () {
-        return [IFKey.Constant.META, IFKey.Constant.OPTION, 'N'];
-    };
+/**
+ * @override
+ */
+GNewWindowAction.prototype.getShortcut = function () {
+  return [IFKey.Constant.META, IFKey.Constant.OPTION, "N"];
+};
 
-    /**
-     * @override
-     */
-    GNewWindowAction.prototype.isEnabled = function () {
-        return !!gApp.getWindows().getActiveWindow();
-    };
+/**
+ * @override
+ */
+GNewWindowAction.prototype.isEnabled = function () {
+  return !!gApp.getWindows().getActiveWindow();
+};
 
-    /**
-     * @override
-     */
-    GNewWindowAction.prototype.execute = function () {
-        var window = gApp.getWindows().getActiveWindow();
-        if (window) {
-            gApp.getWindows().addWindow(window);
-        }
-    };
+/**
+ * @override
+ */
+GNewWindowAction.prototype.execute = function () {
+  var window = gApp.getWindows().getActiveWindow();
+  if (window) {
+    gApp.getWindows().addWindow(window);
+  }
+};
 
-    /** @override */
-    GNewWindowAction.prototype.toString = function () {
-        return "[Object GNewWindowAction]";
-    };
+/** @override */
+GNewWindowAction.prototype.toString = function () {
+  return "[Object GNewWindowAction]";
+};

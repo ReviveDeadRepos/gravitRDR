@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 ul.jqtree-tree,
 ul.jqtree-tree ul.jqtree_common {
@@ -7,7 +7,8 @@ ul.jqtree-tree ul.jqtree_common {
   margin-top: 0px;
   padding: 0;
 
-  &, * {
+  &,
+  * {
     line-height: 1 !important;
   }
 }
@@ -99,7 +100,7 @@ ul.jqtree-tree span.jqtree-border {
   top: 0;
   width: 100% !important;
   height: 100% !important;
-  background: rgba( $dragColor, 0.5);
+  background: rgba($dragColor, 0.5);
   margin: 0;
 }
 
@@ -114,4 +115,3 @@ ul.jqtree-tree li.jqtree-selected > .jqtree-element:hover {
   background: $selectedColor;
   color: $selectedTextColor;
 }
-
