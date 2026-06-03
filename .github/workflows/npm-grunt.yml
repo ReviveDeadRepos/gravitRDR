@@ -30,6 +30,8 @@ jobs:
 
       - name: Install npm dependencies
         run: |
+          C_INCLUDE_PATH="/opt/homebrew/opt/jpeg-turbo/include:$C_INCLUDE_PATH" \
+          LIBRARY_PATH="/opt/homebrew/opt/jpeg-turbo/lib:$LIBRARY_PATH" \
           PKG_CONFIG_PATH="/opt/homebrew/opt/jpeg-turbo/lib/pkgconfig:$PKG_CONFIG_PATH" \
             npm install --legacy-peer-deps
 
