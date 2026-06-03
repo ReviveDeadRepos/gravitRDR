@@ -189,5 +189,4 @@
         }.bind(this));
     };
 
-    _.GFileStorage = GFileStorage;
 })(this);

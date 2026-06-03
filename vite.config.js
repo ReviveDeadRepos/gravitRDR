@@ -8,7 +8,10 @@ export default defineConfig({
     emptyOutDir: true,
     cssCodeSplit: false,
     rollupOptions: {
-      input: 'src/entries/style.js',
+      input: {
+        style: 'src/entries/style.js',
+        app: 'src/entries/app.js',
+      },
     },
   },
   css: {

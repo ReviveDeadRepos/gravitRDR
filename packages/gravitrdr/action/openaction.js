@@ -1,0 +1,90 @@
+import { GAction } from '@gravitrdr/application'
+import { IFObject } from '@gravitrdr/infinity-core'
+import { IFLocale } from '@gravitrdr/infinity-core'
+import { GApplication } from '@gravitrdr/application'
+import { IFKey } from '@gravitrdr/infinity-core'
+import { GStorage } from '@gravitrdr/application'
+
+    /**
+     * Action opening a document via the system storage
+     * @class GOpenAction
+     * @extends GAction
+     * @constructor
+     */
+export     function GOpenAction() {
+    };
+    IFObject.inherit(GOpenAction, GAction);
+
+    GOpenAction.ID = 'file.open';
+    GOpenAction.TITLE = new IFLocale.Key(GOpenAction, "title");
+
+    /**
+     * @override
+     */
+    GOpenAction.prototype.getId = function () {
+        return GOpenAction.ID;
+    };
+
+    /**
+     * @override
+     */
+    GOpenAction.prototype.getTitle = function () {
+        return GOpenAction.TITLE;
+    };
+
+    /**
+     * @override
+     */
+    GOpenAction.prototype.getCategory = function () {
+        return GApplication.CATEGORY_FILE;
+    };
+
+    /**
+     * @override
+     */
+    GOpenAction.prototype.getGroup = function () {
+        return 'file';
+    };
+
+    /**
+     * @override
+     */
+    GOpenAction.prototype.getShortcut = function () {
+        return [IFKey.Constant.META, 'O'];
+    };
+
+    /**
+     * @override
+     */
+    GOpenAction.prototype.isEnabled = function () {
+        return !!this._getViableStorage();
+    };
+
+    /**
+     * @override
+     */
+    GOpenAction.prototype.execute = function () {
+        gApp.openDocumentFrom(this._getViableStorage());
+    };
+
+    /**
+     * @returns {GStorage}
+     * @private
+     */
+    GOpenAction.prototype._getViableStorage = function () {
+        for (var i = 0; i < gravitrdr.storages.length; ++i) {
+            var storage = gravitrdr.storages[i];
+            if (storage.isAvailable() && storage.isPrompting()) {
+                var extensions = storage.getExtensions();
+                if (!extensions || extensions.isEmpty() || extensions.indexOf('gravitrdr') >= 0) {
+                    return storage;
+                }
+            }
+        }
+        return null;
+    };
+
+    /** @override */
+    GOpenAction.prototype.toString = function () {
+        return "[Object GOpenAction]";
+    };

@@ -1,0 +1,28 @@
+// Auto-generated barrel for application
+export { GApplication } from './application';
+export { GMenu } from './component/menu';
+export { GMenuBar } from './component/menubar';
+export { GMenuItem } from './component/menuitem';
+export { GDocument } from './document';
+export { GAction } from './extension/action';
+export { GColorMatcher } from './extension/colormatcher';
+export { GExporter } from './extension/exporter';
+export { GModule } from './extension/module';
+export { GPalette } from './extension/palette';
+export { GPanel } from './extension/panel';
+export { GProperties } from './extension/properties';
+export { GSidebar } from './extension/sidebar';
+export { GStorage } from './extension/storage';
+export { GStyleEntry } from './extension/styleentry';
+export { GTransformer } from './extension/transformer';
+export { GView } from './extension/view';
+export { GShell } from './shell';
+export { ciede2000 } from './util/ciede2000';
+export { image2Canvas, image2Base64, image2ArrayBuffer } from './util/image';
+export { GHeader } from './workspace/header';
+export { GPalettes } from './workspace/palettes';
+export { GPanels } from './workspace/panels';
+export { GSidebars } from './workspace/sidebars';
+export { GToolbar } from './workspace/toolbar';
+export { GWindow } from './workspace/window';
+export { GWindows } from './workspace/windows';
