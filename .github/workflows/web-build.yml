@@ -25,8 +25,8 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Install system dependencies (pango/cairo for node-canvas)
-        run: brew install pango cairo pkg-config
+      - name: Install system dependencies (pango/cairo/image libs for node-canvas)
+        run: brew install pango cairo pkg-config jpeg-turbo giflib
 
       - name: Install npm dependencies
         run: |
