@@ -14,6 +14,10 @@ export function IFVEffectEntry() {
 
 IFObject.inherit(IFVEffectEntry, IFStyleEntry);
 
+IFVEffectEntry.prototype.isVEffectEntry = function () {
+  return true;
+};
+
 /**
  * @param {IFVertexSource} source the source vertices this
  * filter should be applied to

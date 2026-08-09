@@ -15,7 +15,7 @@ var ViewType = {
 /**
  * @private
  */
-ColorModes = [
+var ColorModes = [
   {
     type: IFColor.Type.RGB,
     name: "RGB",

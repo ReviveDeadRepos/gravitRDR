@@ -26,3 +26,22 @@ export { GSidebars } from "./workspace/sidebars";
 export { GToolbar } from "./workspace/toolbar";
 export { GWindow } from "./workspace/window";
 export { GWindows } from "./workspace/windows";
+
+// Side-effect modules
+import "./component/autoedit";
+import "./component/panel";
+import "./component/patterntarget";
+import "./component/colorbutton";
+import "./component/colorpanel";
+import "./component/cornertype";
+import "./component/blendmode";
+import "./component/unit";
+import "./component/gradienteditor";
+import "./component/overlay";
+import "./component/pivot";
+import "./component/stylepanel";
+import "./component/swatchpanel";
+import "./component/menubutton";
+import "./util/selectors";
+import "./i18n/i18n_en";
+import "./i18n/i18n_de";

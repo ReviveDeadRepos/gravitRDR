@@ -4,13 +4,10 @@ import { IFElement } from "../element";
 import { IFVertexSource } from "../../vertex/vertexsource";
 import { IFObject } from "../../core/object";
 import { IFStyleSet } from "../style/styleset";
-import { IFLayer } from "../structure/layer";
 import { IFShapeSet } from "./shapeset";
 import { IFTransform } from "../../geometry/transform";
 import { IFVertexTransformer } from "../../vertex/vertextransformer";
 import { IFPaintContext } from "../../paint/paintcontext";
-import { IFStyle } from "../style/style";
-import { IFPaintEntry } from "../style/paintentry";
 import { IFColor } from "../../paint/color";
 import { IFPaintCanvas } from "../../paint/paintcanvas";
 import { ifVertexInfo, IFVertexInfo } from "../../vertex/vertexinfo";
@@ -104,7 +101,7 @@ IFShape.prototype.transform = function (transform) {
 /** @override */
 IFShape.prototype.validateInsertion = function (parent, reference) {
   return (
-    parent instanceof IFLayer ||
+    parent.isLayer() ||
     parent instanceof IFShapeSet ||
     parent instanceof IFShape
   );
@@ -212,7 +209,7 @@ IFShape.prototype._paintStyle = function (context, style, styleIndex) {
     entry !== null;
     entry = entry.getNext()
   ) {
-    if (entry instanceof IFPaintEntry && entry.getProperty("vs") === true) {
+    if (entry.isPaintEntry() && entry.getProperty("vs") === true) {
       if (!paints) {
         paints = [];
       }

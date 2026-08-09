@@ -14,6 +14,10 @@ export function IFEffectEntry() {
 
 IFObject.inherit(IFEffectEntry, IFStyleEntry);
 
+IFEffectEntry.prototype.isEffectEntry = function () {
+  return true;
+};
+
 /**
  * Should return whether this filter is applied
  * *after* contents are rendered (true) or before (false)

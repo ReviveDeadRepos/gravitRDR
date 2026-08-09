@@ -865,3 +865,5 @@ var IFSelector = (function () {
 
   return IFSelector;
 })();
+
+window.IFSelector = IFSelector;

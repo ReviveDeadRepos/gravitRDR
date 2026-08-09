@@ -7,9 +7,8 @@ import { IFRect } from "../geometry/rect";
 import { GEvent } from "../event/event";
 import { IFObject } from "../core/object";
 import { ifUtil } from "../core/util";
-import { IFPage } from "./structure/page";
-import { IFLayer } from "./structure/layer";
 import { IFPoint } from "../geometry/point";
+
 /**
  * A scene covers all graphical resources
  * @class IFScene
@@ -249,6 +248,10 @@ IFScene.SwatchCollection.prototype.validateInsertion = function (
  * @type {{}}
  * @private
  */
+IFScene.prototype.isScene = function () {
+  return true;
+};
+
 IFScene.prototype._references = null;
 
 /**
@@ -449,7 +452,7 @@ IFScene.prototype.setActivePage = function (page) {
     child !== null;
     child = child.getNext()
   ) {
-    if (child instanceof IFPage && child !== page) {
+    if (child.isPage() && child !== page) {
       child.removeFlag(IFNode.Flag.Active);
     }
   }
@@ -482,7 +485,7 @@ IFScene.prototype.setActiveLayer = function (layer) {
 
   // Now activate the layer
   layerPage.acceptChildren(function (node) {
-    if (node instanceof IFLayer && node !== layer) {
+    if (node.isLayer() && node !== layer) {
       node.removeFlag(IFNode.Flag.Active);
     }
   });
@@ -501,7 +504,7 @@ IFScene.prototype.getPageInsertPosition = function () {
     child !== null;
     child = child.getPrevious()
   ) {
-    if (child instanceof IFPage) {
+    if (child.isPage()) {
       return new IFPoint(
         child.getProperty("x") + child.getProperty("w") + IFScene.PAGE_SPACING,
         child.getProperty("y"),
@@ -529,7 +532,7 @@ IFScene.prototype.willPageIntersectWithOthers = function (page, pageRect) {
     child !== null;
     child = child.getPrevious()
   ) {
-    if (child instanceof IFPage && child !== page) {
+    if (child.isPage() && child !== page) {
       var currentPageRect = child.getGeometryBBox();
       if (currentPageRect && currentPageRect.intersectsRect(pageRect)) {
         return true;
@@ -727,7 +730,7 @@ IFScene.prototype._renderChildren = function (context) {
   }
 
   for (var node = this.getFirstChild(); node != null; node = node.getNext()) {
-    if (node instanceof IFPage) {
+    if (node.isPage()) {
       // Handle single-page mode if set
       if (!this.$singlePage || node.hasFlag(IFNode.Flag.Active)) {
         node.render(context);

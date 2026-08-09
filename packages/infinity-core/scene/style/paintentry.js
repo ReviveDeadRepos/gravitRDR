@@ -4,7 +4,6 @@ import { IFPaintCanvas } from "../../paint/paintcanvas";
 import { IFVertexSource } from "../../vertex/vertexsource";
 import { IFPoint } from "../../geometry/point";
 import { IFTransform } from "../../geometry/transform";
-import { IFStyle } from "./style";
 import { IFRect } from "../../geometry/rect";
 
 /**
@@ -18,6 +17,10 @@ export function IFPaintEntry() {
 }
 
 IFObject.inherit(IFPaintEntry, IFStyleEntry);
+
+IFPaintEntry.prototype.isPaintEntry = function () {
+  return true;
+};
 
 /**
  * Called to test on whether this paint requires to paint

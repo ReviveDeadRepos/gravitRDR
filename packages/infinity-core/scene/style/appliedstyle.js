@@ -3,6 +3,7 @@ import { IFObject } from "../../core/object";
 import { IFPaintCanvas } from "../../paint/paintcanvas";
 import { IFElement } from "../element";
 import { IFStyleSet } from "./styleset";
+import { APPLIED_STYLE_TYPE } from "./appliedstyletype";
 
 /**
  * The applied style class
@@ -20,34 +21,15 @@ export function IFAppliedStyle() {
 
 IFObject.inherit(IFAppliedStyle, IFStyle);
 
+IFAppliedStyle.prototype.isAppliedStyle = function () {
+  return true;
+};
+
 /**
  * The type of a style
  * @enum
  */
-IFAppliedStyle.Type = {
-  /**
-   * Content type - Render contents and effects
-   */
-  Content: "C",
-
-  /**
-   * Knockout - Applies effects on contents
-   * but doesn't render the contents
-   */
-  Knockout: "K",
-
-  /**
-   * Mask - Applies effects on contents
-   * and clips background with them
-   */
-  Mask: "M",
-
-  /**
-   * Background - Applies effects on
-   * backgrounds and clips it with contents
-   */
-  Background: "B",
-};
+IFAppliedStyle.Type = APPLIED_STYLE_TYPE;
 
 /**
  * Geometry properties

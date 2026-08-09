@@ -76,3 +76,8 @@ export { GShadowEffectEntry } from "./styleentry/shadoweffectentry";
 export { GStrokePaintEntry } from "./styleentry/strokepaintentry";
 export { GAdjustTransformer } from "./transformer/adjusttransformer";
 export { GAlignTransformer } from "./transformer/aligntransformer";
+
+// Side-effect module wiring
+import "./gravitrdr";
+import "./i18n/i18n_en";
+import "./i18n/i18n_de";

@@ -1,7 +1,6 @@
 import { IFItem } from "../item";
 import { IFNode } from "../node";
 import { IFElement } from "../element";
-import { IFLayer } from "../structure/layer";
 import { IFBlock } from "../block";
 /**
  * The base for a groups
@@ -21,7 +20,7 @@ IFNode.inheritAndMix("shapeSet", IFShapeSet, IFItem, [
 
 /** @override */
 IFShapeSet.prototype.validateInsertion = function (parent, reference) {
-  return parent instanceof IFLayer || parent instanceof IFShapeSet;
+  return parent.isLayer() || parent instanceof IFShapeSet;
 };
 
 /** @override */

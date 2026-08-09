@@ -1,7 +1,6 @@
 import { IFObject } from "../core/object";
 import { GEvent } from "../event/event";
 import { ifUtil } from "../core/util";
-import { IFScene } from "./scene";
 import { ifLocale } from "../core/locale";
 /**
  * Base node representing a single item within a scene
@@ -13,6 +12,41 @@ import { ifLocale } from "../core/locale";
 export function IFNode() {}
 
 IFObject.inherit(IFNode, IFObject);
+
+IFNode.prototype.isLayer = function () {
+  return false;
+};
+IFNode.prototype.isPage = function () {
+  return false;
+};
+IFNode.prototype.isScene = function () {
+  return false;
+};
+IFNode.prototype.isStyle = function () {
+  return false;
+};
+IFNode.prototype.isStyleSet = function () {
+  return false;
+};
+IFNode.prototype.isAppliedStyle = function () {
+  return false;
+};
+IFNode.prototype.isStyleEntry = function () {
+  return false;
+};
+IFNode.prototype.isVEffectEntry = function () {
+  return false;
+};
+IFNode.prototype.isEffectEntry = function () {
+  return false;
+};
+IFNode.prototype.isFilterEntry = function () {
+  return false;
+};
+IFNode.prototype.isPaintEntry = function () {
+  return false;
+};
+
 
 /**
  * Nodes's mime-type

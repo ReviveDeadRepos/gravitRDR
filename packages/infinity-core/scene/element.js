@@ -2,24 +2,17 @@ import { IFNode } from "./node";
 import { IFObject } from "../core/object";
 import { GEvent } from "../event/event";
 import { IFTransform } from "../geometry/transform";
-import { IFStyleSet } from "./style/styleset";
 import { IFPaintContext } from "../paint/paintcontext";
-import { IFStyle } from "./style/style";
 import { IFPaintCanvas } from "../paint/paintcanvas";
-import { IFAppliedStyle } from "./style/appliedstyle";
-import { IFStyleEntry } from "./style/styleentry";
-import { IFEffectEntry } from "./style/effectentry";
-import { IFFilterEntry } from "./style/filterentry";
-import { IFPaintEntry } from "./style/paintentry";
 import { IFVertexSource } from "../vertex/vertexsource";
 import { IFScenePaintConfiguration } from "./scenepaintconfiguration";
 import { IFRect } from "../geometry/rect";
 import { IFPoint } from "../geometry/point";
 import { ifVertexInfo } from "../vertex/vertexinfo";
-import { IFScene } from "./scene";
 import { IFLength } from "../geometry/length";
 import { IFBitmap } from "../paint/bitmap";
 import { ifUtil } from "../core/util";
+import { APPLIED_STYLE_TYPE } from "./style/appliedstyletype";
 /**
  * An element represent an elementary node within a scene, something like a layer,
  * a shape, a group of shapes and more
@@ -299,7 +292,7 @@ IFElement.Style.prototype.getStyleSet = function () {
       child !== null;
       child = child.getNext(true)
     ) {
-      if (child instanceof IFStyleSet) {
+      if (child.isStyleSet()) {
         this._styleSet = child;
         break;
       }
@@ -323,18 +316,18 @@ IFElement.Style.prototype.renderStyle = function (context, style, styleIndex) {
     var styleOpacity = 1.0;
     var styleBlendMode = IFPaintCanvas.BlendMode.Normal;
 
-    if (style instanceof IFAppliedStyle) {
+    if (style.isAppliedStyle()) {
       var styleType = style.getProperty("tp");
       switch (styleType) {
-        case IFAppliedStyle.Type.Content:
+        case APPLIED_STYLE_TYPE.Content:
           break;
-        case IFAppliedStyle.Type.Mask:
+        case APPLIED_STYLE_TYPE.Mask:
           styleAsMask = true;
           break;
-        case IFAppliedStyle.Type.Knockout:
+        case APPLIED_STYLE_TYPE.Knockout:
           styleKnockout = true;
           break;
-        case IFAppliedStyle.Type.Background:
+        case APPLIED_STYLE_TYPE.Background:
           styleOnBackground = true;
           break;
         default:
@@ -360,14 +353,14 @@ IFElement.Style.prototype.renderStyle = function (context, style, styleIndex) {
       child !== null;
       child = child.getNext()
     ) {
-      if (child instanceof IFStyleEntry && child.getProperty("vs") === true) {
-        if (child instanceof IFEffectEntry) {
+      if (child.isStyleEntry() && child.getProperty("vs") === true) {
+        if (child.isEffectEntry()) {
           effects.push(child);
           needSeparateCanvas = true;
-        } else if (child instanceof IFFilterEntry) {
+        } else if (child.isFilterEntry()) {
           filters.push(child);
           needSeparateCanvas = true;
-        } else if (child instanceof IFPaintEntry) {
+        } else if (child.isPaintEntry()) {
           // If paint entry has no default composite or blend mode
           // then we need a separate canvas as well if we're a vertex source
           if (this.hasMixin(IFVertexSource)) {
@@ -840,7 +833,7 @@ IFElement.prototype.isRenderable = function (context) {
   if (!context) {
     // If there's no context we can only paint when attached and having a parent
     // or when we are the scene by ourself
-    return (this.isAttached() && this.getParent()) || this instanceof IFScene;
+    return (this.isAttached() && this.getParent()) || this.isScene();
   }
 
   var paintBBox = this.getPaintBBox();
@@ -883,7 +876,7 @@ IFElement.prototype.render = function (context) {
       style !== null;
       style = style.getNext()
     ) {
-      if (style instanceof IFStyle && style.getProperty("vs") === true) {
+      if (style.isStyle() && style.getProperty("vs") === true) {
         paintRegular = false;
 
         this.renderStyle(context, style, styleIndex);

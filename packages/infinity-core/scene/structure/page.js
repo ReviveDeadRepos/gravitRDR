@@ -4,7 +4,6 @@ import { IFRect } from "../../geometry/rect";
 import { IFColor } from "../../paint/color";
 import { IFElement } from "../element";
 import { IFTransform } from "../../geometry/transform";
-import { IFScene } from "../scene";
 /**
  * An element representing a page
  * @class IFPage
@@ -61,6 +60,10 @@ IFPage.VisualProperties = {
  * Returns whether this page is a master page or not (always returns false if not attached)
  * @returns {boolean}
  */
+IFPage.prototype.isPage = function () {
+  return true;
+};
+
 IFPage.prototype.isMaster = function () {
   return this.isAttached() ? this.getScene().hasLinks(this) : false;
 };
@@ -244,7 +247,7 @@ IFPage.prototype._paint = function (context) {
 
 /** @override */
 IFPage.prototype.validateInsertion = function (parent, reference) {
-  return parent instanceof IFScene;
+  return parent.isScene();
 };
 
 /** @override */

@@ -1,15 +1,23 @@
-(function (_) {
-  /**
-   * The browser shell
-   * @class GBrowserShell
-   * @extends GShell
-   * @constructor
-   */
-  function GBrowserShell() {
-    this._menuBar = new GMenuBar();
-    this._clipboardMimeTypes = {};
-  }
-  IFObject.inherit(GBrowserShell, GShell);
+import { IFObject } from "@gravitrdr/infinity-core";
+import {
+  GShell,
+  GMenu,
+  GMenuBar,
+  GMenuItem,
+} from "@gravitrdr/application";
+import { gShellReady, gShellFinished } from "@gravitrdr/application/bootstrap";
+
+/**
+ * The browser shell
+ * @class GBrowserShell
+ * @extends GShell
+ * @constructor
+ */
+function GBrowserShell() {
+  this._menuBar = new GMenuBar();
+  this._clipboardMimeTypes = {};
+}
+IFObject.inherit(GBrowserShell, GShell);
 
   /**
    * @type {GMenuBar}
@@ -128,7 +136,7 @@
     this._clipboardMimeTypes[mimeType] = content;
   };
 
-  _.gShell = new GBrowserShell();
+  window.gShell = new GBrowserShell();
 
   $(document).ready(function () {
     gShellReady();
@@ -137,4 +145,3 @@
   $(window).on("load", function () {
     gShellFinished();
   });
-})(this);

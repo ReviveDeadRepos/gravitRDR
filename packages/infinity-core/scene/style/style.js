@@ -1,21 +1,14 @@
 import { IFNode } from "../node";
 import { IFObject } from "../../core/object";
 import { GEvent } from "../../event/event";
-import { IFStyleEntry } from "./styleentry";
-import { IFRectangle } from "../shape/rectangle";
 import { IFTransform } from "../../geometry/transform";
 import { IFPaintCanvas } from "../../paint/paintcanvas";
 import { IFPaintContext } from "../../paint/paintcontext";
 import { IFScenePaintConfiguration } from "../scenepaintconfiguration";
 import { IFRect } from "../../geometry/rect";
 import { IFPoint } from "../../geometry/point";
-import { IFVEffectEntry } from "./veffectentry";
-import { IFFilterEntry } from "./filterentry";
-import { IFEffectEntry } from "./effectentry";
-import { IFPaintEntry } from "./paintentry";
 import { IFVertexSource } from "../../vertex/vertexsource";
 import { ifUtil } from "../../core/util";
-var PREVIEW_CHESSBOARD_FILL = null;
 
 /**
  * Base style class
@@ -30,6 +23,10 @@ export function IFStyle() {
 }
 
 IFObject.inheritAndMix(IFStyle, IFNode, [IFNode.Store, IFNode.Properties]);
+
+IFStyle.prototype.isStyle = function () {
+  return true;
+};
 
 // -----------------------------------------------------------------------------------------------------------------
 // IFStyle.StyleChangeEvent Event
@@ -98,67 +95,6 @@ IFStyle.prototype.getActualStyle = function () {
 };
 
 /**
- * Creates a preview image of this canvas
- * @param {Number} width the width of the preview
- * @param {Number} height the height of the preview
- * @return {String} a base64-encoded image data url with the preview
- */
-IFStyle.prototype.createPreviewImage = function (width, height) {
-  // Create a temporary rectangle shape for preview painting
-  var previewRect = new IFRectangle();
-  previewRect.setProperty(
-    "trf",
-    new IFTransform(width / 2, 0, 0, height / 2, width / 2, height / 2),
-  );
-
-  // Setup canvas and context for painting
-  var canvas = new IFPaintCanvas();
-  canvas.resize(width, height);
-  canvas.prepare();
-  var context = new IFPaintContext();
-  context.canvas = canvas;
-  context.configuration = new IFScenePaintConfiguration();
-
-  // Paint transparent background
-  if (!PREVIEW_CHESSBOARD_FILL) {
-    PREVIEW_CHESSBOARD_FILL = IFPaintCanvas.createChessboard(
-      4,
-      "white",
-      "rgb(185, 185, 185)",
-    );
-  }
-  context.canvas.fillRect(
-    0,
-    0,
-    width,
-    height,
-    context.canvas.createTexture(PREVIEW_CHESSBOARD_FILL),
-  );
-
-  // Calculate real bounding box
-  var bbox = this.getBBox(new IFRect(0, 0, width, height));
-
-  // Transform canvas to fit bounding box exactly
-  var bboxCenter = bbox.getSide(IFRect.Side.CENTER);
-  var realCenter = new IFPoint(width / 2, height / 2);
-  var scaleX = 1.0 / (bbox.getWidth() / width);
-  var scaleY = 1.0 / (bbox.getHeight() / height);
-  var matrix = new IFTransform()
-    .translated(-bboxCenter.getX(), -bboxCenter.getY())
-    .scaled(scaleX, scaleY)
-    .translated(realCenter.getX(), realCenter.getY())
-    .getMatrix();
-
-  canvas.setOrigin(new IFPoint(-matrix[4], -matrix[5]));
-  canvas.setScale(scaleX);
-
-  // Paint rectangle with this style
-  previewRect.renderStyle(context, this);
-
-  return canvas.asPNGImage();
-};
-
-/**
  * Returns the bounding box of the style. This includes only
  * visible style entries
  * @param {IFRect} source the source bbox
@@ -175,10 +111,10 @@ IFStyle.prototype.getBBox = function (source) {
     child !== null;
     child = child.getNext()
   ) {
-    if (child instanceof IFStyleEntry && child.getProperty("vs") === true) {
+    if (child.isStyleEntry() && child.getProperty("vs") === true) {
       var padding = child.getPadding();
       if (padding) {
-        if (child instanceof IFVEffectEntry) {
+        if (child.isVEffectEntry()) {
           // vEffects are additive
           vEffectPadding = [
             vEffectPadding[0] + padding[0],
@@ -186,7 +122,7 @@ IFStyle.prototype.getBBox = function (source) {
             vEffectPadding[2] + padding[2],
             vEffectPadding[3] + padding[3],
           ];
-        } else if (child instanceof IFFilterEntry) {
+        } else if (child.isFilterEntry()) {
           // filters always sum up
           filterPadding = [
             filterPadding[0] + Math.abs(padding[0]),
@@ -194,7 +130,7 @@ IFStyle.prototype.getBBox = function (source) {
             filterPadding[2] + Math.abs(padding[2]),
             filterPadding[3] + Math.abs(padding[3]),
           ];
-        } else if (child instanceof IFEffectEntry) {
+        } else if (child.isEffectEntry()) {
           // effects approximate the largest
           effectPadding = [
             Math.max(effectPadding[0], padding[0]),
@@ -202,7 +138,7 @@ IFStyle.prototype.getBBox = function (source) {
             Math.max(effectPadding[2], padding[2]),
             Math.max(effectPadding[3], padding[3]),
           ];
-        } else if (child instanceof IFPaintEntry) {
+        } else if (child.isPaintEntry()) {
           // paints approximate the largest
           paintPadding = [
             Math.max(paintPadding[0], padding[0]),
@@ -259,7 +195,7 @@ IFStyle.prototype.createVertexSource = function (source) {
     entry !== null;
     entry = entry.getNext()
   ) {
-    if (entry instanceof IFVEffectEntry && entry.getProperty("vs") === true) {
+    if (entry.isVEffectEntry() && entry.getProperty("vs") === true) {
       source = entry.createEffect(source);
     }
   }
@@ -289,7 +225,7 @@ IFStyle.prototype.hitTest = function (source, location, transform, tolerance) {
     entry !== null;
     entry = entry.getPrevious()
   ) {
-    if (entry instanceof IFPaintEntry && entry.getProperty("vs") === true) {
+    if (entry.isPaintEntry() && entry.getProperty("vs") === true) {
       var result = entry.hitTest(source, location, transform, tolerance);
       if (result) {
         return result;
@@ -335,14 +271,14 @@ IFStyle.prototype._handleChange = function (change, args) {
     change == IFNode._Change.BeforeChildInsert ||
     change === IFNode._Change.BeforeChildRemove
   ) {
-    if (args instanceof IFStyleEntry) {
+    if (args.isStyleEntry()) {
       this.prepareGeometryChange();
     }
   } else if (
     change == IFNode._Change.AfterChildInsert ||
     change === IFNode._Change.AfterChildRemove
   ) {
-    if (args instanceof IFStyleEntry) {
+    if (args.isStyleEntry()) {
       this.finishGeometryChange();
     }
   }

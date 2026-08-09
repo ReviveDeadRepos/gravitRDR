@@ -48,6 +48,7 @@ export { IFPage } from "./scene/structure/page";
 export { IFSlice } from "./scene/structure/slice";
 export { IFSwatch } from "./scene/structure/swatch";
 export { IFAppliedStyle } from "./scene/style/appliedstyle";
+import "./scene/style/stylepreview";
 export { IFShadowEffect } from "./scene/style/effect/shadoweffect";
 export { IFEffectEntry } from "./scene/style/effectentry";
 export { IFBlurFilter } from "./scene/style/filter/blurfilter";
@@ -77,3 +78,8 @@ export { IFSceneStage } from "./view/scenestage";
 export { IFStage } from "./view/stage";
 export { IFView } from "./view/view";
 export { GUIWidget } from "./view/widget";
+
+// Side-effect module wiring
+import "./scene/selector";
+import "./i18n/i18n_en";
+import "./i18n/i18n_de";

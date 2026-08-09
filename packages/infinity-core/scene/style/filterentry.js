@@ -14,6 +14,10 @@ export function IFFilterEntry() {
 
 IFObject.inherit(IFFilterEntry, IFStyleEntry);
 
+IFFilterEntry.prototype.isFilterEntry = function () {
+  return true;
+};
+
 /**
  * @param {IFPaintCanvas} contents the contents canvas to apply the filter onto
  * @param {Number} scale a scale factor you need to multiply your params with

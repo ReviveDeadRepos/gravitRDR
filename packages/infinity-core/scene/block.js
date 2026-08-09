@@ -1,8 +1,6 @@
 import { IFElement } from "./element";
 import { IFNode } from "./node";
 import { IFObject } from "../core/object";
-import { IFLayer } from "./structure/layer";
-import { IFPage } from "./structure/page";
 /**
  * A block element that supports properties and storage
  * @class IFBlock
@@ -117,19 +115,19 @@ IFBlock.prototype._setParent = function (parent) {
   // update rootLayer, layer, page
   if (parent) {
     this._ownerLayer =
-      parent instanceof IFLayer
+      parent.isLayer()
         ? parent
         : parent instanceof IFBlock
           ? parent.getOwnerLayer()
           : null;
     this._rootLayer =
-      parent instanceof IFLayer && !parent.getOwnerLayer()
+      parent.isLayer() && !parent.getOwnerLayer()
         ? parent
         : parent instanceof IFBlock
           ? parent.getRootLayer()
           : null;
     this._page =
-      parent instanceof IFPage
+      parent.isPage()
         ? parent
         : parent instanceof IFBlock
           ? parent.getPage()

@@ -50,3 +50,7 @@ export { IFEditorFrontStage } from "./view/editorfrontstage";
 export { IFEditorSceneStage } from "./view/editorscenestage";
 export { IFEditorToolStage } from "./view/editortoolstage";
 export { IFEditorView } from "./view/editorview";
+
+// Side-effect module wiring
+import "./i18n/i18n_en";
+import "./i18n/i18n_de";

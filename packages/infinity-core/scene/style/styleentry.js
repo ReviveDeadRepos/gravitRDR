@@ -1,6 +1,5 @@
 import { IFNode } from "../node";
 import { IFObject } from "../../core/object";
-import { IFStyle } from "./style";
 import { ifUtil } from "../../core/util";
 
 /**
@@ -17,6 +16,10 @@ export function IFStyleEntry() {
 }
 
 IFObject.inheritAndMix(IFStyleEntry, IFNode, [IFNode.Store, IFNode.Properties]);
+
+IFStyleEntry.prototype.isStyleEntry = function () {
+  return true;
+};
 
 /**
  * Visual properties
@@ -55,7 +58,7 @@ IFStyleEntry.prototype.getPadding = function () {
 
 /** @override */
 IFStyleEntry.prototype.validateInsertion = function (parent, reference) {
-  return parent instanceof IFStyle;
+  return parent.isStyle();
 };
 
 /** @override */
@@ -144,7 +147,7 @@ IFStyleEntry.prototype._handleVisualChangeForProperties = function (
  */
 IFStyleEntry.prototype.getOwnerStyle = function () {
   var parent = this.getParent();
-  return parent && parent instanceof IFStyle ? parent : null;
+  return parent && parent.isStyle() ? parent : null;
 };
 
 /** @override */

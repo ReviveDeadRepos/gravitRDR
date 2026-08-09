@@ -3,7 +3,6 @@ import { IFNode } from "../node";
 import { IFElement } from "../element";
 import { IFColor } from "../../paint/color";
 import { IFLocale } from "../../core/locale";
-import { IFPage } from "./page";
 import { IFScenePaintConfiguration } from "../scenepaintconfiguration";
 /**
  * An element representing a layer
@@ -77,6 +76,10 @@ IFLayer.VisualProperties = {
 };
 
 /** @override */
+IFLayer.prototype.isLayer = function () {
+  return true;
+};
+
 IFLayer.prototype.store = function (blob) {
   if (IFBlock.prototype.store.call(this, blob)) {
     this.storeProperties(
@@ -128,7 +131,7 @@ IFLayer.prototype.restore = function (blob) {
 
 /** @override */
 IFLayer.prototype.validateInsertion = function (parent, reference) {
-  return parent instanceof IFLayer || parent instanceof IFPage;
+  return parent.isLayer() || parent.isPage();
 };
 
 /** @override */

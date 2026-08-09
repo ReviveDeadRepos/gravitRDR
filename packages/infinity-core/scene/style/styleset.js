@@ -21,6 +21,10 @@ export function IFStyleSet() {
 
 IFObject.inheritAndMix(IFStyleSet, IFNode, [IFNode.Container, IFNode.Store]);
 
+IFStyleSet.prototype.isStyleSet = function () {
+  return true;
+};
+
 /**
  * Returns the bounding box of the styleSet which is
  * the union of all visible style's bboxes
