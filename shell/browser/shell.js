@@ -138,10 +138,22 @@ IFObject.inherit(GBrowserShell, GShell);
 
   window.gShell = new GBrowserShell();
 
+  var gReadyDone = false;
+  var gLoadDone = false;
+
+  var gRunWhenBooted = function () {
+    if (gReadyDone && gLoadDone) {
+      gShellFinished();
+    }
+  };
+
   $(document).ready(function () {
     gShellReady();
+    gReadyDone = true;
+    gRunWhenBooted();
   });
 
   $(window).on("load", function () {
-    gShellFinished();
+    gLoadDone = true;
+    gRunWhenBooted();
   });

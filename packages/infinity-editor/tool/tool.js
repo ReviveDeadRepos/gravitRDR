@@ -1,11 +1,5 @@
 import { IFObject } from "@gravitrdr/infinity-core";
-import { IFToolManager } from "./toolmanager";
-import { IFScene } from "@gravitrdr/infinity-core";
-import { IFEditorView } from "../view/editorview";
-import { IFEditor } from "../editor";
 import { IFCursor } from "@gravitrdr/infinity-core";
-import { IFPaintContext } from "@gravitrdr/infinity-core";
-import { IFRect } from "@gravitrdr/infinity-core";
 /**
  * The base for a tool
  * @class IFTool

@@ -18,7 +18,6 @@
   "GView": "extension/view.js",
   "GShell": "shell.js",
   "gShell": "shell.js",
-  "ciede2000": "util/ciede2000.js",
   "image2Canvas": "util/image.js",
   "image2Base64": "util/image.js",
   "image2ArrayBuffer": "util/image.js",

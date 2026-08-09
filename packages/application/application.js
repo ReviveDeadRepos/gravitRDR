@@ -1229,33 +1229,33 @@ GApplication.prototype._windowEvent = function (evt) {
 };
 
 /**
- * @param {GWindow} window
+ * @param {GWindow} gw
  * @private
  */
-GApplication.prototype._addWindowMenuItem = function (window) {
+GApplication.prototype._addWindowMenuItem = function (gw) {
   this._windowMenuMap.push({
-    window: window,
+    window: gw,
     item: window.gShell.addMenuItem(
       this._windowMenu,
-      window.getTitle(),
+      gw.getTitle(),
       true,
       null,
       function () {
-        this._windows.activateWindow(window);
+        this._windows.activateWindow(gw);
       }.bind(this),
     ),
   });
-  this._updateWindowMenuItem(window);
+  this._updateWindowMenuItem(gw);
 };
 
 /**
- * @param {GWindow} window
+ * @param {GWindow} gw
  * @private
  */
-GApplication.prototype._removeWindowMenuItem = function (window) {
+GApplication.prototype._removeWindowMenuItem = function (gw) {
   for (var i = 0; i < this._windowMenuMap.length; ++i) {
     var map = this._windowMenuMap[i];
-    if (map.window === window) {
+    if (map.window === gw) {
       window.gShell.removeMenuItem(this._windowMenu, map.item);
       this._windowMenuMap.splice(i, 1);
       break;
@@ -1265,13 +1265,13 @@ GApplication.prototype._removeWindowMenuItem = function (window) {
 };
 
 /**
- * @param {GWindow} window
+ * @param {GWindow} gw
  * @private
  */
-GApplication.prototype._updateWindowMenuItem = function (window) {
+GApplication.prototype._updateWindowMenuItem = function (gw) {
   for (var i = 0; i < this._windowMenuMap.length; ++i) {
     var map = this._windowMenuMap[i];
-    if (map.window === window) {
+    if (map.window === gw) {
       window.gShell.updateMenuItem(
         map.item,
         map.window.getTitle(),

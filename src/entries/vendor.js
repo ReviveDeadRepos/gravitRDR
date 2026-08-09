@@ -8,7 +8,7 @@ import "jqtree";
 import "mousetrap";
 
 import * as opentype from "opentype.js";
-import Module from "wawoff2/build/decompress_binding.js";
+import wawoff2Source from "wawoff2/build/decompress_binding.js?raw";
 import rangy from "rangy";
 import "rangy/lib/rangy-classapplier.js";
 import "rangy/lib/rangy-selectionsaverestore.js";
@@ -16,8 +16,14 @@ import pako from "pako";
 import * as ColorThief from "colorthief";
 import URI from "urijs";
 
+// The wawoff2 Emscripten binding only assigns its Module object to
+// `module.exports` when running under Node. In a browser it expects to be a
+// classic-script global, so evaluate the raw source in global scope to expose
+// the populated Module (with `decompress` after the wasm initializes) as
+// `window.Module`.
+(0, eval)(wawoff2Source);
+
 window.opentype = opentype;
-window.Module = Module;
 window.rangy = rangy;
 window.pako = pako;
 window.ColorThief = ColorThief;

@@ -23,6 +23,7 @@
   "IFColor": "paint/color.js",
   "IFColorProfile": "paint/colorprofile.js",
   "IFColorSpace": "paint/colorspace.js",
+  "ciede2000": "paint/ciede2000.js",
   "IFDirtyList": "paint/dirtylist.js",
   "IFFont": "paint/font.js",
   "ifFont": "paint/font.js",

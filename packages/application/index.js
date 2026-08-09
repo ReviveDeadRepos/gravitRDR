@@ -17,7 +17,6 @@ export { GStyleEntry } from "./extension/styleentry";
 export { GTransformer } from "./extension/transformer";
 export { GView } from "./extension/view";
 export { GShell } from "./shell";
-export { ciede2000 } from "./util/ciede2000";
 export { image2Canvas, image2Base64, image2ArrayBuffer } from "./util/image";
 export { GHeader } from "./workspace/header";
 export { GPalettes } from "./workspace/palettes";

@@ -2,6 +2,7 @@ import { IFPattern } from "./pattern";
 import { IFObject } from "../core/object";
 import { IFColorSpace } from "./colorspace";
 import { ifSystem } from "../core/system";
+import { ciede2000 } from "./ciede2000";
 /**
  * A class representing a color
  * @param {IFColor.Type} type

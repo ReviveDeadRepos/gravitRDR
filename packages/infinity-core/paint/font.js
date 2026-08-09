@@ -6,6 +6,49 @@ import { IFVertexTransformer } from "../vertex/vertextransformer";
 import { IFTransform } from "../geometry/transform";
 
 /**
+ * Decompresses a woff2 buffer using the Emscripten wawoff2 binding that the
+ * vendor entry exposes as the `window.Module` global. The binding
+ * instantiates its wasm asynchronously on first run, so `decompress` only
+ * becomes callable after runtime init.
+ * @param {Uint8Array} buffer the raw woff2 data
+ * @returns {Promise<Uint8Array>} the decompressed ttf data
+ */
+var woff2Decompress = function (buffer) {
+  return new Promise(function (resolve, reject) {
+    var mod = window.Module;
+    var doDecompress = function () {
+      try {
+        var result = mod.decompress(buffer);
+        if (result === false) {
+          reject(new Error("woff2 decompression failed"));
+        } else {
+          resolve(result);
+        }
+      } catch (err) {
+        reject(err);
+      }
+    };
+
+    if (mod && typeof mod.decompress === "function") {
+      doDecompress();
+    } else if (mod) {
+      // The binding kicked off asynchronous wasm instantiation in `run()`.
+      // Hook into the runtime-initialized callback, chaining any callback
+      // that is already registered so multiple pending fonts each resolve.
+      var previous = mod.onRuntimeInitialized;
+      mod.onRuntimeInitialized = function () {
+        if (typeof previous === "function") {
+          previous();
+        }
+        doDecompress();
+      };
+    } else {
+      reject(new Error("woff2 decompressor unavailable"));
+    }
+  });
+};
+
+/**
  * @class IFFont
  * @constructor
  */
@@ -168,15 +211,17 @@ IFFont.prototype.addType = function (family, style, weight, url, category) {
       };
 
       var isWoff2 = url.slice(-6).toLowerCase() === ".woff2";
-      if (isWoff2 && typeof Module !== "undefined") {
-        if (Module.decompress) {
-          var raw = new Uint8Array(buffer);
-          var result = Module.decompress(raw);
-          if (result !== false) {
+      if (isWoff2) {
+        woff2Decompress(new Uint8Array(buffer))
+          .then(function (result) {
             finish(Uint8Array.from(result).buffer);
-            return;
-          }
-        }
+          })
+          .catch(function () {
+            // Fall back to the raw buffer; opentype will reject the
+            // unsupported woff2 container but the family stays registered.
+            finish(buffer);
+          });
+        return;
       }
 
       finish(buffer);

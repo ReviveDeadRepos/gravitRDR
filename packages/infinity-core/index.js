@@ -20,6 +20,7 @@ export { IFBitmap } from "./paint/bitmap";
 export { IFColor } from "./paint/color";
 export { IFColorProfile } from "./paint/colorprofile";
 export { IFColorSpace } from "./paint/colorspace";
+export { ciede2000 } from "./paint/ciede2000";
 export { IFDirtyList } from "./paint/dirtylist";
 export { IFFont, ifFont } from "./paint/font";
 export { IFGradient } from "./paint/gradient";
