@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { fileURLToPath } from "url";
 
 export default defineConfig({
   root: "src",
@@ -8,6 +9,12 @@ export default defineConfig({
     outDir: "../dist/browser",
     emptyOutDir: true,
     cssCodeSplit: false,
+    rollupOptions: {
+      input: {
+        index: fileURLToPath(new URL("./src/index.html", import.meta.url)),
+        desktop: fileURLToPath(new URL("./src/desktop.html", import.meta.url)),
+      },
+    },
   },
   css: {
     lightningcss: {

@@ -7,46 +7,48 @@
 	<key>CFBundleName</key>
 	<string>GravitRDR</string>
 	<key>CFBundleDisplayName</key>
-	<string>%name%</string>
+	<string>GravitRDR</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.graphics-design</string>
 	<key>CFBundleDocumentTypes</key>
-    <array>
-    	<dict>
-    		<key>CFBundleTypeExtensions</key>
-    		<array>
-    			<string>gravitrdr</string>
-    		</array>
-    		<key>CFBundleTypeIconFile</key>
-    		<string>doc.icns</string>
-    		<key>CFBundleTypeName</key>
-    		<string>GravitRDR Design</string>
-    		<key>CFBundleTypeOSTypes</key>
-    		<array>
-    			<string>????</string>
-    		</array>
-    		<key>CFBundleTypeRole</key>
-    		<string>Editor</string>
-    	</dict>
-    </array>
-    <key>CFBundleExecutable</key>
-	<string>node-webkit</string>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>gravitrdr</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>GravitRDR Design</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>????</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string>GravitRDR</string>
 	<key>CFBundleIconFile</key>
-	<string>nw.icns</string>
+	<string>appicon</string>
 	<key>CFBundleIdentifier</key>
-	<string>%mac-bundle-id%</string>
+	<string>com.gravitrdr.desktop</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>Version 0.0.1</string>
+	<string>0.1.0</string>
 	<key>CFBundleVersion</key>
-	<string>%version%</string>
+	<string>0.1.0</string>
 	<key>LSFileQuarantineEnabled</key>
 	<true/>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.6.0</string>
+	<string>10.15.0</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2026 NellowTCS</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>

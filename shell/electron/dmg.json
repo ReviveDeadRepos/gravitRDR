@@ -1,0 +1,9 @@
+{
+  "title": "GravitRDR",
+  "background": "background.tiff",
+  "iconSize": 120,
+  "contents": [
+    { "x": 284, "y": 20 },
+    { "x": 483, "y": 20, "type": "link", "path": "/Applications" }
+  ]
+}
