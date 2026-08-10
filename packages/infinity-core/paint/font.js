@@ -8,21 +8,41 @@ import { IFTransform } from "../geometry/transform";
 /**
  * Decompresses a woff2 buffer using the Emscripten wawoff2 binding that the
  * vendor entry exposes as the `window.Module` global. The binding
- * instantiates its wasm asynchronously on first run, so `decompress` only
- * becomes callable after runtime init.
+ * instantiates its wasm asynchronously: until the runtime has initialized,
+ * `decompress` is defined but returns `false` instead of a result.
+ *
+ * The result is a live `Uint8Array` view into the wasm heap, so it must be
+ * copied synchronously, before any subsequent `decompress` call reuses the
+ * buffer. The promise always resolves with a detached copy.
  * @param {Uint8Array} buffer the raw woff2 data
  * @returns {Promise<Uint8Array>} the decompressed ttf data
  */
 var woff2Decompress = function (buffer) {
   return new Promise(function (resolve, reject) {
     var mod = window.Module;
-    var doDecompress = function () {
+    if (!mod) {
+      reject(new Error("woff2 decompressor unavailable"));
+      return;
+    }
+
+    var retry = function () {
       try {
         var result = mod.decompress(buffer);
-        if (result === false) {
+        if (result === false && !mod.calledRun) {
+          // The runtime has not started yet. Defer the attempt until the
+          // initialized callback fires, chaining any callback that is
+          // already registered so multiple pending fonts each resolve.
+          var previous = mod.onRuntimeInitialized;
+          mod.onRuntimeInitialized = function () {
+            if (typeof previous === "function") {
+              previous();
+            }
+            retry();
+          };
+        } else if (result === false) {
           reject(new Error("woff2 decompression failed"));
         } else {
-          resolve(result);
+          resolve(Uint8Array.from(result));
         }
       } catch (err) {
         reject(err);
@@ -30,20 +50,16 @@ var woff2Decompress = function (buffer) {
     };
 
     if (mod && typeof mod.decompress === "function") {
-      doDecompress();
-    } else if (mod) {
-      // The binding kicked off asynchronous wasm instantiation in `run()`.
-      // Hook into the runtime-initialized callback, chaining any callback
-      // that is already registered so multiple pending fonts each resolve.
+      retry();
+    } else {
+      // The binding has not yet attached `decompress` to the module global.
       var previous = mod.onRuntimeInitialized;
       mod.onRuntimeInitialized = function () {
         if (typeof previous === "function") {
           previous();
         }
-        doDecompress();
+        retry();
       };
-    } else {
-      reject(new Error("woff2 decompressor unavailable"));
     }
   });
 };

@@ -438,8 +438,8 @@ IFTransformBox.prototype.calculateTransformation = function (
     _snap(this.cx, this.cy, true, true);
     return new IFTransform(1, 0, 0, 1, dx, dy);
   } else if (partInfo.id == IFTransformBox.OUTSIDE) {
-    transform1 = new IFTransform(1, 0, 0, 1, -this.cx, -this.cy);
-    transform3 = new IFTransform(1, 0, 0, 1, this.cx, this.cy);
+    var transform1 = new IFTransform(1, 0, 0, 1, -this.cx, -this.cy);
+    var transform3 = new IFTransform(1, 0, 0, 1, this.cx, this.cy);
     var angle1 = Math.atan2(
       startPtTr.getY() - this.cy,
       startPtTr.getX() - this.cx,
@@ -456,8 +456,8 @@ IFTransformBox.prototype.calculateTransformation = function (
     var transform2 = new IFTransform(cosA, -sinA, sinA, cosA, 0, 0);
     return transform1.multiplied(transform2).multiplied(transform3);
   } else if (partInfo.id == IFTransformBox.OUTLINE) {
-    transform1 = new IFTransform(1, 0, 0, 1, -this.cx, -this.cy);
-    transform3 = new IFTransform(1, 0, 0, 1, this.cx, this.cy);
+    var transform1 = new IFTransform(1, 0, 0, 1, -this.cx, -this.cy);
+    var transform3 = new IFTransform(1, 0, 0, 1, this.cx, this.cy);
 
     if (ratio && ratioStep) {
       var step = ratioStep ? ratioStep : 20;

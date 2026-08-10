@@ -157,7 +157,7 @@ IFLength.parseEquation = function (string, unit) {
   var context = new LengthHelpers.Context(unit);
   var evaluator = new LengthHelpers.Evaluator(context);
   try {
-    result = evaluator.evaluate(string);
+    var result = evaluator.evaluate(string);
     return new IFLength(result, unit);
   } catch (e) {
     return null;

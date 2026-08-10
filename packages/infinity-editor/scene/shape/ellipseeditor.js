@@ -203,7 +203,7 @@ IFEllipseEditor.prototype._getPartInfoAt = function (
 ) {
   // If we have segment details then hit-test 'em
   if (this._showSegmentDetails()) {
-    result = null;
+    var result = null;
     this._iterateArcEnds(
       false,
       function (args) {

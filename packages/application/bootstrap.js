@@ -319,6 +319,20 @@ $(document).ready(function () {
     "webfonts/fa-solid-900.woff2",
     IFFont.Category.Iconic,
   );
+  ifFont.addType(
+    "FontAwesome Regular",
+    IFFont.Style.Normal,
+    IFFont.Weight.Regular,
+    "webfonts/fa-regular-400.woff2",
+    IFFont.Category.Iconic,
+  );
+  ifFont.addType(
+    "FontAwesome Brands",
+    IFFont.Style.Normal,
+    IFFont.Weight.Regular,
+    "webfonts/fa-brands-400.woff2",
+    IFFont.Category.Iconic,
+  );
 });
 
 $(window).on("load", function () {
