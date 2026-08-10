@@ -12,9 +12,9 @@
     "dev": "vite",
     "dev:host": "vite --host",
     "make-pretty": "prettier --write .",
-    "build:css": "vite build",
-    "build:web": "node scripts/build-web.mjs",
-    "build:nw": "npm run build:web && node build-nw.mjs"
+    "build": "vite build",
+    "build:desktop": "npm run build && node build-nw.mjs",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "chai": "^6.2.2",

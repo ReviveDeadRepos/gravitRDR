@@ -2,17 +2,12 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   root: "src",
+  base: "./",
   appType: "mpa",
   build: {
-    outDir: "../build/source",
+    outDir: "../dist/browser",
     emptyOutDir: true,
     cssCodeSplit: false,
-    rollupOptions: {
-      input: {
-        style: "src/entries/style.js",
-        app: "src/entries/app.js",
-      },
-    },
   },
   css: {
     lightningcss: {

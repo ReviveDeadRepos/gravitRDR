@@ -47,7 +47,6 @@ IFNode.prototype.isPaintEntry = function () {
   return false;
 };
 
-
 /**
  * Nodes's mime-type
  * @type {string}

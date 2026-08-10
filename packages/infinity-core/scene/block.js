@@ -114,24 +114,22 @@ IFBlock.prototype._setParent = function (parent) {
 
   // update rootLayer, layer, page
   if (parent) {
-    this._ownerLayer =
-      parent.isLayer()
-        ? parent
-        : parent instanceof IFBlock
-          ? parent.getOwnerLayer()
-          : null;
+    this._ownerLayer = parent.isLayer()
+      ? parent
+      : parent instanceof IFBlock
+        ? parent.getOwnerLayer()
+        : null;
     this._rootLayer =
       parent.isLayer() && !parent.getOwnerLayer()
         ? parent
         : parent instanceof IFBlock
           ? parent.getRootLayer()
           : null;
-    this._page =
-      parent.isPage()
-        ? parent
-        : parent instanceof IFBlock
-          ? parent.getPage()
-          : null;
+    this._page = parent.isPage()
+      ? parent
+      : parent instanceof IFBlock
+        ? parent.getPage()
+        : null;
   } else {
     this._ownerLayer = null;
     this._rootLayer = null;
