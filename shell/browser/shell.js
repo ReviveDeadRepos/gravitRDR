@@ -6,6 +6,7 @@ import {
   GMenuItem,
 } from "@gravitrdr/application";
 import { gShellReady, gShellFinished } from "@gravitrdr/application/bootstrap";
+import { GDownloadStorage } from "./downloadstorage.js";
 
 /**
  * The browser shell
@@ -154,6 +155,7 @@ IFObject.inherit(GBrowserShell, GShell);
   });
 
   $(window).on("load", function () {
+    gravitrdr.storages.push(new GDownloadStorage());
     gLoadDone = true;
     gRunWhenBooted();
   });

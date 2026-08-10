@@ -5,6 +5,20 @@ import { IFPoint } from "@gravitrdr/infinity-core";
 import { IFToolManager } from "@gravitrdr/infinity-editor";
 import { GWindows } from "./windows";
 import { IFView } from "@gravitrdr/infinity-core";
+
+// The zoom actions live in the gravitrdr package which depends on this one,
+// so a static import here would create a module cycle that breaks booting.
+// Resolve them lazily on first use instead.
+var _gravitrdrModulePromise = null;
+var _getZoomActionId = function (actionName) {
+  if (!_gravitrdrModulePromise) {
+    _gravitrdrModulePromise = import("@gravitrdr/gravitrdr");
+  }
+  return _gravitrdrModulePromise.then(function (module) {
+    return module[actionName].ID;
+  });
+};
+
 /**
  * The global toolbar class
  * @class GToolbar
@@ -109,7 +123,9 @@ GToolbar.prototype.init = function () {
           .append(
             $("<button></button>")
               .on("click", function () {
-                gApp.executeAction(GZoomOutAction.ID);
+                _getZoomActionId("GZoomOutAction").then(function (id) {
+                  gApp.executeAction(id);
+                });
               })
               .append($("<span></span>").addClass("fa fa-minus")),
           )
@@ -140,7 +156,9 @@ GToolbar.prototype.init = function () {
           .append(
             $("<button></button>")
               .on("click", function () {
-                gApp.executeAction(GZoomInAction.ID);
+                _getZoomActionId("GZoomInAction").then(function (id) {
+                  gApp.executeAction(id);
+                });
               })
               .append($("<span></span>").addClass("fa fa-plus")),
           )
