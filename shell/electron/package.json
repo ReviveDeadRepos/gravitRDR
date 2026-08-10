@@ -1,0 +1,11 @@
+{
+  "name": "gravitrdr-electron",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Electron main process for the GravitRDR desktop app",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "start:dev": "VITE_DEV_SERVER_URL=http://localhost:8999 electron ."
+  }
+}

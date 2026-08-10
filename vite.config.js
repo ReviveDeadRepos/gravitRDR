@@ -1,16 +1,18 @@
 import { defineConfig } from "vite";
+import { fileURLToPath } from "url";
 
 export default defineConfig({
   root: "src",
+  base: "./",
   appType: "mpa",
   build: {
-    outDir: "../build/source",
+    outDir: "../dist/browser",
     emptyOutDir: true,
     cssCodeSplit: false,
     rollupOptions: {
       input: {
-        style: "src/entries/style.js",
-        app: "src/entries/app.js",
+        index: fileURLToPath(new URL("./src/index.html", import.meta.url)),
+        desktop: fileURLToPath(new URL("./src/desktop.html", import.meta.url)),
       },
     },
   },

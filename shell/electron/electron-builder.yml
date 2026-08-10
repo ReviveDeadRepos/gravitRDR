@@ -1,0 +1,66 @@
+# electron-builder config for the GravitRDR desktop shell.
+
+appId: com.gravitrdr.desktop
+productName: GravitRDR
+copyright: Copyright © 2026 NellowTCS
+
+directories:
+  output: build/electron-binaries
+  buildResources: shell/electron
+
+files:
+  - dist/browser/**/*
+  - shell/electron/**/*
+  - "!shell/electron/electron-builder.yml"
+  - "!shell/electron/Info.plist"
+  - "!shell/electron/dmg.json"
+  - "!shell/electron/background.tiff"
+
+extraMetadata:
+  main: shell/electron/main.cjs
+
+asar: true
+
+mac:
+  category: public.app-category.graphics-design
+  icon: shell/electron/appicon.icns
+  target:
+    - target: dmg
+      arch:
+        - arm64
+        - x64
+    - target: zip
+      arch:
+        - arm64
+        - x64
+  extendInfo:
+    NSSupportsAutomaticGraphicsSwitching: true
+
+win:
+  icon: shell/electron/appicon.ico
+  target:
+    - nsis
+
+linux:
+  icon: shell/electron/appicon.icns
+  target:
+    - AppImage
+
+dmg:
+  title: GravitRDR
+  iconSize: 120
+  background: shell/electron/background.tiff
+  contents:
+    - x: 284
+      y: 20
+    - x: 483
+      y: 20
+      type: link
+      path: /Applications
+
+fileAssociations:
+  - ext: gravitrdr
+    name: GravitRDR Design
+    description: GravitRDR Design Document
+    role: Editor
+    icon: shell/electron/doc.icns

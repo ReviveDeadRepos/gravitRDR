@@ -12,21 +12,22 @@
     "dev": "vite",
     "dev:host": "vite --host",
     "make-pretty": "prettier --write .",
-    "build:css": "vite build",
-    "build:web": "node scripts/build-web.mjs",
-    "build:nw": "npm run build:web && node build-nw.mjs"
+    "build": "vite build",
+    "desktop": "npm run build && electron shell/electron",
+    "desktop:run": "VITE_DEV_SERVER_URL=http://localhost:8999 electron shell/electron",
+    "dist": "npm run build && electron-builder --config shell/electron/electron-builder.yml",
+    "dist:dir": "npm run build && electron-builder --config shell/electron/electron-builder.yml --dir",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "chai": "^6.2.2",
+    "electron": "^43.3.0",
+    "electron-builder": "^26.15.3",
     "modern-normalize": "3.0.1",
-    "nw-builder": "4.17.11",
     "prettier": "^3.8.3",
     "sass": "1.100.0",
     "terser": "^5.48.0",
     "vite": "^8.0.16"
-  },
-  "optionalDependencies": {
-    "appdmg": "0.6.6"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "7.2.0",

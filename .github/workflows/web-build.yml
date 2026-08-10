@@ -14,17 +14,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 18
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "22"
           cache: "npm"
 
       - name: Install npm dependencies
         run: npm install --legacy-peer-deps
 
       - name: Build for browser
-        run: npm run build:web
+        run: npm run build
 
       - name: Deploy browser build to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
