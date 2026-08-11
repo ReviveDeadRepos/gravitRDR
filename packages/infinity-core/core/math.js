@@ -1092,7 +1092,6 @@ IFMath.prototype.getCubicRoots = function (
     }
   }
   // nRoots > 0 && t1 < p1 && t2 > p0
-
   // t1 <= p0 < p1 <= t2
   else if (t1 <= p0 && t2 >= p1) {
     if (accNeg <= g0 && g0 <= acc) {
