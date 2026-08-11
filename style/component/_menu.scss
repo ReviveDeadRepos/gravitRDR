@@ -1,14 +1,20 @@
-@import '../variables';
+@use "../variables";
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/variables" as
+  variables2;
+@use "../mixins";
 
 /** Base styling for ul menu */
 .g-menu {
   margin: 0px;
   padding: 0px;
 
-  &, * {
+  &,
+  * {
     /** Make everything based on border-box model */
-    *, *:before, *:after {
-      @include box-sizing(border-box);
+    *,
+    *:before,
+    *:after {
+      @include mixins.box-sizing(border-box);
     }
   }
 }
@@ -17,11 +23,11 @@
 .g-menu:not(.g-menu-root) {
   position: absolute;
   z-index: 100;
-  border: 1px solid $frameBorderColor;
-  background: $frameDarkColor;
-  color: $textColor;
+  border: 1px solid variables.$frameBorderColor;
+  background: variables.$frameDarkColor;
+  color: variables.$textColor;
   padding: 4px 0px;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.50);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 /** Clear border-radius depending on direction */
@@ -50,8 +56,9 @@
   white-space: nowrap;
   vertical-align: middle;
 
-  &, * {
-    font: $menuFont;
+  &,
+  * {
+    font: variables.$menuFont;
   }
 }
 
@@ -98,7 +105,7 @@
 
 /** Add tail arrow indicator to right and spacing if sub-menu and not root */
 .g-menu:not(.g-menu-root) > .g-menu-item-menu > span.g-menu-item-tail:before {
-  content:$var-caret-right;
+  content: variables2.$var-caret-right;
 }
 
 /** Icon needs fixed width */
@@ -116,7 +123,7 @@
 
 /** Define styling of a special "divider" li menu item */
 .g-menu-item-divider {
-  background: $frameBorderColor;
+  background: variables.$frameBorderColor;
   margin-top: 5px;
   margin-bottom: 5px;
   height: 1px;
@@ -131,7 +138,7 @@
 
 /** Make opacity for disabled items */
 .g-menu-item.g-disabled > span {
-  color: $disabledTextColor;
+  color: variables.$disabledTextColor;
 }
 
 /** Set active/hover color if not disabled */
@@ -141,8 +148,8 @@
 .g-menu > .g-menu-item.g-active:not(.g-disabled) > span,
 .g-menu-root > .g-menu-item:active:not(.g-disabled),
 .g-menu-root > .g-menu-item:active:not(.g-disabled) > span {
-  background: $activeColor;
-  color: $activeTextColor;
+  background: variables.$activeColor;
+  color: variables.$activeTextColor;
 }
 
 /** Release left-padding for checked items to have our checkmark fit */
@@ -158,13 +165,13 @@
 }
 
 .g-menu-item.g-menu-item-checked > span.g-menu-item-icon:before {
-  font-family:  FontAwesome !important;
+  font-family: FontAwesome !important;
   font-style: normal;
   font-weight: normal;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content:$var-check;
+  content: variables2.$var-check;
 }
 
 /** Adjustments for menu bar */

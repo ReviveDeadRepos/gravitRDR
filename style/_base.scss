@@ -1,6 +1,8 @@
-@import 'variables';
+@use "variables";
+@use "mixins";
 
-body, html {
+body,
+html {
   margin: 0px;
   padding: 0px;
   height: 100%;
@@ -9,9 +11,10 @@ body, html {
   /** Prevent double-tap = zoom on windows mobile */
   -ms-content-zooming: none;
 
-  &, * {
-    font: $font;
-    line-height: $baseline;
+  &,
+  * {
+    font: variables.$font;
+    line-height: variables.$baseline;
     vertical-align: middle;
   }
 
@@ -19,7 +22,8 @@ body, html {
     font-size: 14px;
   }
 
-  button, input {
+  button,
+  input {
     // Removes inner padding and border in FF3+
     // www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/
     &::-moz-focus-inner {
@@ -44,7 +48,7 @@ body, html {
 
   /**No selection except for input fields */
   :not(input):not(select):not(textArea) {
-    @include user-select(none);
+    @include mixins.user-select(none);
     cursor: default;
   }
 
@@ -54,21 +58,21 @@ body, html {
     padding: 0px;
     border: none;
     margin: 5px 0px;
-    border-bottom: 1px solid $frameBorderColor;
+    border-bottom: 1px solid variables.$frameBorderColor;
   }
 
   // Add special header divider
   h1.g-divider {
     text-align: center;
     line-height: 0 !important;
-    border-bottom: 1px dotted $frameBorderColor;
+    border-bottom: 1px dotted variables.$frameBorderColor;
     margin: 10px 0px 5px 0px;
-    color: $frameBorderColor;
+    color: variables.$frameBorderColor;
     text-transform: uppercase;
-    text-shadow: 0px 1px 0px $frame3DLightColor;
+    text-shadow: 0px 1px 0px variables.$frame3DLightColor;
 
     &:first-line {
-      background-color: $frameColor;
+      background-color: variables.$frameColor;
     }
     &:before {
       content: "\a0\a0";

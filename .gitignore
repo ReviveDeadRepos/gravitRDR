@@ -2,7 +2,7 @@
 .tmp
 .sass-cache
 node_modules
-node-webkit
 build
 dist
 tmp
+.DS_Store

@@ -1,76 +1,89 @@
-@import 'variables';
+@use "variables";
+@use "mixins";
 
-button, .g-button, input, textArea, select, .g-input {
+button,
+.g-button,
+input,
+textArea,
+select,
+.g-input {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
   -ms-appearance: none;
-  @include box-sizing(border-box);
+  @include mixins.box-sizing(border-box);
   margin: 0px;
   padding: 0px 3px;
   vertical-align: middle;
-  background: $frameColor;
-  color: $textColor;
-  height: $baseline;
-  line-height: $baseline - 2px;
+  background: variables.$frameColor;
+  color: variables.$textColor;
+  height: variables.$baseline;
+  line-height: variables.$baseline - 2px;
 
   &:not(:last-child) {
     margin-right: 3px;
   }
 }
 
-button, .g-button {
-  border: 1px solid $frameDarkColor;
+button,
+.g-button {
+  border: 1px solid variables.$frameDarkColor;
 
-  &, * {
+  &,
+  * {
     vertical-align: middle;
     text-align: center;
-    color: $textColor;
+    color: variables.$textColor;
   }
 
   svg {
-    fill: $textColor;
-    stroke: $textColor;
+    fill: variables.$textColor;
+    stroke: variables.$textColor;
   }
 
-  &:active, &.g-active {
-    background: $activeColor;
+  &:active,
+  &.g-active {
+    background: variables.$activeColor;
 
-    &, * {
-      color: $activeTextColor;
+    &,
+    * {
+      color: variables.$activeTextColor;
     }
 
     svg {
-      fill: $activeTextColor;
-      stroke: $activeTextColor;
+      fill: variables.$activeTextColor;
+      stroke: variables.$activeTextColor;
     }
   }
 
   &.g-flat {
     border: none;
 
-    &:active, &.g-active {
+    &:active,
+    &.g-active {
       background: transparent;
 
-      &, * {
-        color: $selectedColor;
+      &,
+      * {
+        color: variables.$selectedColor;
       }
 
       svg {
-        fill: $selectedColor;
-        stroke: $selectedColor;
+        fill: variables.$selectedColor;
+        stroke: variables.$selectedColor;
       }
     }
   }
 
   &:disabled {
-    &, * {
-      color: $disabledTextColor !important;
+    &,
+    * {
+      color: variables.$disabledTextColor !important;
     }
 
     svg {
-      fill: $disabledTextColor !important;
-      stroke: $disabledTextColor !important;
+      fill: variables.$disabledTextColor !important;
+      stroke: variables.$disabledTextColor !important;
     }
   }
 
@@ -79,24 +92,27 @@ button, .g-button {
   }
 }
 
-select, input, textArea, .g-input {
-  border: 1px solid $frameDarkColor;
+select,
+input,
+textArea,
+.g-input {
+  border: 1px solid variables.$frameDarkColor;
   border-radius: 0px;
 
   &:disabled {
     background: transparent !important;
-    color: $disabledTextColor !important;
+    color: variables.$disabledTextColor !important;
   }
 
   &:focus {
     outline: none;
-    border: 1px solid $selectedColor;
+    border: 1px solid variables.$selectedColor;
   }
 }
 
 select {
   text-indent: 0.01px;
-  text-overflow: '';
+  text-overflow: "";
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNCcgaGVpZ2h0PSc1Jz4NCjxwb2x5Z29uIHBvaW50cz0iMCwwIDEwLDAgNSw1IiBmaWxsPSJyZ2IoMTk5LCAxOTksIDE5OSkiLz4NCjwvc3ZnPg==");
   background-repeat: no-repeat;
   background-position: right center;
@@ -113,8 +129,8 @@ input[type="range"] {
   }
 
   &::-moz-range-thumb {
-    background: $textColor;
-    border: 1px solid $frameBorderColor;
+    background: variables.$textColor;
+    border: 1px solid variables.$frameBorderColor;
     width: 8px;
     height: 8px;
     border-radius: 100px;
@@ -124,8 +140,8 @@ input[type="range"] {
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    background: $textColor;
-    border: 1px solid $frameBorderColor;
+    background: variables.$textColor;
+    border: 1px solid variables.$frameBorderColor;
     width: 9px;
     height: 9px;
     border-radius: 100px;
@@ -134,7 +150,8 @@ input[type="range"] {
   }
 }
 
-input[type=checkbox], input[type=radio] {
+input[type="checkbox"],
+input[type="radio"] {
   width: 1em;
   height: 1em;
   vertical-align: middle;
@@ -142,27 +159,27 @@ input[type=checkbox], input[type=radio] {
   bottom: 1px;
 
   &:checked {
-    background: $selectedColor;
+    background: variables.$selectedColor;
   }
 }
 
-input[type=radio] {
+input[type="radio"] {
   border-radius: 2em;
   bottom: 2px;
 }
-
 
 /** Switch */
 .g-switch {
   position: relative;
   display: inline-block;
-  border: 1px solid $frameDarkColor;
+  border: 1px solid variables.$frameDarkColor;
 
   &:not(:last-child) {
     margin-right: 3px;
   }
 
-  &, * {
+  &,
+  * {
     cursor: pointer;
   }
 
@@ -194,7 +211,7 @@ input[type=radio] {
     width: 50%;
     margin: 0px;
     padding: 4px;
-    color: $textColor;
+    color: variables.$textColor;
     line-height: 1em;
     vertical-align: middle;
     text-align: center;
@@ -205,12 +222,12 @@ input[type=radio] {
 
   .switch:before {
     content: attr(data-on);
-    background-color: $frameDarkColor;
+    background-color: variables.$frameDarkColor;
   }
 
   .switch:after {
     content: attr(data-off);
-    background: $frameColor;
+    background: variables.$frameColor;
   }
 
   input[type="checkbox"]:checked + .switch {
@@ -219,7 +236,7 @@ input[type=radio] {
 
   input[type="checkbox"]:disabled + .switch:before,
   input[type="checkbox"]:disabled + .switch:after {
-    background: $frameColor !important;
-    color: $disabledTextColor !important;
+    background: variables.$frameColor !important;
+    color: variables.$disabledTextColor !important;
   }
 }

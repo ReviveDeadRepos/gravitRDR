@@ -1,0 +1,42 @@
+import { IFStyleEntry } from "./styleentry";
+import { IFObject } from "../../core/object";
+import { IFPaintCanvas } from "../../paint/paintcanvas";
+
+/**
+ * A base for raster effects
+ * @class IFEffectEntry
+ * @extends IFStyleEntry
+ * @constructor
+ */
+export function IFEffectEntry() {
+  IFStyleEntry.call(this);
+}
+
+IFObject.inherit(IFEffectEntry, IFStyleEntry);
+
+IFEffectEntry.prototype.isEffectEntry = function () {
+  return true;
+};
+
+/**
+ * Should return whether this filter is applied
+ * *after* contents are rendered (true) or before (false)
+ * @return {boolean}
+ */
+IFEffectEntry.prototype.isPost = function () {
+  throw new Error("Not Supported");
+};
+
+/**
+ * @param {IFPaintCanvas} canvas the target canvas for the effect
+ * @param {IFPaintCanvas} contents the contents the effect is applied on
+ * @param {Number} scale a scale factor you need to multiply your params with
+ */
+IFEffectEntry.prototype.render = function (canvas, contents, scale) {
+  throw new Error("Not Supported");
+};
+
+/** @override */
+IFEffectEntry.prototype.toString = function () {
+  return "[IFEffectEntry]";
+};

@@ -1,13 +1,14 @@
-@import '../variables';
+@use "../variables";
+@use "../cursors";
 
 .g-color-swatches {
-  @include g-cursor(pipette);
+  @include cursors.g-cursor(pipette);
   border-collapse: separate;
   border-spacing: 1px;
 
   .swatch {
-    @include g-cursor(pipette);
-    border: 1px solid $frameDarkColor;
+    @include cursors.g-cursor(pipette);
+    border: 1px solid variables.$frameDarkColor;
     width: 8px;
     height: 8px;
 

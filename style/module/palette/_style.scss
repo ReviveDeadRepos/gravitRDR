@@ -1,4 +1,4 @@
-@import '../../variables';
+@use "../../variables";
 
 .palette-style {
   padding: 0px;
@@ -38,14 +38,14 @@
       > div {
         position: relative;
         padding: 5px 0px;
-        background: $frameColor;
+        background: variables.$frameColor;
 
         &:not(:last-child) {
-          border-bottom: 1px solid $frame3DShadowColor;
+          border-bottom: 1px solid variables.$frame3DShadowColor;
         }
 
         &:not(:first-child) {
-          border-top: 1px solid $frame3DLightColor;
+          border-top: 1px solid variables.$frame3DLightColor;
         }
 
         &.drag {
@@ -54,9 +54,10 @@
         }
 
         &.drop {
-            background: $dragColor;
-            &, * {
-              color: $dragTextColor;
+          background: variables.$dragColor;
+          &,
+          * {
+            color: variables.$dragTextColor;
           }
         }
 

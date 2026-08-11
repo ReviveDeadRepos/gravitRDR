@@ -1,4 +1,4 @@
-@import '../../variables';
+@use "../../variables";
 
 .palette-export {
   padding: 5px;
@@ -13,7 +13,7 @@
       padding: 5px 0px;
 
       &:not(:last-child) {
-        border-bottom: 1px solid $frameBorderColor;
+        border-bottom: 1px solid variables.$frameBorderColor;
       }
 
       > .export-cell {

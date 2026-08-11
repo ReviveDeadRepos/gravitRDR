@@ -1,4 +1,4 @@
-@import '../../variables';
+@use "../../variables";
 
 .sidebar-pages-layers {
   .pages {
@@ -6,36 +6,40 @@
       position: relative;
       width: 100%;
 
-      &, * {
+      &,
+      * {
         line-height: 1 !important;
       }
 
       &.g-active {
-        background: $activeColor;
+        background: variables.$activeColor;
 
-        &, * {
-          color: $activeTextColor;
+        &,
+        * {
+          color: variables.$activeTextColor;
         }
       }
 
       &.g-selected {
-        background: $selectedColor;
+        background: variables.$selectedColor;
 
-        &, * {
-          color: $selectedTextColor;
+        &,
+        * {
+          color: variables.$selectedTextColor;
         }
       }
 
       &.drop {
-        background: $dragColor;
+        background: variables.$dragColor;
 
-        &, * {
-          color: $dragTextColor;
+        &,
+        * {
+          color: variables.$dragTextColor;
         }
       }
 
       &:not(:last-child) > div {
-        border-bottom: 1px solid $frame3DShadowColor;
+        border-bottom: 1px solid variables.$frame3DShadowColor;
       }
 
       > div:not(.drag-overlay) {
@@ -43,17 +47,19 @@
         vertical-align: middle;
         padding: 4px 0px;
 
-        &.page-visibility, &.page-lock {
-          border-right: 1px solid $frame3DShadowColor;
+        &.page-visibility,
+        &.page-lock {
+          border-right: 1px solid variables.$frame3DShadowColor;
           min-width: 21px;
           max-width: 21px;
           text-align: center;
 
           &.page-default * {
-            color: $disabledTextColor;
+            color: variables.$disabledTextColor;
           }
 
-          &, * {
+          &,
+          * {
             cursor: pointer;
           }
         }
@@ -77,21 +83,23 @@
   .layers {
     div.jqtree-element {
       padding: 0px;
-      border-bottom: 1px solid $frame3DShadowColor;
+      border-bottom: 1px solid variables.$frame3DShadowColor;
 
       &.g-active {
-        background: $activeColor;
+        background: variables.$activeColor;
 
-        &, * {
-          color: $activeTextColor;
+        &,
+        * {
+          color: variables.$activeTextColor;
         }
       }
 
       &.g-selected {
-        background: $selectedColor;
+        background: variables.$selectedColor;
 
-        &, * {
-          color: $selectedTextColor;
+        &,
+        * {
+          color: variables.$selectedTextColor;
         }
       }
 
@@ -100,17 +108,20 @@
         vertical-align: middle;
         padding: 4px 0px;
 
-        &.layer-visibility, &.layer-lock, &.layer-outline {
-          border-right: 1px solid $frame3DShadowColor;
+        &.layer-visibility,
+        &.layer-lock,
+        &.layer-outline {
+          border-right: 1px solid variables.$frame3DShadowColor;
           min-width: 21px;
           max-width: 21px;
           text-align: center;
 
           &.layer-default {
-            color: $disabledTextColor;
+            color: variables.$disabledTextColor;
           }
 
-          &, * {
+          &,
+          * {
             cursor: pointer;
           }
         }
@@ -124,7 +135,8 @@
           max-width: 8px;
         }
 
-        &.jqtree-toggler, &.layer-spacer {
+        &.jqtree-toggler,
+        &.layer-spacer {
           min-width: 8px;
           max-width: 8px;
           padding-left: 5px;

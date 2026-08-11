@@ -1,32 +1,35 @@
-@import '../variables';
+@use "../variables";
+@use "../mixins";
 
 #panels {
-  @include box-sizing(border-box);
+  @include mixins.box-sizing(border-box);
   position: absolute;
   bottom: 0px;
   height: 146px;
   padding: 0px;
-  border-top: 1px solid $frameBorderColor;
-  border-left: 2px solid $frameDarkColor;
-  border-right: 2px solid $frameDarkColor;
-  background: $frameColor;
+  border-top: 1px solid variables.$frameBorderColor;
+  border-left: 2px solid variables.$frameDarkColor;
+  border-right: 2px solid variables.$frameDarkColor;
+  background: variables.$frameColor;
 
   .panels-tabs {
     height: 21px;
-    background: $frameDarkColor;
+    background: variables.$frameDarkColor;
 
     > button {
-      background: $frameDarkColor;
+      background: variables.$frameDarkColor;
       padding-left: 7px;
       padding-right: 7px;
       text-transform: uppercase;
       border: none;
 
-      &:active, &.g-active {
-        background: $frameColor;
+      &:active,
+      &.g-active {
+        background: variables.$frameColor;
 
-        &, * {
-          color: $textColor;
+        &,
+        * {
+          color: variables.$textColor;
         }
       }
     }

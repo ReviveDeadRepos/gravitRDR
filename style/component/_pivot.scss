@@ -1,4 +1,6 @@
-@import '../variables';
+@use "../variables";
+@use "../mixins";
+@use "sass:math";
 
 $pivotButtonSize: 6px;
 $pivotButtonSpace: 3px;
@@ -10,44 +12,54 @@ $pivotButtonSpace: 3px;
 
   > .borderline {
     position: absolute;
-    top: $pivotButtonSize / 2;
-    left: $pivotButtonSize / 2;
-    right: $pivotButtonSize / 2;
-    bottom: $pivotButtonSize / 2;
-    border: 1px solid $frameDarkColor;
+    top: math.div($pivotButtonSize, 2);
+    left: math.div($pivotButtonSize, 2);
+    right: math.div($pivotButtonSize, 2);
+    bottom: math.div($pivotButtonSize, 2);
+    border: 1px solid variables.$frameDarkColor;
   }
 
   > .side {
-    @include box-sizing(border-box);
+    @include mixins.box-sizing(border-box);
     position: absolute;
     width: $pivotButtonSize;
     height: $pivotButtonSize;
-    border: 1px solid $frameDarkColor;
+    border: 1px solid variables.$frameDarkColor;
     background: white;
     top: 0px;
 
-    &[data-side="tl"], &[data-side="lc"], &[data-side="bl"] {
+    &[data-side="tl"],
+    &[data-side="lc"],
+    &[data-side="bl"] {
       left: 0px;
     }
 
-    &[data-side="tc"], &[data-side="cc"], &[data-side="bc"] {
+    &[data-side="tc"],
+    &[data-side="cc"],
+    &[data-side="bc"] {
       left: $pivotButtonSize + $pivotButtonSpace;
     }
 
-    &[data-side="tr"], &[data-side="rc"], &[data-side="br"] {
+    &[data-side="tr"],
+    &[data-side="rc"],
+    &[data-side="br"] {
       left: $pivotButtonSize * 2 + $pivotButtonSpace * 2;
     }
 
-    &[data-side="lc"], &[data-side="cc"], &[data-side="rc"] {
+    &[data-side="lc"],
+    &[data-side="cc"],
+    &[data-side="rc"] {
       top: $pivotButtonSize + $pivotButtonSpace;
     }
 
-    &[data-side="bl"], &[data-side="bc"], &[data-side="br"] {
+    &[data-side="bl"],
+    &[data-side="bc"],
+    &[data-side="br"] {
       top: $pivotButtonSize * 2 + $pivotButtonSpace * 2;
     }
 
     &.g-active {
-      background: $selectedColor;
+      background: variables.$selectedColor;
     }
   }
 }

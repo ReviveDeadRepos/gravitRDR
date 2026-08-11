@@ -1,4 +1,4 @@
-@import '../variables';
+@use "../variables";
 
 ul.jqtree-tree,
 ul.jqtree-tree ul.jqtree_common {
@@ -7,7 +7,8 @@ ul.jqtree-tree ul.jqtree_common {
   margin-top: 0px;
   padding: 0;
 
-  &, * {
+  &,
+  * {
     line-height: 1 !important;
   }
 }
@@ -69,7 +70,7 @@ ul.jqtree-tree li.jqtree-ghost span {
 
 ul.jqtree-tree li.jqtree-ghost span.jqtree-circle {
   border-radius: 9999px;
-  background: $dragColor;
+  background: variables.$dragColor;
   border: 1px solid white;
   height: 8px;
   width: 8px;
@@ -79,7 +80,7 @@ ul.jqtree-tree li.jqtree-ghost span.jqtree-circle {
 }
 
 ul.jqtree-tree li.jqtree-ghost span.jqtree-line {
-  background-color: $dragColor;
+  background-color: variables.$dragColor;
   height: 2px;
   padding: 0;
   position: absolute;
@@ -99,19 +100,20 @@ ul.jqtree-tree span.jqtree-border {
   top: 0;
   width: 100% !important;
   height: 100% !important;
-  background: rgba( $dragColor, 0.5);
+  background: rgba(variables.$dragColor, 0.5);
   margin: 0;
 }
 
 ul.jqtree-tree .jqtree-element {
   width: 100%;
-  *width: auto;
+  // In memoriam to old IE7, which didn't support `width: 100%` on inline-block elements.
+  // pensive emoji
+  // *width: auto;
   position: relative;
 }
 
 ul.jqtree-tree li.jqtree-selected > .jqtree-element,
 ul.jqtree-tree li.jqtree-selected > .jqtree-element:hover {
-  background: $selectedColor;
-  color: $selectedTextColor;
+  background: variables.$selectedColor;
+  color: variables.$selectedTextColor;
 }
-
