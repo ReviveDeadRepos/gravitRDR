@@ -70,9 +70,6 @@ GPlaceImageAction.prototype.execute = function () {
       function (url) {
         var uri = new URI(url);
 
-        alert("uri: " + uri.toString());
-        alert("make_relative_to: " + document.getUrl());
-
         // make url relative to document
         url = uri.relativeTo(document.getUrl()).toString();
 
@@ -91,7 +88,7 @@ GPlaceImageAction.prototype.execute = function () {
           .getSide(IFRect.Side.TOP_LEFT);
         var image = new IFImage();
         image.setProperties(
-          ["name", "url", "transform"],
+          ["name", "url", "trf"],
           [
             name,
             url,

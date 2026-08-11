@@ -132,7 +132,7 @@ IFEditorView.prototype._handleDrop = function (position, dataTransfer) {
         reader.onload = function (event) {
           var image = new IFImage();
           image.setProperties(
-            ["name", "url", "transform"],
+            ["name", "url", "trf"],
             [
               name,
               event.target.result,
