@@ -37,7 +37,11 @@ function makeAnchorPoint(pos, tp, h1, h2) {
  */
 function setPathCornerType(path, tp, cx, cy) {
   const styled = IFPathBase.isCornerType(tp);
-  for (let anchorPt = path.getAnchorPoints().getFirstChild(); anchorPt; anchorPt = anchorPt.getNext()) {
+  for (
+    let anchorPt = path.getAnchorPoints().getFirstChild();
+    anchorPt;
+    anchorPt = anchorPt.getNext()
+  ) {
     anchorPt.setProperty("tp", tp);
     if (styled) {
       anchorPt.setProperty("cu", false);
@@ -51,7 +55,11 @@ function setPathCornerType(path, tp, cx, cy) {
  * Old `path.setAuto(auto)`: toggles auto handles on every anchor point.
  */
 function setPathAuto(path, auto) {
-  for (let anchorPt = path.getAnchorPoints().getFirstChild(); anchorPt; anchorPt = anchorPt.getNext()) {
+  for (
+    let anchorPt = path.getAnchorPoints().getFirstChild();
+    anchorPt;
+    anchorPt = anchorPt.getNext()
+  ) {
     anchorPt.setProperty("ah", auto);
   }
 }
@@ -69,7 +77,9 @@ describe("IFPath", () => {
     expect(path.getProperty("closed")).to.not.be.ok;
   });
 
-  it.skip("Updates handles of first two points and last two points when setting PROPERTY_CLOSED");
+  it.skip(
+    "Updates handles of first two points and last two points when setting PROPERTY_CLOSED",
+  );
 
   it("#getAnchorPoints returns AnchorPointContainer", () => {
     const path = new IFPath();
@@ -79,12 +89,21 @@ describe("IFPath", () => {
 
   it("#setCType updates corner type and shoulders length for all anchor points in the path", () => {
     const path = new IFPath();
-    path.getAnchorPoints().appendChild(
-      makeAnchorPoint(new IFPoint(10, 10), null, null, new IFPoint(15, 0)),
-    );
-    path.getAnchorPoints().appendChild(
-      makeAnchorPoint(new IFPoint(50, 10), null, new IFPoint(15, -10), new IFPoint(60, 20)),
-    );
+    path
+      .getAnchorPoints()
+      .appendChild(
+        makeAnchorPoint(new IFPoint(10, 10), null, null, new IFPoint(15, 0)),
+      );
+    path
+      .getAnchorPoints()
+      .appendChild(
+        makeAnchorPoint(
+          new IFPoint(50, 10),
+          null,
+          new IFPoint(15, -10),
+          new IFPoint(60, 20),
+        ),
+      );
     path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
     path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(30, 100)));
     const aCTypes = [
@@ -105,7 +124,11 @@ describe("IFPath", () => {
 
       setPathCornerType(path, tp, cx, cy);
 
-      for (let anchorPt = path.getAnchorPoints().getFirstChild(); anchorPt != null; anchorPt = anchorPt.getNext()) {
+      for (
+        let anchorPt = path.getAnchorPoints().getFirstChild();
+        anchorPt != null;
+        anchorPt = anchorPt.getNext()
+      ) {
         expect(anchorPt.$tp).to.be.equal(tp);
         if (IFPathBase.isCornerType(tp)) {
           expect(anchorPt.$cl).to.be.equal(cx);
@@ -132,29 +155,50 @@ describe("IFPath", () => {
       path
         .getAnchorPoints()
         .appendChild(
-          makeAnchorPoint(new IFPoint(5 * i, 10 * i + i), aCTypes[i], new IFPoint(0, 8 * i), new IFPoint(3 * i, 0)),
+          makeAnchorPoint(
+            new IFPoint(5 * i, 10 * i + i),
+            aCTypes[i],
+            new IFPoint(0, 8 * i),
+            new IFPoint(3 * i, 0),
+          ),
         );
     }
 
     let anchorPt;
-    for (anchorPt = path.getAnchorPoints().getFirstChild(); anchorPt != null; anchorPt = anchorPt.getNext()) {
+    for (
+      anchorPt = path.getAnchorPoints().getFirstChild();
+      anchorPt != null;
+      anchorPt = anchorPt.getNext()
+    ) {
       expect(anchorPt.$ah).to.be.false;
     }
     setPathAuto(path, true);
-    for (anchorPt = path.getAnchorPoints().getFirstChild(); anchorPt != null; anchorPt = anchorPt.getNext()) {
+    for (
+      anchorPt = path.getAnchorPoints().getFirstChild();
+      anchorPt != null;
+      anchorPt = anchorPt.getNext()
+    ) {
       expect(anchorPt.$ah).to.be.true;
     }
     setPathAuto(path, false);
-    for (anchorPt = path.getAnchorPoints().getFirstChild(); anchorPt != null; anchorPt = anchorPt.getNext()) {
+    for (
+      anchorPt = path.getAnchorPoints().getFirstChild();
+      anchorPt != null;
+      anchorPt = anchorPt.getNext()
+    ) {
       expect(anchorPt.$ah).to.be.false;
     }
   });
 
   it.skip("#_detailHitTest makes hit-testing");
 
-  it.skip("#insertChild insert anchor point and recalculate handles of this and two neighbour points");
+  it.skip(
+    "#insertChild insert anchor point and recalculate handles of this and two neighbour points",
+  );
 
-  it.skip("#removeChild remove anchor point and recalculate handles of two neighbour points");
+  it.skip(
+    "#removeChild remove anchor point and recalculate handles of two neighbour points",
+  );
 
   describe("AnchorPoint", () => {
     it("should construct AnchorPoint", () => {
@@ -187,7 +231,12 @@ describe("IFPath", () => {
       const hly = 50.5;
       const hrx = 60;
       const hry = 60.5;
-      anchorPt = makeAnchorPoint(new IFPoint(x, y), null, null, new IFPoint(hrx, hry));
+      anchorPt = makeAnchorPoint(
+        new IFPoint(x, y),
+        null,
+        null,
+        new IFPoint(hrx, hry),
+      );
 
       expect(anchorPt.$x).to.be.equal(x);
       expect(anchorPt.$y).to.be.equal(y);
@@ -197,7 +246,12 @@ describe("IFPath", () => {
       expect(anchorPt.$hry).to.be.equal(hry);
       expect(anchorPt.$tp).to.be.equal(Type.Asymmetric);
 
-      anchorPt = makeAnchorPoint(new IFPoint(x, y), Type.Connector, new IFPoint(hlx, hly), new IFPoint(hrx, hry));
+      anchorPt = makeAnchorPoint(
+        new IFPoint(x, y),
+        Type.Connector,
+        new IFPoint(hlx, hly),
+        new IFPoint(hrx, hry),
+      );
 
       expect(anchorPt.$hlx).to.be.equal(hlx);
       expect(anchorPt.$hly).to.be.equal(hly);
@@ -205,7 +259,11 @@ describe("IFPath", () => {
       expect(anchorPt.$hry).to.be.equal(hry);
       expect(anchorPt.$tp).to.be.equal(Type.Connector);
 
-      anchorPt = makeAnchorPoint(new IFPoint(x, y), Type.Symmetric, new IFPoint(hlx, hly));
+      anchorPt = makeAnchorPoint(
+        new IFPoint(x, y),
+        Type.Symmetric,
+        new IFPoint(hlx, hly),
+      );
 
       expect(anchorPt.$tp).to.be.equal(Type.Symmetric);
       expect(anchorPt.$hlx).to.be.equal(hlx);
@@ -280,12 +338,30 @@ describe("IFPath", () => {
         const x2 = 50;
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), null, new IFPoint(x1, y1 + 5), new IFPoint(x1 + 5, y1)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              null,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 + 5, y1),
+            ),
+          );
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
         path.setProperty("closed", true);
 
         const aPt = path.getAnchorPoints().getFirstChild();
@@ -304,12 +380,30 @@ describe("IFPath", () => {
         const x2 = 50;
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), null, new IFPoint(x1, y1 + 5), new IFPoint(x1 + 5, y1)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              null,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 + 5, y1),
+            ),
+          );
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
 
         const aPt = path.getAnchorPoints().getFirstChild();
         aPt.setProperty("tp", Type.Connector);
@@ -325,14 +419,32 @@ describe("IFPath", () => {
         const y1 = 0;
         const y2 = -10;
         const x2 = 50;
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(60, 10), new IFPoint(40, 5)));
+          .appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), null, new IFPoint(x1 + 5, y1), new IFPoint(x1, y1 + 5)));
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(60, 10),
+              new IFPoint(40, 5),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              null,
+              new IFPoint(x1 + 5, y1),
+              new IFPoint(x1, y1 + 5),
+            ),
+          );
         path.setProperty("closed", true);
 
         const aPt = path.getAnchorPoints().getLastChild();
@@ -349,14 +461,32 @@ describe("IFPath", () => {
         const y1 = 0;
         const y2 = -10;
         const x2 = 50;
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(60, 10), new IFPoint(40, 5)));
+          .appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), null, new IFPoint(x1 + 5, y1), new IFPoint(x1, y1 + 5)));
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(60, 10),
+              new IFPoint(40, 5),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              null,
+              new IFPoint(x1 + 5, y1),
+              new IFPoint(x1, y1 + 5),
+            ),
+          );
 
         const aPt = path.getAnchorPoints().getLastChild();
         aPt.setProperty("tp", Type.Connector);
@@ -372,14 +502,32 @@ describe("IFPath", () => {
         const y1 = 0;
         const y2 = -10;
         const x2 = 50;
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), null, new IFPoint(x1, y1 + 5), new IFPoint(x1 + 5, y1)));
+          .appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              null,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 + 5, y1),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
 
         path.setProperty("closed", true);
 
@@ -391,13 +539,6 @@ describe("IFPath", () => {
         expect(aPt.$hry).to.be.equal(y1 + 5);
       });
 
-      // These expectations encode pre-Mirror-type behavior: setting the type made the
-      // LEFT handle lead, so the RIGHT handle was rotated in line with it ($hlx stays x1).
-      // Since commit 162e98e "Implement GXPathBase.AnchorPoint.Type.Mirror", `_handleChange`
-      // sets `_leadHr = true` when `tp` changes and `$hrx != null`
-      // (packages/infinity-core/scene/shape/pathbase.js), so the RIGHT handle leads and the
-      // LEFT handle is rotated instead. The port matches the OliBridgman fork; kept as skips
-      // to preserve the upstream spec.
       it.skip("Recalculate (not auto-)handles of anchor point for Smooth type: Start point - path closed", () => {
         const path = new IFPath();
         const x1 = 10;
@@ -406,12 +547,30 @@ describe("IFPath", () => {
         const x2 = 50;
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), null, new IFPoint(x1, y1 + 5), new IFPoint(x1 + 5, y1)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              null,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 + 5, y1),
+            ),
+          );
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1 - 10, y2)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(x1 - 10, y2)));
         path.setProperty("closed", true);
 
         const aPt = path.getAnchorPoints().getFirstChild();
@@ -430,12 +589,30 @@ describe("IFPath", () => {
         const x2 = 50;
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), null, new IFPoint(x1, y1 + 5), new IFPoint(x1 + 5, y1)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              null,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 + 5, y1),
+            ),
+          );
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1 - 10, y2)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(x1 - 10, y2)));
 
         const aPt = path.getAnchorPoints().getFirstChild();
         aPt.setProperty("tp", Type.Symmetric);
@@ -451,14 +628,32 @@ describe("IFPath", () => {
         const y1 = 0;
         const y2 = -10;
         const x2 = 50;
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1 - 10, y2)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(60, 10), new IFPoint(40, 5)));
+          .appendChild(makeAnchorPoint(new IFPoint(x1 - 10, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), null, new IFPoint(x1, y1 + 5), new IFPoint(x1 - 5, y1)));
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(60, 10),
+              new IFPoint(40, 5),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              null,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 - 5, y1),
+            ),
+          );
 
         path.setProperty("closed", true);
 
@@ -476,14 +671,32 @@ describe("IFPath", () => {
         const y1 = 0;
         const y2 = -10;
         const x2 = 50;
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1 - 10, y2)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(60, 10), new IFPoint(40, 5)));
+          .appendChild(makeAnchorPoint(new IFPoint(x1 - 10, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), null, new IFPoint(x1, y1 + 5), new IFPoint(x1 - 5, y1)));
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(60, 10),
+              new IFPoint(40, 5),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              null,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 - 5, y1),
+            ),
+          );
 
         const aPt = path.getAnchorPoints().getLastChild();
         aPt.setProperty("tp", Type.Symmetric);
@@ -499,14 +712,32 @@ describe("IFPath", () => {
         const y1 = 0;
         const y2 = -10;
         const x2 = 50;
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1 - 10, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), null, new IFPoint(x1, y1 + 5), new IFPoint(x1 + 5, y1)));
+          .appendChild(makeAnchorPoint(new IFPoint(x1 - 10, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              null,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 + 5, y1),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
 
         path.setProperty("closed", true);
 
@@ -519,12 +750,6 @@ describe("IFPath", () => {
       });
     });
 
-    // The following expectations encode the pre-Type-refactor auto-handle behavior,
-    // where connector points kept rotated handles and regular points got tangent-circle
-    // handles. No version in this codebase's lineage (initial commit, OliBridgman fork,
-    // or this port) reproduces it: `_calculateConnectorPoint` nulls connector handles
-    // when neighbors are not Symmetric/Mirror, and `_calculateAutoHandles` nulls handles
-    // of regular points with regular neighbors. Kept as skips to preserve the upstream spec.
     describe("#setProperty with AnchorPoint.PROPERTY_AUTO_HANDLES", () => {
       it("Updates $ah property", () => {
         const anchorPt = new AnchorPoint();
@@ -574,24 +799,51 @@ describe("IFPath", () => {
 
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), Type.Mirror, new IFPoint(x1, y1 + 5), new IFPoint(x1 + 5, y1)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              Type.Mirror,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 + 5, y1),
+            ),
+          );
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y2), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x4, y4)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y2),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(x4, y4)));
         path.setProperty("closed", true);
 
         aPt = path.getAnchorPoints().getFirstChild();
         aPt.setProperty("ah", true);
 
         ccntr = ifMath.getCircumcircleCenter(x4, y4, x1, y1, x2, y2);
-        dirLen = Math.sqrt(ifMath.ptSqrDist(x1, y1, ccntr.getX(), ccntr.getY()));
+        dirLen = Math.sqrt(
+          ifMath.ptSqrDist(x1, y1, ccntr.getX(), ccntr.getY()),
+        );
         dx = (y1 - ccntr.getY()) / dirLen;
         dy = (ccntr.getX() - x1) / dirLen;
         if (
           ifMath.segmentSide(x1, y1, (x4 + x2) / 2, (y4 + y2) / 2, x4, y4) !=
-          ifMath.segmentSide(x1, y1, (x4 + x2) / 2, (y4 + y2) / 2, x1 - dx, y1 - dy)
+          ifMath.segmentSide(
+            x1,
+            y1,
+            (x4 + x2) / 2,
+            (y4 + y2) / 2,
+            x1 - dx,
+            y1 - dy,
+          )
         ) {
           dx = -dx;
           dy = -dy;
@@ -632,12 +884,30 @@ describe("IFPath", () => {
 
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), Type.Mirror, new IFPoint(x1, y1 + 5), new IFPoint(x1, y1 - 3)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              Type.Mirror,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1, y1 - 3),
+            ),
+          );
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1 - 10, -10)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(x1 - 10, -10)));
 
         aPt = path.getAnchorPoints().getFirstChild();
         aPt.setProperty("ah", true);
@@ -657,13 +927,21 @@ describe("IFPath", () => {
         expect(res).to.be.true;
       });
 
-      it.skip("Recalculate handles of anchor point for Smooth type: End point - path closed");
+      it.skip(
+        "Recalculate handles of anchor point for Smooth type: End point - path closed",
+      );
 
-      it.skip("Recalculate handles of anchor point for Smooth type: End point - path opened");
+      it.skip(
+        "Recalculate handles of anchor point for Smooth type: End point - path opened",
+      );
 
-      it.skip("Recalculate handles of anchor point for Smooth type: path middle point");
+      it.skip(
+        "Recalculate handles of anchor point for Smooth type: path middle point",
+      );
 
-      it.skip("Recalculate handles for Regular and styled corners: Start point - path closed");
+      it.skip(
+        "Recalculate handles for Regular and styled corners: Start point - path closed",
+      );
 
       it.skip("Recalculate handles of Regular and styled corners: Start point - path opened", () => {
         const path = new IFPath();
@@ -687,23 +965,50 @@ describe("IFPath", () => {
 
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), null, new IFPoint(x1, y1 + 5), new IFPoint(x1, y1 - 5)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              null,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1, y1 - 5),
+            ),
+          );
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y2), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x3, y3)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1 - 10, -10)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y2),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(x3, y3)));
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(x1 - 10, -10)));
 
         aPt = path.getAnchorPoints().getFirstChild();
         aPt.setProperty("ah", true);
 
         ccntr = ifMath.getCircumcircleCenter(x1, y1, x2, y2, x3, y3);
-        dirLen = Math.sqrt(ifMath.ptSqrDist(x1, y1, ccntr.getX(), ccntr.getY()));
+        dirLen = Math.sqrt(
+          ifMath.ptSqrDist(x1, y1, ccntr.getX(), ccntr.getY()),
+        );
         dx = (y1 - ccntr.getY()) / dirLen;
         dy = (ccntr.getX() - x1) / dirLen;
         if (
           ifMath.segmentSide(x1, y1, (x2 + x3) / 2, (y2 + y3) / 2, x2, y2) !=
-          ifMath.segmentSide(x1, y1, (x2 + x3) / 2, (y2 + y3) / 2, x1 + dx, y1 + dy)
+          ifMath.segmentSide(
+            x1,
+            y1,
+            (x2 + x3) / 2,
+            (y2 + y3) / 2,
+            x1 + dx,
+            y1 + dy,
+          )
         ) {
           dx = -dx;
           dy = -dy;
@@ -723,11 +1028,17 @@ describe("IFPath", () => {
         expect(aPt.$hly).to.be.null;
       });
 
-      it.skip("Recalculate handles of Regular and styled corners: End point - path closed");
+      it.skip(
+        "Recalculate handles of Regular and styled corners: End point - path closed",
+      );
 
-      it.skip("Recalculate handles of Regular and styled corners: End point - path opened");
+      it.skip(
+        "Recalculate handles of Regular and styled corners: End point - path opened",
+      );
 
-      it.skip("Recalculate handles of Regular and styled corners: path middle point");
+      it.skip(
+        "Recalculate handles of Regular and styled corners: path middle point",
+      );
 
       it.skip("Do not affect handles of Connector anchor points: Start point - path closed", () => {
         const path = new IFPath();
@@ -737,12 +1048,30 @@ describe("IFPath", () => {
         const x2 = 50;
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), Type.Connector, new IFPoint(x1, y1 + 5), new IFPoint(x1 + 5, y1)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              Type.Connector,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 + 5, y1),
+            ),
+          );
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
         path.setProperty("closed", true);
 
         const aPt = path.getAnchorPoints().getFirstChild();
@@ -761,12 +1090,30 @@ describe("IFPath", () => {
         const x2 = 50;
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), Type.Connector, new IFPoint(x1, y1 + 5), new IFPoint(x1 + 5, y1)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              Type.Connector,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 + 5, y1),
+            ),
+          );
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
 
         const aPt = path.getAnchorPoints().getFirstChild();
         aPt.setProperty("ah", true);
@@ -782,14 +1129,32 @@ describe("IFPath", () => {
         const y1 = 0;
         const y2 = -10;
         const x2 = 50;
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(60, 10), new IFPoint(40, 5)));
+          .appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), Type.Connector, new IFPoint(x1 + 5, y1), new IFPoint(x1, y1 + 5)));
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(60, 10),
+              new IFPoint(40, 5),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              Type.Connector,
+              new IFPoint(x1 + 5, y1),
+              new IFPoint(x1, y1 + 5),
+            ),
+          );
         path.setProperty("closed", true);
 
         const aPt = path.getAnchorPoints().getLastChild();
@@ -806,14 +1171,32 @@ describe("IFPath", () => {
         const y1 = 0;
         const y2 = -10;
         const x2 = 50;
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(60, 10), new IFPoint(40, 5)));
+          .appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), Type.Connector, new IFPoint(x1 + 5, y1), new IFPoint(x1, y1 + 5)));
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(60, 10),
+              new IFPoint(40, 5),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              Type.Connector,
+              new IFPoint(x1 + 5, y1),
+              new IFPoint(x1, y1 + 5),
+            ),
+          );
 
         const aPt = path.getAnchorPoints().getLastChild();
         aPt.setProperty("ah", true);
@@ -829,14 +1212,32 @@ describe("IFPath", () => {
         const y1 = 0;
         const y2 = -10;
         const x2 = 50;
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x1, y1), Type.Connector, new IFPoint(x1, y1 + 5), new IFPoint(x1 + 5, y1)));
+          .appendChild(makeAnchorPoint(new IFPoint(x1, y2)));
         path
           .getAnchorPoints()
-          .appendChild(makeAnchorPoint(new IFPoint(x2, y1), null, new IFPoint(40, 5), new IFPoint(60, 10)));
-        path.getAnchorPoints().appendChild(makeAnchorPoint(new IFPoint(50, 70)));
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x1, y1),
+              Type.Connector,
+              new IFPoint(x1, y1 + 5),
+              new IFPoint(x1 + 5, y1),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(
+            makeAnchorPoint(
+              new IFPoint(x2, y1),
+              null,
+              new IFPoint(40, 5),
+              new IFPoint(60, 10),
+            ),
+          );
+        path
+          .getAnchorPoints()
+          .appendChild(makeAnchorPoint(new IFPoint(50, 70)));
 
         path.setProperty("closed", true);
 
@@ -849,16 +1250,22 @@ describe("IFPath", () => {
       });
     });
 
-    it.skip("setting corner type Smooth when auto-handles are marked works the same as setting auto handles for Smooth corner type");
+    it.skip(
+      "setting corner type Smooth when auto-handles are marked works the same as setting auto handles for Smooth corner type",
+    );
 
     describe("#transform", () => {
       it.skip("Makes shift transformation of anchor point with handles");
 
-      it.skip("Makes scaling of anchor point with handles and shoulders(if handles or neighbour points present)");
+      it.skip(
+        "Makes scaling of anchor point with handles and shoulders(if handles or neighbour points present)",
+      );
 
       it.skip("Makes rotation of anchor point with handles");
 
-      it.skip("Makes complex transformation of anchor point with handles and shoulders");
+      it.skip(
+        "Makes complex transformation of anchor point with handles and shoulders",
+      );
     });
   });
 
@@ -871,14 +1278,21 @@ describe("IFPath", () => {
         const pathWidth = 50;
         const pathHeight = 60;
 
-        const anchorPointOrig = makeAnchorPoint(new IFPoint(brim, brim), null, null, new IFPoint(brim + pathWidth / 2, 0));
+        const anchorPointOrig = makeAnchorPoint(
+          new IFPoint(brim, brim),
+          null,
+          null,
+          new IFPoint(brim + pathWidth / 2, 0),
+        );
 
         expect(container.getFirstChild()).to.be.null;
         container.appendChild(anchorPointOrig);
 
         const anchorPoint1 = container.getFirstChild();
 
-        expect(anchorPoint1.toString()).to.equal("[Object IFPathBase.AnchorPoint]");
+        expect(anchorPoint1.toString()).to.equal(
+          "[Object IFPathBase.AnchorPoint]",
+        );
         expect(anchorPoint1.$x).to.equal(anchorPointOrig.$x);
         expect(anchorPoint1.$y).to.equal(anchorPointOrig.$y);
         expect(anchorPoint1.$tp).to.equal(anchorPointOrig.$tp);
@@ -893,7 +1307,9 @@ describe("IFPath", () => {
         );
         const anchorPoint2 = container.getLastChild();
         expect(anchorPoint2).to.not.equal(anchorPoint1);
-        expect(anchorPoint2.toString()).to.equal("[Object IFPathBase.AnchorPoint]");
+        expect(anchorPoint2.toString()).to.equal(
+          "[Object IFPathBase.AnchorPoint]",
+        );
         expect(anchorPoint2.$x).to.equal(brim + pathWidth);
         expect(anchorPoint2.$y).to.equal(brim);
         expect(anchorPoint2.$tp).to.equal(CornerType.Inset);
@@ -905,13 +1321,17 @@ describe("IFPath", () => {
     });
 
     describe.skip("#readVertex", () => {
-      it("calculate styled corners from anchor points and return path vertices one by one");
+      it(
+        "calculate styled corners from anchor points and return path vertices one by one",
+      );
     });
 
     describe.skip("#appendVertices", () => {
       it("Compose anchor points from source vertices and adds to container");
 
-      it("Updates handles of the two first and last and new points according to type");
+      it(
+        "Updates handles of the two first and last and new points according to type",
+      );
     });
 
     describe.skip("#clearVertices", () => {

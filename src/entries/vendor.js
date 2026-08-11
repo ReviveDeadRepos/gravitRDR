@@ -12,7 +12,7 @@ import wawoff2Source from "wawoff2/build/decompress_binding.js?raw";
 import rangy from "rangy";
 import "rangy/lib/rangy-classapplier.js";
 import "rangy/lib/rangy-selectionsaverestore.js";
-import pako from "pako";
+import * as pako from "pako";
 import * as ColorThief from "colorthief";
 import URI from "urijs";
 

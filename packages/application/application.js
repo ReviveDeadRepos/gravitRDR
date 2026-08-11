@@ -594,7 +594,7 @@ GApplication.prototype.openDocument = function (url) {
             uint8Array[1] === 0x8b &&
             uint8Array[2] === 0x08
           ) {
-            var source = pako.ungzip(uint8Array, { to: "string" });
+            var source = pako.ungzip(uint8Array, { toText: true });
             _readDocument(source);
           } else {
             // Assume plain string
