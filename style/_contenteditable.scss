@@ -1,3 +1,5 @@
+@use "mixins";
+
 [contenteditable="true"],
 .contenteditable {
   &:focus {
@@ -6,7 +8,7 @@
 
   &,
   * {
-    @include user-select(all);
+    @include mixins.user-select(all);
     cursor: auto;
   }
 

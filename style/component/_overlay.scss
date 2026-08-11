@@ -1,4 +1,4 @@
-@import "../variables";
+@use "../variables";
 
 .g-modal-background {
   position: absolute;
@@ -10,9 +10,9 @@
 }
 
 .g-overlay {
-  background: $frameColor;
-  color: $textColor;
-  border: 1px solid $frameBorderColor;
+  background: variables.$frameColor;
+  color: variables.$textColor;
+  border: 1px solid variables.$frameBorderColor;
   padding: 0px;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
   z-index: 10;

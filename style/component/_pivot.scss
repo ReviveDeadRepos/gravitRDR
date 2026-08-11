@@ -1,4 +1,6 @@
-@import "../variables";
+@use "../variables";
+@use "../mixins";
+@use "sass:math";
 
 $pivotButtonSize: 6px;
 $pivotButtonSpace: 3px;
@@ -10,19 +12,19 @@ $pivotButtonSpace: 3px;
 
   > .borderline {
     position: absolute;
-    top: $pivotButtonSize / 2;
-    left: $pivotButtonSize / 2;
-    right: $pivotButtonSize / 2;
-    bottom: $pivotButtonSize / 2;
-    border: 1px solid $frameDarkColor;
+    top: math.div($pivotButtonSize, 2);
+    left: math.div($pivotButtonSize, 2);
+    right: math.div($pivotButtonSize, 2);
+    bottom: math.div($pivotButtonSize, 2);
+    border: 1px solid variables.$frameDarkColor;
   }
 
   > .side {
-    @include box-sizing(border-box);
+    @include mixins.box-sizing(border-box);
     position: absolute;
     width: $pivotButtonSize;
     height: $pivotButtonSize;
-    border: 1px solid $frameDarkColor;
+    border: 1px solid variables.$frameDarkColor;
     background: white;
     top: 0px;
 
@@ -57,7 +59,7 @@ $pivotButtonSpace: 3px;
     }
 
     &.g-active {
-      background: $selectedColor;
+      background: variables.$selectedColor;
     }
   }
 }

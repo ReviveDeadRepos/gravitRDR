@@ -1,4 +1,4 @@
-@import "../variables";
+@use "../variables";
 
 .g-style-panel {
   .placeholder {
@@ -11,13 +11,13 @@
     padding: 2px;
 
     &.selected {
-      background: $selectedColor;
-      color: $selectedTextColor;
+      background: variables.$selectedColor;
+      color: variables.$selectedTextColor;
     }
 
     &.drop {
-      background: $dragColor;
-      color: $dragTextColor;
+      background: variables.$dragColor;
+      color: variables.$dragTextColor;
     }
 
     .style-preview {
@@ -35,7 +35,7 @@
 
     .style-name {
       display: none;
-      font: $font;
+      font: variables.$font;
     }
 
     * {

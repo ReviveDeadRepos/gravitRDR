@@ -1,9 +1,9 @@
-@import "../variables";
+@use "../variables";
 
 #header {
   position: absolute;
   width: 100%;
-  background: $frameColor;
+  background: variables.$frameColor;
 
   > * {
     height: 2em !important;

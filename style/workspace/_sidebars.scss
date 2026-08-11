@@ -1,16 +1,17 @@
-@import "../variables";
+@use "../variables";
+@use "../mixins";
 
 #sidebars {
-  @include box-sizing(border-box);
+  @include mixins.box-sizing(border-box);
   position: absolute;
   top: 0px;
   left: 0px;
   width: 200px;
   height: 100%;
   padding: 0px;
-  border-left: 2px solid $frameDarkColor;
-  border-right: 1px solid $frameBorderColor;
-  background: $frameColor;
+  border-left: 2px solid variables.$frameDarkColor;
+  border-right: 1px solid variables.$frameBorderColor;
+  background: variables.$frameColor;
 
   .sidebar-container {
     width: 100%;

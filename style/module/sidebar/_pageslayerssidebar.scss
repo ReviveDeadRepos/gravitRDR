@@ -1,4 +1,4 @@
-@import "../../variables";
+@use "../../variables";
 
 .sidebar-pages-layers {
   .pages {
@@ -12,34 +12,34 @@
       }
 
       &.g-active {
-        background: $activeColor;
+        background: variables.$activeColor;
 
         &,
         * {
-          color: $activeTextColor;
+          color: variables.$activeTextColor;
         }
       }
 
       &.g-selected {
-        background: $selectedColor;
+        background: variables.$selectedColor;
 
         &,
         * {
-          color: $selectedTextColor;
+          color: variables.$selectedTextColor;
         }
       }
 
       &.drop {
-        background: $dragColor;
+        background: variables.$dragColor;
 
         &,
         * {
-          color: $dragTextColor;
+          color: variables.$dragTextColor;
         }
       }
 
       &:not(:last-child) > div {
-        border-bottom: 1px solid $frame3DShadowColor;
+        border-bottom: 1px solid variables.$frame3DShadowColor;
       }
 
       > div:not(.drag-overlay) {
@@ -49,13 +49,13 @@
 
         &.page-visibility,
         &.page-lock {
-          border-right: 1px solid $frame3DShadowColor;
+          border-right: 1px solid variables.$frame3DShadowColor;
           min-width: 21px;
           max-width: 21px;
           text-align: center;
 
           &.page-default * {
-            color: $disabledTextColor;
+            color: variables.$disabledTextColor;
           }
 
           &,
@@ -83,23 +83,23 @@
   .layers {
     div.jqtree-element {
       padding: 0px;
-      border-bottom: 1px solid $frame3DShadowColor;
+      border-bottom: 1px solid variables.$frame3DShadowColor;
 
       &.g-active {
-        background: $activeColor;
+        background: variables.$activeColor;
 
         &,
         * {
-          color: $activeTextColor;
+          color: variables.$activeTextColor;
         }
       }
 
       &.g-selected {
-        background: $selectedColor;
+        background: variables.$selectedColor;
 
         &,
         * {
-          color: $selectedTextColor;
+          color: variables.$selectedTextColor;
         }
       }
 
@@ -111,13 +111,13 @@
         &.layer-visibility,
         &.layer-lock,
         &.layer-outline {
-          border-right: 1px solid $frame3DShadowColor;
+          border-right: 1px solid variables.$frame3DShadowColor;
           min-width: 21px;
           max-width: 21px;
           text-align: center;
 
           &.layer-default {
-            color: $disabledTextColor;
+            color: variables.$disabledTextColor;
           }
 
           &,

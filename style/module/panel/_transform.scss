@@ -1,4 +1,4 @@
-@import "../../variables";
+@use "../../variables";
 
 .panel-transform {
   padding: 0px;
@@ -11,7 +11,7 @@
       position: relative;
       height: 100%;
       float: left;
-      border-right: 1px solid $frameBorderColor;
+      border-right: 1px solid variables.$frameBorderColor;
     }
   }
 }

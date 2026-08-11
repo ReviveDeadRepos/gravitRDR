@@ -1,12 +1,13 @@
-@import "../variables";
+@use "../variables";
+@use "../mixins";
 
 #toolbar {
-  @include box-sizing(border-box);
+  @include mixins.box-sizing(border-box);
   position: absolute;
   width: 61px; // + border size
-  background: $frameColor;
-  border-right: 1px solid $frame3DShadowColor;
-  border-top: 3px solid $frameDarkColor;
+  background: variables.$frameColor;
+  border-right: 1px solid variables.$frame3DShadowColor;
+  border-top: 3px solid variables.$frameDarkColor;
 
   > div.section {
     padding: 0px 2px;
@@ -32,18 +33,18 @@
       width: 100%;
       padding: 2px 0px;
       text-align: center;
-      color: $frameBorderColor;
+      color: variables.$frameBorderColor;
       text-transform: uppercase;
-      text-shadow: 0px 1px 0px $frame3DLightColor;
+      text-shadow: 0px 1px 0px variables.$frame3DLightColor;
 
       &:not(:first-child) {
         margin-top: 3px;
-        border-top: 1px dotted $frameBorderColor;
+        border-top: 1px dotted variables.$frameBorderColor;
       }
     }
 
     &.sidebars {
-      border-bottom: 3px solid $frameDarkColor;
+      border-bottom: 3px solid variables.$frameDarkColor;
     }
 
     &.toolpanel {
@@ -89,16 +90,16 @@
   border: none;
 
   &.g-hover {
-    background: $activeColor;
+    background: variables.$activeColor;
 
     &,
     * {
-      color: $activeTextColor;
+      color: variables.$activeTextColor;
     }
 
     svg {
-      fill: $activeTextColor;
-      stroke: $activeTextColor;
+      fill: variables.$activeTextColor;
+      stroke: variables.$activeTextColor;
     }
   }
 }

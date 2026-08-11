@@ -1,12 +1,13 @@
-@import "../variables";
+@use "../variables";
+@use "../mixins";
 
 #palettes {
-  @include box-sizing(border-box);
+  @include mixins.box-sizing(border-box);
   position: absolute;
   right: 0px;
   width: 260px;
-  background: $frameColor;
-  border-left: 1px solid $frameBorderColor;
+  background: variables.$frameColor;
+  border-left: 1px solid variables.$frameBorderColor;
 
   .palette-group {
     overflow: hidden;
@@ -24,8 +25,8 @@
       //background: #CED7E0 linear-gradient(to top, $frameDarkColor, $frameColor);
       //border-top: 1px solid $frame3DLightColor;
       //border-bottom: 1px solid $frame3DShadowColor;
-      background: $frameDarkColor;
-      border-bottom: 1px solid $frame3DShadowColor;
+      background: variables.$frameDarkColor;
+      border-bottom: 1px solid variables.$frame3DShadowColor;
 
       > * {
         display: table-cell;
@@ -35,7 +36,7 @@
       }
 
       button {
-        background: $frameDarkColor;
+        background: variables.$frameDarkColor;
         border: none;
         margin: 0px;
       }
@@ -59,16 +60,16 @@
 
           &:active,
           &.g-active {
-            background: $activeColor;
+            background: variables.$activeColor;
 
             &,
             * {
-              color: $activeTextColor;
+              color: variables.$activeTextColor;
             }
 
             svg {
-              fill: $activeTextColor;
-              stroke: $activeTextColor;
+              fill: variables.$activeTextColor;
+              stroke: variables.$activeTextColor;
             }
           }
         }
